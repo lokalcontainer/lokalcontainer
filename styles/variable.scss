@@ -1,0 +1,50 @@
+:root {
+    --grid-gap: 0.5em;
+
+    --footer-height: 33.33vh;
+
+    --no-scroll-padding: 0px;
+
+    --accents-1: #f3f3f3;
+    --accents-2: #dbdbdb;
+    --accents-3: #c4c4c4;
+    --accents-4: #aeaeae;
+    --accents-5: #989898;
+    --accents-6: #828282;
+    --accents-7: #6d6d6d;
+    --accents-8: #595959;
+    --accents-9: #464646;
+    --accents-10: #333333;
+    --accents-11: #212121;
+    --accents-12: #101010;
+}
+
+[data-theme="light"] {
+    --accents-1: #f3f3f3;
+    --accents-2: #dbdbdb;
+    --accents-3: #c4c4c4;
+    --accents-4: #aeaeae;
+    --accents-5: #989898;
+    --accents-6: #828282;
+    --accents-7: #6d6d6d;
+    --accents-8: #595959;
+    --accents-9: #464646;
+    --accents-10: #333333;
+    --accents-11: #212121;
+    --accents-12: #101010;
+}
+
+[data-theme="dark"] {
+    --accents-1: #101010;
+    --accents-2: #212121;
+    --accents-3: #333333;
+    --accents-4: #464646;
+    --accents-5: #595959;
+    --accents-6: #6d6d6d;
+    --accents-7: #828282;
+    --accents-8: #989898;
+    --accents-9: #aeaeae;
+    --accents-10: #c4c4c4;
+    --accents-11: #dbdbdb;
+    --accents-12: #f3f3f3;
+}
