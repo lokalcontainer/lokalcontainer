@@ -8,6 +8,7 @@ import Masonry from "react-masonry-css";
 import { fonts, FontType } from "libs/fonts.dummy";
 import { LayoutMain } from "components/LayoutMain";
 import { LightBox } from "components/LightBox";
+import useLightBox from "hooks/use-light-box";
 
 type FontCardProps = {
     index: number;
@@ -96,29 +97,37 @@ const FontCard = (props: FontCardProps) => {
 };
 
 export default function Page() {
+    // const newFonts = useMemo(() => fonts.concat(fonts, fonts, fonts, fonts, fonts, fonts), [fonts]);
     const newFonts = useMemo(() => fonts, [fonts]);
+    const { lightBox } = useLightBox();
     return (
         <>
-            <LayoutMain style={{ paddingTop: "calc(16.66vh - calc(var(--grid-gap) * 4))" }}>
-                <Masonry
-                    className="my-masonry-grid"
-                    columnClassName="my-masonry-grid_column"
-                    breakpointCols={{
-                        default: 7,
-                        1920: 6,
-                        1600: 5,
-                        1366: 4,
-                        960: 3,
-                        720: 2,
-                        500: 1
+            <LayoutMain>
+                <motion.div
+                    animate={{
+                        width: lightBox ? "50%" : "100%",
+                        transition: { type: "just" }
                     }}
                 >
-                    {newFonts.map((item, i) => (
-                        <FontCard key={i} index={i} item={item} />
-                    ))}
-                </Masonry>
+                    <Masonry
+                        className="my-masonry-grid"
+                        columnClassName="my-masonry-grid_column"
+                        breakpointCols={{
+                            default: 7,
+                            1920: 6,
+                            1600: 5,
+                            1366: 4,
+                            960: 3,
+                            720: 2,
+                            500: 1
+                        }}
+                    >
+                        {newFonts.map((item, i) => (
+                            <FontCard key={i} index={i} item={item} />
+                        ))}
+                    </Masonry>
+                </motion.div>
             </LayoutMain>
-
             <LightBox />
         </>
     );
