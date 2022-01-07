@@ -4,4 +4,6 @@
 assets
 node_modules
 
+.env
+.env.local
 tsconfig.tsbuildinfo
