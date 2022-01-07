@@ -199,6 +199,13 @@ export const Header = () => {
                         </a>
                     </NextLink>
                 </li>
+                <li data-menu="text">
+                    <NextLink href="/donate">
+                        <a>
+                            <span>Donate</span>
+                        </a>
+                    </NextLink>
+                </li>
             </ul>
         </header>
     );
