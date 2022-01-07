@@ -1,51 +1,30 @@
+import { FC } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { FC, KeyboardEvent, useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import useEventListener from "hooks/use-event-listener";
+import useLightBox from "hooks/use-light-box";
+import { fonts } from "libs/fonts.dummy";
+import NextImage from "next/image";
 
 export const LightBox: FC = (props) => {
     const { children } = props;
     const { query, push } = useRouter();
-    const [state, setState] = useState(() => query.lightBox?.includes("true") || false);
+
+    const { lightBox: state } = useLightBox();
 
     const closeHandler = () => push("/", "/", { shallow: true, scroll: false });
 
-    useEffect(() => {
-        if (!query.lightBox) {
-            setState(false);
-        } else if (query.lightBox.includes("true")) {
-            setState(true);
-        } else {
-            setState(false);
-        }
-
-        return () => setState(false);
-    }, [query.lightBox]);
+    // Store query object in a state
+    const [queryObject, setQueryObject] = useState(query);
 
     useEffect(() => {
-        if (!state) return;
-        const newBodyAttr = "data-scroll-hide";
-        const html = document.documentElement;
-        const body = document.body;
+        setQueryObject(query);
+        return () => setQueryObject(query);
+    }, [query]);
 
-        const cssProps = "--no-scroll-padding";
+    const fontObject = fonts.find((item) => item.slug === queryObject.slug);
 
-        const scrollBarWidth = window.innerWidth - html.clientWidth;
-        const bodyPaddingRight =
-            parseInt(window.getComputedStyle(body).getPropertyValue("padding-right")) || 0;
-
-        html.style.setProperty(cssProps, `${bodyPaddingRight + scrollBarWidth}px`);
-        body.setAttribute(newBodyAttr, "true");
-
-        return () => {
-            html.style.setProperty(cssProps, "0px");
-            body.removeAttribute(newBodyAttr);
-        };
-    }, [state]);
-
-    const refParent = useRef<HTMLDivElement>(null);
-
-    const keyHandler = (e: globalThis.KeyboardEvent) => {
+    const keyboardHandler = (e: globalThis.KeyboardEvent) => {
         const key = e.key;
         if (key === "Escape") return closeHandler();
     };
@@ -53,10 +32,10 @@ export const LightBox: FC = (props) => {
     useEffect(() => {
         if (!state) return;
         const html = document.documentElement;
-        html.addEventListener("keydown", keyHandler);
+        html.addEventListener("keydown", keyboardHandler);
 
         return () => {
-            html.removeEventListener("keydown", keyHandler);
+            html.removeEventListener("keydown", keyboardHandler);
         };
     }, [state]);
 
@@ -64,44 +43,50 @@ export const LightBox: FC = (props) => {
         <AnimatePresence initial={true} exitBeforeEnter>
             {state && (
                 <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1, transition: { duration: 0.1 } }}
-                    exit={{ opacity: 0 }}
+                    initial={{ x: "100%" }}
+                    animate={{ x: "0%", transition: { type: "just" } }}
+                    exit={{ x: "100%", transition: { type: "just" } }}
                     style={{
                         position: "fixed",
-                        inset: 0,
-                        zIndex: 1001,
+                        top: 0,
+                        right: 0,
+                        bottom: 0,
+                        left: "50vw",
+                        minWidth: "50vw",
+                        zIndex: 999,
                         overflowY: "scroll",
-                        padding: "calc(var(--grid-gap) * 2)"
+                        padding:
+                            "calc(var(--grid-gap) * 5) 0 calc(var(--grid-gap) * 1) calc(var(--grid-gap) * 1)"
                     }}
                 >
-                    <div
-                        ref={refParent}
-                        onClick={closeHandler}
-                        style={{
-                            position: "fixed",
-                            inset: 0
-                            // backgroundColor: "rgba(0, 0, 0, 0.5)"
-                        }}
-                    />
-
                     <motion.div
-                        initial={{ boxShadow: "0 0 0 0 var(--accents-12)" }}
-                        animate={{
-                            boxShadow: "0 0 1em 0 var(--accents-12)",
-                            transition: { type: "just" }
-                        }}
                         style={{
-                            height: "calc(100vh - calc(var(--grid-gap) * 4))",
-                            backgroundColor: "var(--accents-1)",
-                            border: "1px solid",
+                            height: "calc(100vh - calc(var(--grid-gap) * 6))",
+                            backgroundColor: "var(--accents-3)",
                             position: "relative",
-                            boxShadow: "0 0 1em 0 var(--accents-12)",
+                            // boxShadow: "0 0 0.5em 0 rgba(0, 0, 0, 0.3)",
                             padding: "var(--grid-gap)",
-                            borderRadius: "calc(var(--grid-gap) / 3)"
+                            border: "1px solid",
+                            borderRight: "none",
+                            borderRadius: "calc(var(--grid-gap) / 3)",
+                            borderTopRightRadius: 0,
+                            borderBottomRightRadius: 0
                         }}
                     >
-                        <pre>{JSON.stringify(query, null, 2)}</pre>
+                        {fontObject && (
+                            <div>
+                                <NextImage
+                                    src={fontObject.meta.heroImage.url}
+                                    width={fontObject.meta.heroImage.width}
+                                    height={fontObject.meta.heroImage.height}
+                                    layout="responsive"
+                                    placeholder="blur"
+                                    blurDataURL={fontObject.meta.heroImage.url}
+                                />
+                                <div>{fontObject.slug}</div>
+                            </div>
+                        )}
+                        {/* <pre>{JSON.stringify(fontObject, null, 2)}</pre> */}
 
                         {children}
 
@@ -132,3 +117,24 @@ export const LightBox: FC = (props) => {
         </AnimatePresence>
     );
 };
+
+// useEffect(() => {
+//     if (!state) return;
+//     const newBodyAttr = "data-scroll-hide";
+//     const html = document.documentElement;
+//     const body = document.body;
+
+//     const cssProps = "--no-scroll-padding";
+
+//     const scrollBarWidth = window.innerWidth - html.clientWidth;
+//     const bodyPaddingRight =
+//         parseInt(window.getComputedStyle(body).getPropertyValue("padding-right")) || 0;
+
+//     html.style.setProperty(cssProps, `${bodyPaddingRight + scrollBarWidth}px`);
+//     body.setAttribute(newBodyAttr, "true");
+
+//     return () => {
+//         html.style.setProperty(cssProps, "0px");
+//         body.removeAttribute(newBodyAttr);
+//     };
+// }, [state]);
