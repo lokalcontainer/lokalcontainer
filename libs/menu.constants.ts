@@ -5,10 +5,19 @@ type Menu = {
     link: LinkProps;
 };
 
+type ExternalLink = {
+    label: string;
+    link: string;
+};
+
 export const STATIC_MENU: Menu[] = [
     {
         label: "Index",
         link: { href: "/" }
+    },
+    {
+        label: "About",
+        link: { href: "/about" }
     },
     {
         label: "Blog",
@@ -18,4 +27,10 @@ export const STATIC_MENU: Menu[] = [
         label: "Goods",
         link: { href: "/goods" }
     }
+];
+
+export const STATIC_SOCIAL_MENU: ExternalLink[] = [
+    { label: "Github", link: "https://github.com/lokalcontainer" },
+    { label: "Instagram", link: "https://instagram.com/lokalcontainer" },
+    { label: "Twitter", link: "https://twitter.com/lokalcontainer" }
 ];

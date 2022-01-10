@@ -1,11 +1,12 @@
 import styles from "styles/header.module.scss";
-import { FC, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { useTheme } from "next-themes";
 import { AnimatePresence, motion } from "framer-motion";
 import NextLink from "next/link";
 
 import { STATIC_MENU } from "libs/menu.constants";
 import useOnClickOutside from "hooks/use-on-click-outside";
+import { useRouter } from "next/router";
 
 const MenuIcon: FC = ({ children }) => {
     return (
@@ -57,9 +58,16 @@ const MainMenu = () => {
     const refMenu = useRef<HTMLLIElement>(null);
     useOnClickOutside(refMenu, () => setMenu(false));
 
+    const { events } = useRouter();
+    useEffect(() => {
+        const handler = () => setMenu(false);
+        events.on("routeChangeComplete", handler);
+        return () => events.off("routeChangeComplete", handler);
+    }, []);
+
     return (
         <li ref={refMenu} data-menu="icon">
-            <AnimatePresence exitBeforeEnter>
+            <AnimatePresence initial={true} exitBeforeEnter>
                 {menu && (
                     <motion.span
                         initial={{ opacity: 0, width: "0em" }}
@@ -82,25 +90,37 @@ const MainMenu = () => {
                         <ul
                             style={{
                                 position: "absolute",
-                                left: 0,
+                                left: -1,
                                 bottom: 0,
-                                transform: "translateY(calc(var(--grid-gap) + 100%))",
+                                transform: "translateY(calc(var(--grid-gap) + 100% + 2px))",
 
                                 flexDirection: "column",
-                                padding: "var(--grid-gap)",
+                                padding: "calc(var(--grid-gap) * 2) var(--grid-gap)",
                                 margin: 0,
                                 display: "flex",
-                                gap: "calc(var(--grid-gap) / 2)",
-                                backgroundColor: "var(--accents-2)",
+                                // gap: "calc(var(--grid-gap) / 2)",
+                                backgroundColor: "var(--accents-1)",
                                 width: "calc(100% + calc(var(--grid-gap) * 3))",
 
-                                listStyle: "none"
+                                listStyle: "none",
+                                boxShadow: "0 0 1em 0 var(--accents-12)",
+                                border: "1px solid",
+                                borderRadius: "calc(var(--grid-gap) / 3)"
                             }}
                         >
                             {STATIC_MENU.map((item, i) => (
-                                <li key={i}>
+                                <li
+                                    key={i}
+                                    style={{
+                                        borderBottom: "1px solid",
+                                        borderTop: "1px solid",
+                                        marginBottom: -1
+                                    }}
+                                >
                                     <NextLink {...item.link}>
-                                        <a>{item.label}</a>
+                                        <a>
+                                            <span>{item.label}</span>
+                                        </a>
                                     </NextLink>
                                 </li>
                             ))}
@@ -176,7 +196,7 @@ export const Header = () => {
                     </MenuButton>
                 </li>
 
-                <li>
+                {/* <li>
                     <select
                         value={theme}
                         onChange={(e) => setTheme(e.target.value)}
@@ -188,7 +208,7 @@ export const Header = () => {
                             </option>
                         ))}
                     </select>
-                </li>
+                </li> */}
             </ul>
 
             <ul>

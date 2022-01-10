@@ -54,63 +54,74 @@ export const LightBox: FC = (props) => {
                         left: "50vw",
                         minWidth: "50vw",
                         zIndex: 999,
-                        overflowY: "scroll",
                         padding:
-                            "calc(var(--grid-gap) * 5) 0 calc(var(--grid-gap) * 1) calc(var(--grid-gap) * 1)"
+                            "calc(var(--grid-gap) * 6) calc(var(--grid-gap) * 1) calc(var(--grid-gap) * 1)"
                     }}
                 >
                     <motion.div
                         style={{
-                            height: "calc(100vh - calc(var(--grid-gap) * 6))",
-                            backgroundColor: "var(--accents-3)",
+                            height: "calc(100vh - calc(var(--grid-gap) * 7))",
+                            overflow: "hidden",
+                            backgroundColor: "var(--accents-1)",
                             position: "relative",
-                            // boxShadow: "0 0 0.5em 0 rgba(0, 0, 0, 0.3)",
+                            boxShadow: "0 0 0.5em 0 rgba(0, 0, 0, 0.3)",
                             padding: "var(--grid-gap)",
-                            border: "1px solid",
-                            borderRight: "none",
-                            borderRadius: "calc(var(--grid-gap) / 3)",
-                            borderTopRightRadius: 0,
-                            borderBottomRightRadius: 0
+                            borderRadius: "calc(var(--grid-gap) / 3)"
                         }}
                     >
                         {fontObject && (
                             <div>
-                                <NextImage
+                                <div
+                                    style={{
+                                        width: "100%",
+                                        aspectRatio: "1.5/1",
+                                        border: "1px solid",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center"
+                                    }}
+                                >
+                                    <span style={{ fontSize: "10em" }}>A</span>
+                                </div>
+                                {/* <NextImage
                                     src={fontObject.meta.heroImage.url}
                                     width={fontObject.meta.heroImage.width}
                                     height={fontObject.meta.heroImage.height}
                                     layout="responsive"
                                     placeholder="blur"
                                     blurDataURL={fontObject.meta.heroImage.url}
-                                />
+                                /> */}
                                 <div>{fontObject.slug}</div>
                             </div>
                         )}
-                        {/* <pre>{JSON.stringify(fontObject, null, 2)}</pre> */}
 
                         {children}
 
-                        <button
+                        <motion.button
+                            whileHover={{ scale: 1.2 }}
                             onClick={closeHandler}
                             style={{
                                 appearance: "none",
                                 background: "none",
-                                border: "1px solid",
-                                borderRadius: 0,
+                                border: "none",
+                                borderRadius: "100%",
                                 padding: 0,
                                 margin: 0,
                                 position: "absolute",
-                                top: "var(--grid-gap)",
-                                right: "var(--grid-gap)",
+                                top: "calc(var(--grid-gap) * 2)",
+                                right: "calc(var(--grid-gap) * 2)",
                                 fontFamily: "inherit",
                                 fontSize: "inherit",
                                 cursor: "pointer",
                                 aspectRatio: "1/1",
-                                width: "2em"
+                                width: "2em",
+                                backgroundColor: "var(--accents-1)",
+                                color: "var(--accents-12)",
+                                mixBlendMode: "difference"
                             }}
                         >
-                            <span style={{ fontSize: "1.2em", fontWeight: "bold" }}>&#9587;</span>
-                        </button>
+                            <span style={{ fontSize: "1em", fontWeight: "bold" }}>&#9587;</span>
+                        </motion.button>
                     </motion.div>
                 </motion.div>
             )}

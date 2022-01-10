@@ -97,8 +97,8 @@ const FontCard = (props: FontCardProps) => {
 };
 
 export default function Page() {
-    // const newFonts = useMemo(() => fonts.concat(fonts, fonts, fonts, fonts, fonts, fonts), [fonts]);
     const newFonts = useMemo(() => fonts, [fonts]);
+    // const newFonts = useMemo(() => fonts, [fonts]);
     const { lightBox } = useLightBox();
     return (
         <>
