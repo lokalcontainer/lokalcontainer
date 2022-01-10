@@ -196,7 +196,7 @@ export const Header = () => {
                     </MenuButton>
                 </li>
 
-                {/* <li>
+                <li>
                     <select
                         value={theme}
                         onChange={(e) => setTheme(e.target.value)}
@@ -208,7 +208,7 @@ export const Header = () => {
                             </option>
                         ))}
                     </select>
-                </li> */}
+                </li>
             </ul>
 
             <ul>
