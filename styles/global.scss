@@ -1,3 +1,4 @@
+@import "variable.scss";
 @import "media.scss";
 
 @font-face {
@@ -60,4 +61,7 @@ pre {
 
 .my-masonry-grid_column > * {
     margin-bottom: var(--grid-gap);
+}
+
+.not-found {
 }

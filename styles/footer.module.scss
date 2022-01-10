@@ -1,0 +1,25 @@
+.app_footer {
+    position: fixed;
+    bottom: 0;
+
+    height: var(--footer-height);
+    width: 100%;
+
+    padding: var(--grid-gap);
+
+    background-color: var(--accents-pink);
+    color: var(--accents-6);
+
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--grid-gap);
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        font-size: 0.8em;
+        font-weight: 300;
+    }
+}
