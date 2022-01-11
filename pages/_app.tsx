@@ -12,7 +12,7 @@ export default function MyApp(props: AppProps) {
         <>
             <ProviderTheme
                 disableTransitionOnChange
-                defaultTheme="light"
+                defaultTheme="system"
                 themes={["dark", "light"]}
             >
                 <Header />
