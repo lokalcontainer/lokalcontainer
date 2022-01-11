@@ -64,7 +64,7 @@ export const LightBox: FC = (props) => {
                             overflow: "hidden",
                             backgroundColor: "var(--accents-1)",
                             position: "relative",
-                            boxShadow: "0 0 0.5em 0 rgba(0, 0, 0, 0.3)",
+                            boxShadow: "0 0 0.5em 0 var(--accents-3)",
                             padding: "var(--grid-gap)",
                             borderRadius: "calc(var(--grid-gap) / 3)"
                         }}

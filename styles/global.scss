@@ -63,5 +63,18 @@ pre {
     margin-bottom: var(--grid-gap);
 }
 
-.not-found {
+.masonry {
+    width: 100%;
+    display: flex;
+    gap: var(--grid-gap);
+}
+
+.masonry-column {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+
+    > * {
+        margin-bottom: var(--grid-gap);
+    }
 }
