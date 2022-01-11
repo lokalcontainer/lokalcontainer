@@ -14,8 +14,8 @@ export default class MyDocument extends Document {
                         rel="preload"
                         as="font"
                         type="font/ttf"
-                        href="/fonts/BDO-Sans/BDOSans.ttf"
-                        crossOrigin="anonymous"
+                        href="/fonts/BDO-Grotesk/variable/BDOGrotesk-VF.ttf"
+                        crossOrigin=""
                     />
 
                     <link
