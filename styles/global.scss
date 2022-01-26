@@ -10,6 +10,7 @@
 
 * {
     box-sizing: border-box;
+    border-color: var(--accents-2) !important;
 }
 
 body {
@@ -66,7 +67,7 @@ pre {
 .masonry {
     width: 100%;
     display: flex;
-    gap: var(--grid-gap);
+    gap: calc(var(--grid-gap) / 1);
 }
 
 .masonry-column {
@@ -75,6 +76,6 @@ pre {
     list-style: none;
 
     > * {
-        margin-bottom: var(--grid-gap);
+        margin-bottom: calc(var(--grid-gap) / 1);
     }
 }
