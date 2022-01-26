@@ -1,33 +1,21 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { AnimatePresence, motion } from "framer-motion";
 import NextLink from "next/link";
 import NextImage from "next/image";
-import { Masonry } from "components/Masonry";
 
 import { fonts, FontType } from "libs/fonts.dummy";
+import rgbDataURL from "libs/lib.blur-url";
+// import useLightBox from "hooks/use-light-box";
 import { LayoutMain } from "components/LayoutMain";
+import { Masonry } from "components/Masonry";
 import { LightBox } from "components/LightBox";
-import useLightBox from "hooks/use-light-box";
+import { PreviewFont } from "components/Preview/PreviewFont";
 
 type FontCardProps = {
     index: number;
     item: FontType;
 };
-
-// Pixel GIF code adapted from https://stackoverflow.com/a/33919020/266535
-const keyStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
-
-const triplet = (e1: number, e2: number, e3: number) =>
-    keyStr.charAt(e1 >> 2) +
-    keyStr.charAt(((e1 & 3) << 4) | (e2 >> 4)) +
-    keyStr.charAt(((e2 & 15) << 2) | (e3 >> 6)) +
-    keyStr.charAt(e3 & 63);
-
-const rgbDataURL = (r: number, g: number, b: number) =>
-    `data:image/gif;base64,R0lGODlhAQABAPAA${
-        triplet(0, r, g) + triplet(b, 255, 255)
-    }/yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==`;
 
 const FontCard = (props: FontCardProps) => {
     const { item, index } = props;
@@ -66,7 +54,7 @@ const FontCard = (props: FontCardProps) => {
                         position: "relative",
                         display: "block",
                         overflow: "hidden",
-                        border: "1px solid",
+                        // border: "1px solid var(--accents-4)",
                         boxShadow: "0 0 0em 0 var(--accents-12)",
                         borderRadius: "calc(var(--grid-gap) / 3)"
                     }}
@@ -114,18 +102,35 @@ const FontCard = (props: FontCardProps) => {
     );
 };
 
+const CustomLightBox = () => {
+    const { query } = useRouter();
+
+    const [newFontObject, setNewFontObject] = useState<FontType | undefined>(() =>
+        fonts.find((item) => item.slug === query.slug)
+    );
+
+    useEffect(() => {
+        setNewFontObject(() => fonts.find((item) => item.slug === query.slug));
+    }, [query]);
+
+    return (
+        <LightBox>
+            <PreviewFont font={newFontObject} />
+        </LightBox>
+    );
+};
+
 export default function Page() {
-    const newFonts = useMemo(() => fonts, [fonts]);
-    // const newFonts = useMemo(() => fonts, [fonts]);
-    const { lightBox } = useLightBox();
+    const newFonts = fonts;
+    // const { lightBox } = useLightBox();
     return (
         <>
             <LayoutMain>
                 <motion.div
-                    animate={{
-                        width: lightBox ? "50%" : "100%",
-                        transition: { type: "just" }
-                    }}
+                // animate={{
+                //     width: lightBox ? "50%" : "100%",
+                //     transition: { type: "just" }
+                // }}
                 >
                     <Masonry
                         breakpointCols={{
@@ -143,8 +148,10 @@ export default function Page() {
                         ))}
                     </Masonry>
                 </motion.div>
+
+                <div style={{ minHeight: "150vh" }}></div>
             </LayoutMain>
-            <LightBox />
+            <CustomLightBox />
         </>
     );
 }
