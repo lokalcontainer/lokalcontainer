@@ -2,11 +2,12 @@ import styles from "styles/header.module.scss";
 import { FC, useEffect, useRef, useState } from "react";
 import { useTheme } from "next-themes";
 import { AnimatePresence, motion } from "framer-motion";
+import { useRouter } from "next/router";
 import NextLink from "next/link";
 
 import { STATIC_MENU } from "libs/menu.constants";
 import useOnClickOutside from "hooks/use-on-click-outside";
-import { useRouter } from "next/router";
+import Logo from "components/Logo";
 
 const MenuIcon: FC = ({ children }) => {
     return (
@@ -17,7 +18,6 @@ const MenuIcon: FC = ({ children }) => {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                borderRadius: "100%",
                 backgroundColor: "inherit"
             }}
         >
@@ -146,14 +146,32 @@ export const Header = () => {
 
     return (
         <header className={styles.app_header}>
-            <ul>
-                <li data-menu="text">
+            <ul style={{ alignSelf: "center" }}>
+                <li>
+                    <NextLink href="/">
+                        <a
+                            style={{
+                                display: "inline-flex",
+                                // backgroundColor: "magenta",
+                                height: "100%",
+                                alignItems: "center"
+                            }}
+                        >
+                            {/* <Logo /> */}
+                            <Logo />
+                        </a>
+                    </NextLink>
+                </li>
+            </ul>
+
+            <ul style={{ alignSelf: "center" }}>
+                {/* <li data-menu="text">
                     <NextLink href="/">
                         <a>
                             <span>Lokal Container Org.</span>
                         </a>
                     </NextLink>
-                </li>
+                </li> */}
 
                 <MainMenu />
 
@@ -209,11 +227,15 @@ export const Header = () => {
                         ))}
                     </select>
                 </li>
-            </ul>
-
-            <ul>
                 <li data-menu="text">
-                    <NextLink href="/sign-up">
+                    <NextLink href="/auth">
+                        <a>
+                            <span>Sign In</span>
+                        </a>
+                    </NextLink>
+                </li>
+                <li data-menu="text">
+                    <NextLink href="/auth">
                         <a>
                             <span>Sign Up</span>
                         </a>
