@@ -1,28 +1,16 @@
-import { FC } from "react";
-import { useEffect, useState } from "react";
+import type { FC } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { AnimatePresence, motion } from "framer-motion";
 import useLightBox from "hooks/use-light-box";
-import { fonts } from "libs/fonts.dummy";
-import NextImage from "next/image";
 
 export const LightBox: FC = (props) => {
     const { children } = props;
-    const { query, push } = useRouter();
+    const { push } = useRouter();
 
     const { lightBox: state } = useLightBox();
 
     const closeHandler = () => push("/", "/", { shallow: true, scroll: false });
-
-    // Store query object in a state
-    const [queryObject, setQueryObject] = useState(query);
-
-    useEffect(() => {
-        setQueryObject(query);
-        return () => setQueryObject(query);
-    }, [query]);
-
-    const fontObject = fonts.find((item) => item.slug === queryObject.slug);
 
     const keyboardHandler = (e: globalThis.KeyboardEvent) => {
         const key = e.key;
@@ -69,34 +57,7 @@ export const LightBox: FC = (props) => {
                             borderRadius: "calc(var(--grid-gap) / 3)"
                         }}
                     >
-                        {fontObject && (
-                            <div>
-                                <div
-                                    style={{
-                                        width: "100%",
-                                        aspectRatio: "1.5/1",
-                                        border: "1px solid",
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "center"
-                                    }}
-                                >
-                                    <span style={{ fontSize: "10em" }}>A</span>
-                                </div>
-                                {/* <NextImage
-                                    src={fontObject.meta.heroImage.url}
-                                    width={fontObject.meta.heroImage.width}
-                                    height={fontObject.meta.heroImage.height}
-                                    layout="responsive"
-                                    placeholder="blur"
-                                    blurDataURL={fontObject.meta.heroImage.url}
-                                /> */}
-                                <div>{fontObject.slug}</div>
-                            </div>
-                        )}
-
                         {children}
-
                         <motion.button
                             whileHover={{ scale: 1.2 }}
                             onClick={closeHandler}
@@ -115,9 +76,8 @@ export const LightBox: FC = (props) => {
                                 cursor: "pointer",
                                 aspectRatio: "1/1",
                                 width: "2em",
-                                backgroundColor: "var(--accents-1)",
-                                color: "var(--accents-12)",
-                                mixBlendMode: "difference"
+                                backgroundColor: "var(--accents-12)",
+                                color: "var(--accents-1)"
                             }}
                         >
                             <span style={{ fontSize: "1em", fontWeight: "bold" }}>&#9587;</span>
