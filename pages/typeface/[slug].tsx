@@ -1,6 +1,7 @@
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
 import { fonts, FontType } from "libs/fonts.dummy";
 import { LayoutMain } from "components/LayoutMain";
+import { PreviewFont } from "components/Preview/PreviewFont";
 
 type ServerProps = {
     font: FontType;
@@ -11,7 +12,7 @@ type PageProps = InferGetStaticPropsType<typeof getStaticProps>;
 export default function Page(props: PageProps) {
     return (
         <LayoutMain>
-            <pre>{JSON.stringify(props.font, null, 2)}</pre>
+            <PreviewFont font={props.font} />
         </LayoutMain>
     );
 }
