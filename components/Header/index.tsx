@@ -8,23 +8,24 @@ import NextLink from "next/link";
 import { STATIC_MENU } from "libs/menu.constants";
 import useOnClickOutside from "hooks/use-on-click-outside";
 import Logo from "components/Logo";
+import { useSession } from "components/Context/ContextSession";
 
-const MenuIcon: FC = ({ children }) => {
-    return (
-        <span
-            style={{
-                width: "100%",
-                height: "100%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                backgroundColor: "inherit"
-            }}
-        >
-            {children}
-        </span>
-    );
-};
+// const MenuIcon: FC = ({ children }) => {
+//     return (
+//         <span
+//             style={{
+//                 width: "100%",
+//                 height: "100%",
+//                 display: "flex",
+//                 alignItems: "center",
+//                 justifyContent: "center",
+//                 backgroundColor: "inherit"
+//             }}
+//         >
+//             {children}
+//         </span>
+//     );
+// };
 
 const MenuButton: FC<{ onClick: (e: any) => void }> = ({ children, onClick }) => {
     return (
@@ -40,8 +41,8 @@ const MenuButton: FC<{ onClick: (e: any) => void }> = ({ children, onClick }) =>
                 cursor: "pointer",
                 padding: 0,
                 margin: 0,
-                height: "100%",
-                aspectRatio: "1/1",
+                // height: "100%",
+                // aspectRatio: "1/1",
                 display: "inline-flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -63,10 +64,10 @@ const MainMenu = () => {
         const handler = () => setMenu(false);
         events.on("routeChangeComplete", handler);
         return () => events.off("routeChangeComplete", handler);
-    }, []);
+    }, [events]);
 
     return (
-        <li ref={refMenu} data-menu="icon">
+        <li ref={refMenu} data-menu="text">
             <AnimatePresence initial={true} exitBeforeEnter>
                 {menu && (
                     <motion.span
@@ -130,7 +131,8 @@ const MainMenu = () => {
             </AnimatePresence>
 
             <MenuButton onClick={() => setMenu((prev) => !prev)}>
-                <MenuIcon>M</MenuIcon>
+                <span>Menu</span>
+                {/* <MenuIcon>M</MenuIcon> */}
             </MenuButton>
         </li>
     );
@@ -138,6 +140,7 @@ const MainMenu = () => {
 
 export const Header = () => {
     const { theme, themes, setTheme } = useTheme();
+    const { session } = useSession();
 
     const [search, setSearch] = useState(false);
 
@@ -146,36 +149,33 @@ export const Header = () => {
 
     return (
         <header className={styles.app_header}>
-            <ul style={{ alignSelf: "center" }}>
+            {/* <ul style={{ alignSelf: "center" }}>
                 <li>
                     <NextLink href="/">
                         <a
                             style={{
                                 display: "inline-flex",
-                                // backgroundColor: "magenta",
                                 height: "100%",
                                 alignItems: "center"
                             }}
                         >
-                            {/* <Logo /> */}
                             <Logo />
                         </a>
                     </NextLink>
                 </li>
-            </ul>
+            </ul> */}
 
-            <ul style={{ alignSelf: "center" }}>
-                {/* <li data-menu="text">
+            <ul>
+                <li data-menu="text">
                     <NextLink href="/">
                         <a>
-                            <span>Lokal Container Org.</span>
+                            <span>LC</span>
                         </a>
                     </NextLink>
-                </li> */}
+                </li>
+                {/* <MainMenu /> */}
 
-                <MainMenu />
-
-                <li ref={refSearch} data-menu="input-text">
+                {/* <li ref={refSearch} data-menu="input-text">
                     <AnimatePresence exitBeforeEnter>
                         {search && (
                             <motion.input
@@ -210,8 +210,39 @@ export const Header = () => {
                     </AnimatePresence>
 
                     <MenuButton onClick={() => setSearch((prev) => !prev)}>
+                        <span>Search</span>
                         <MenuIcon>S</MenuIcon>
                     </MenuButton>
+                </li> */}
+
+                <li data-menu="text">
+                    <NextLink href="/donate" as="/donate">
+                        <a>
+                            <span>Donate</span>
+                        </a>
+                    </NextLink>
+                </li>
+            </ul>
+
+            <ul>
+                {!session && (
+                    <>
+                        <li data-menu="text">
+                            <NextLink href="/auth?form=sign-in">
+                                <a>
+                                    <span>Login</span>
+                                </a>
+                            </NextLink>
+                        </li>
+                    </>
+                )}
+
+                <li data-menu="text">
+                    <NextLink href="/[user]" as="/super-lc">
+                        <a>
+                            <span>Super</span>
+                        </a>
+                    </NextLink>
                 </li>
 
                 <li>
@@ -226,27 +257,6 @@ export const Header = () => {
                             </option>
                         ))}
                     </select>
-                </li>
-                <li data-menu="text">
-                    <NextLink href="/auth">
-                        <a>
-                            <span>Sign In</span>
-                        </a>
-                    </NextLink>
-                </li>
-                <li data-menu="text">
-                    <NextLink href="/auth">
-                        <a>
-                            <span>Sign Up</span>
-                        </a>
-                    </NextLink>
-                </li>
-                <li data-menu="text">
-                    <NextLink href="/donate">
-                        <a>
-                            <span>Donate</span>
-                        </a>
-                    </NextLink>
                 </li>
             </ul>
         </header>
