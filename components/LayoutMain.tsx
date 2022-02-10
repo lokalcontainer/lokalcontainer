@@ -35,14 +35,11 @@ export const LayoutMain: FC<LayoutMainProps> = (props) => {
             <main
                 style={{
                     position: "relative",
-                    minHeight:
-                        "calc(calc(100vh - var(--footer-height)) - calc(var(--grid-gap) * 5))",
-                    padding:
-                        "calc(var(--grid-gap) * 0) calc(var(--grid-gap) * 2) 0 calc(var(--grid-gap) * 2)",
-                    marginBottom: "var(--footer-height)",
+                    minHeight: "calc(100vh - var(--header-height))",
+                    paddingInline: "calc(var(--grid-gap) * 2)",
+                    paddingBottom: "calc(var(--grid-gap) * 2)",
                     backgroundColor: "var(--accents-1)",
                     zIndex: 10,
-                    // boxShadow: "0 0 1em -0.5em rgba(0, 0, 0, 1)",
                     ...style
                 }}
             >

@@ -3,8 +3,8 @@ import TypeWritter from "./TypeWritter";
 const LCap = () => {
     return (
         <svg
-            width="3em"
-            height="3em"
+            width="2.5em"
+            height="2.5em"
             fill="currentColor"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -17,8 +17,8 @@ const LCap = () => {
 const CCap = () => {
     return (
         <svg
-            width="3em"
-            height="3em"
+            width="2.5em"
+            height="2.5em"
             fill="currentColor"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -39,8 +39,10 @@ const Logo = () => {
                 display: "inline-flex",
                 alignItems: "center",
                 textTransform: "uppercase",
-                fontSize: "1em",
-                height: "100%"
+                fontSize: "2em",
+                height: "100%",
+                filter: "drop-shadow(0 0 var(--grid-gap) var(--accents-pink))"
+                // backgroundColor: "var(--accents-1)"
             }}
         >
             <li>
@@ -51,16 +53,16 @@ const Logo = () => {
             <li>
                 <TypeWritter
                     sentences={[
-                        { text, style: { fontSize: "0.65em", fontFamily: "serif" } },
-                        { text, style: { fontSize: "0.65em", fontFamily: "BDO Grotesk" } },
-                        { text, style: { fontSize: "0.65em", fontFamily: "monospace" } }
+                        { text, style: { fontSize: "0.75em", fontFamily: "serif" } },
+                        { text, style: { fontSize: "0.75em", fontFamily: "BDO Grotesk" } },
+                        { text, style: { fontSize: "0.75em", fontFamily: "monospace" } }
                     ]}
                     typingSpeed={40}
                     pauseTime={2000}
                     startDelay={1000}
                     style={{
                         display: "block",
-                        height: "2em"
+                        height: "calc(var(--grid-gap) * 4)"
                     }}
                 />
             </li>

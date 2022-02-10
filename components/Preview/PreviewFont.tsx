@@ -1,16 +1,30 @@
-import { FontType } from "libs/fonts.dummy";
+import type { CSSProperties } from "react";
+import type { FontType } from "libs/fonts.dummy";
+
+import NextLink from "next/link";
 import { ProviderFont, useFont } from "components/Context/ContextFont";
 
 type PreviewFontProps = {
     font?: FontType;
+    style?: CSSProperties;
 };
 
 const PreviewFontHeader = () => {
-    const { selectedTypeface, typefaces, changeTypeface } = useFont();
+    const { selectedTypeface, typefaces, changeTypeface, font } = useFont();
 
     return (
         <header>
-            <ul style={{ listStyle: "none", padding: 0, margin: 0, fontWeight: 300 }}>
+            <ul
+                style={{
+                    listStyle: "none",
+                    padding: 0,
+                    margin: "0 calc(var(--grid-gap) * 8) 0 0",
+                    fontWeight: 300,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between"
+                }}
+            >
                 <li>
                     <select
                         value={selectedTypeface}
@@ -34,6 +48,13 @@ const PreviewFontHeader = () => {
                         ))}
                     </select>
                 </li>
+                <li>
+                    <NextLink href="/[user]" as={`/${font.info.designerSlug}`}>
+                        <a>
+                            <span>By {font.info.designer}</span>
+                        </a>
+                    </NextLink>
+                </li>
             </ul>
         </header>
     );
@@ -45,12 +66,16 @@ const PreviewFontContent = () => {
 };
 
 export const PreviewFont = (props: PreviewFontProps) => {
-    const { font } = props;
+    const { font, style } = props;
 
     return (
         <ProviderFont font={font}>
-            <PreviewFontHeader />
-            <PreviewFontContent />
+            <div style={{ ...style }}>
+                <PreviewFontHeader />
+                <PreviewFontContent />
+            </div>
         </ProviderFont>
     );
 };
+
+export default PreviewFont;

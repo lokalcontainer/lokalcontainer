@@ -5,19 +5,20 @@
         "family": "BDO Grotesk",
         "subFamily": "",
         "variable": true,
-        "typefaces": [
-            { "fullName": "BDO Grotesk Variable" },
-            { "fullName": "BDO Grotesk Light" },
-            { "fullName": "BDO Grotesk Regular" },
-            { "fullName": "BDO Grotesk Medium" },
-            { "fullName": "BDO Grotesk SemiBold" },
-            { "fullName": "BDO Grotesk Bold" },
-            { "fullName": "BDO Grotesk ExtraBold" },
-            { "fullName": "BDO Grotesk Black" }
+        "typefacesID": [
+            "bdo-grotesk-variable",
+            "bdo-grotesk-light",
+            "bdo-grotesk-regular",
+            "bdo-grotesk-medium",
+            "bdo-grotesk-demibold",
+            "bdo-grotesk-bold",
+            "bdo-grotesk-extrabold",
+            "bdo-grotesk-black"
         ],
         "info": {
             "designer": "Deni Anggara",
             "designerUrl": "https://degarism.com",
+            "designerSlug": "denianggara",
             "manufacturer": "Lokal Container Org.",
             "manufacturerUrl": "https://lokalcontainer.org"
         },
@@ -27,117 +28,25 @@
                 "width": 1563,
                 "height": 1173
             }
-        }
-    },
-    {
-        "slug": "trackit-typeface",
-        "title": "BDO Grotesk is a bla bla bla...",
-        "family": "Trackit Typeface",
-        "subFamily": "",
-        "variable": true,
-        "typefaces": [
-            { "fullName": "Trackit Variable" },
-            { "fullName": "Trackit Light" },
-            { "fullName": "Trackit Regular" },
-            { "fullName": "Trackit Medium" },
-            { "fullName": "Trackit SemiBold" },
-            { "fullName": "Trackit Bold" },
-            { "fullName": "Trackit ExtraBold" },
-            { "fullName": "Trackit Black" }
-        ],
-        "info": {
-            "designer": "Deni Anggara",
-            "designerUrl": "https://degarism.com",
-            "manufacturer": "Lokal Container Org.",
-            "manufacturerUrl": "https://lokalcontainer.org"
         },
-        "meta": {
-            "heroImage": {
-                "url": "/images/dummy-2.png",
-                "width": 720,
-                "height": 468
-            }
+        "media": {
+            "images": [
+                { "url": "/images/dummy-1.png", "width": 1563, "height": 1173 },
+                { "url": "/images/dummy-5.jpeg", "width": 1080, "height": 1351 }
+            ]
         }
     },
     {
-        "slug": "utara",
-        "title": "Utara Typeface is a bla bla bla...",
-        "family": "Utara",
+        "slug": "mogi",
+        "title": "Mogi is a bla bla bla...",
+        "family": "Mogi",
         "subFamily": "",
         "variable": true,
-        "typefaces": [
-            { "fullName": "Utara Variable" },
-            { "fullName": "Utara Light" },
-            { "fullName": "Utara Regular" },
-            { "fullName": "Utara Medium" },
-            { "fullName": "Utara SemiBold" },
-            { "fullName": "Utara Bold" },
-            { "fullName": "Utara ExtraBold" },
-            { "fullName": "Utara Black" }
-        ],
+        "typefacesID": ["mogi-variable", "mogi-ultra", "mogi-ultra-wide"],
         "info": {
             "designer": "Deni Anggara",
             "designerUrl": "https://degarism.com",
-            "manufacturer": "Lokal Container Org.",
-            "manufacturerUrl": "https://lokalcontainer.org"
-        },
-        "meta": {
-            "heroImage": {
-                "url": "/images/dummy-3.png",
-                "width": 720,
-                "height": 468
-            }
-        }
-    },
-    {
-        "slug": "kopo",
-        "title": "BDO Sans is a bla bla bla...",
-        "family": "Kopo",
-        "subFamily": "",
-        "variable": true,
-        "typefaces": [
-            { "fullName": "Kopo Variable" },
-            { "fullName": "Kopo Light" },
-            { "fullName": "Kopo Regular" },
-            { "fullName": "Kopo Medium" },
-            { "fullName": "Kopo SemiBold" },
-            { "fullName": "Kopo Bold" },
-            { "fullName": "Kopo ExtraBold" },
-            { "fullName": "Kopo Black" }
-        ],
-        "info": {
-            "designer": "Deni Anggara",
-            "designerUrl": "https://degarism.com",
-            "manufacturer": "Lokal Container Org.",
-            "manufacturerUrl": "https://lokalcontainer.org"
-        },
-        "meta": {
-            "heroImage": {
-                "url": "/images/dummy-4.jpeg",
-                "width": 700,
-                "height": 450
-            }
-        }
-    },
-    {
-        "slug": "arcamanik",
-        "title": "BDO Sans is a bla bla bla...",
-        "family": "Arcamanik",
-        "subFamily": "",
-        "variable": true,
-        "typefaces": [
-            { "fullName": "Arcamanik Variable" },
-            { "fullName": "Arcamanik Light" },
-            { "fullName": "Arcamanik Regular" },
-            { "fullName": "Arcamanik Medium" },
-            { "fullName": "Arcamanik SemiBold" },
-            { "fullName": "Arcamanik Bold" },
-            { "fullName": "Arcamanik ExtraBold" },
-            { "fullName": "Arcamanik Black" }
-        ],
-        "info": {
-            "designer": "Deni Anggara",
-            "designerUrl": "https://degarism.com",
+            "designerSlug": "super-lc",
             "manufacturer": "Lokal Container Org.",
             "manufacturerUrl": "https://lokalcontainer.org"
         },
@@ -147,27 +56,31 @@
                 "width": 1080,
                 "height": 1351
             }
+        },
+        "media": {
+            "images": [{ "url": "/images/dummy-5.jpeg", "width": 1080, "height": 1351 }]
         }
     },
     {
-        "slug": "ciparay",
-        "title": "Ciparay Typeface is a bla bla bla...",
-        "family": "Ciparay",
+        "slug": "dumbas-mono",
+        "title": "Dumbas Mono is a bla bla bla...",
+        "family": "Dumbas Mono",
         "subFamily": "",
         "variable": true,
-        "typefaces": [
-            { "fullName": "Ciparay Variable" },
-            { "fullName": "Ciparay Light" },
-            { "fullName": "Ciparay Regular" },
-            { "fullName": "Ciparay Medium" },
-            { "fullName": "Ciparay SemiBold" },
-            { "fullName": "Ciparay Bold" },
-            { "fullName": "Ciparay ExtraBold" },
-            { "fullName": "Ciparay Black" }
+        "typefacesID": [
+            "bdo-grotesk-variable",
+            "bdo-grotesk-light",
+            "bdo-grotesk-regular",
+            "bdo-grotesk-medium",
+            "bdo-grotesk-demibold",
+            "bdo-grotesk-bold",
+            "bdo-grotesk-extrabold",
+            "bdo-grotesk-black"
         ],
         "info": {
             "designer": "Deni Anggara",
             "designerUrl": "https://degarism.com",
+            "designerSlug": "super-lc",
             "manufacturer": "Lokal Container Org.",
             "manufacturerUrl": "https://lokalcontainer.org"
         },
@@ -177,117 +90,31 @@
                 "width": 1080,
                 "height": 1080
             }
-        }
-    },
-    {
-        "slug": "soreang-grotesk",
-        "title": "BDO Sans is a bla bla bla...",
-        "family": "Soreang Grotesk",
-        "subFamily": "",
-        "variable": true,
-        "typefaces": [
-            { "fullName": "Soreang Grotesk Variable" },
-            { "fullName": "Soreang Grotesk Light" },
-            { "fullName": "Soreang Grotesk Regular" },
-            { "fullName": "Soreang Grotesk Medium" },
-            { "fullName": "Soreang Grotesk SemiBold" },
-            { "fullName": "Soreang Grotesk Bold" },
-            { "fullName": "Soreang Grotesk ExtraBold" },
-            { "fullName": "Soreang Grotesk Black" }
-        ],
-        "info": {
-            "designer": "Deni Anggara",
-            "designerUrl": "https://degarism.com",
-            "manufacturer": "Lokal Container Org.",
-            "manufacturerUrl": "https://lokalcontainer.org"
         },
-        "meta": {
-            "heroImage": {
-                "url": "/images/dummy-7.jpeg",
-                "width": 1280,
-                "height": 875
-            }
+        "media": {
+            "images": [{ "url": "/images/dummy-6.jpeg", "width": 1080, "height": 1080 }]
         }
     },
     {
-        "slug": "gandok",
-        "title": "BDO Sans is a bla bla bla...",
-        "family": "Gandok Typeface",
+        "slug": "ciburial",
+        "title": "Ciburial is a bla bla bla...",
+        "family": "Ciburial",
         "subFamily": "",
         "variable": true,
-        "typefaces": [
-            { "fullName": "Gandok Variable" },
-            { "fullName": "Gandok Light" },
-            { "fullName": "Gandok Regular" },
-            { "fullName": "Gandok Medium" },
-            { "fullName": "Gandok SemiBold" },
-            { "fullName": "Gandok Bold" },
-            { "fullName": "Gandok ExtraBold" },
-            { "fullName": "Gandok Black" }
+        "typefacesID": [
+            "bdo-grotesk-variable",
+            "bdo-grotesk-light",
+            "bdo-grotesk-regular",
+            "bdo-grotesk-medium",
+            "bdo-grotesk-demibold",
+            "bdo-grotesk-bold",
+            "bdo-grotesk-extrabold",
+            "bdo-grotesk-black"
         ],
         "info": {
             "designer": "Deni Anggara",
             "designerUrl": "https://degarism.com",
-            "manufacturer": "Lokal Container Org.",
-            "manufacturerUrl": "https://lokalcontainer.org"
-        },
-        "meta": {
-            "heroImage": {
-                "url": "/images/dummy-8.jpeg",
-                "width": 1184,
-                "height": 792
-            }
-        }
-    },
-    {
-        "slug": "riung",
-        "title": "Riung Typeface is a bla bla bla...",
-        "family": "Riung",
-        "subFamily": "",
-        "variable": true,
-        "typefaces": [
-            { "fullName": "Riung Variable" },
-            { "fullName": "Riung Light" },
-            { "fullName": "Riung Regular" },
-            { "fullName": "Riung Medium" },
-            { "fullName": "Riung SemiBold" },
-            { "fullName": "Riung Bold" },
-            { "fullName": "Riung ExtraBold" },
-            { "fullName": "Riung Black" }
-        ],
-        "info": {
-            "designer": "Deni Anggara",
-            "designerUrl": "https://degarism.com",
-            "manufacturer": "Lokal Container Org.",
-            "manufacturerUrl": "https://lokalcontainer.org"
-        },
-        "meta": {
-            "heroImage": {
-                "url": "/images/dummy-9.jpeg",
-                "width": 1280,
-                "height": 1829
-            }
-        }
-    },
-    {
-        "slug": "paratag",
-        "title": "BDO Sans is a bla bla bla...",
-        "family": "Paratag Typeface",
-        "subFamily": "",
-        "variable": true,
-        "typefaces": [
-            { "fullName": "Paratag Variable" },
-            { "fullName": "Paratag Light" },
-            { "fullName": "Paratag Regular" },
-            { "fullName": "Paratag Medium" },
-            { "fullName": "Paratag SemiBold" },
-            { "fullName": "Paratag Bold" },
-            { "fullName": "Paratag ExtraBold" },
-            { "fullName": "Paratag Black" }
-        ],
-        "info": {
-            "designer": "Deni Anggara",
-            "designerUrl": "https://degarism.com",
+            "designerSlug": "super-lc",
             "manufacturer": "Lokal Container Org.",
             "manufacturerUrl": "https://lokalcontainer.org"
         },
@@ -297,36 +124,77 @@
                 "width": 1080,
                 "height": 1076
             }
+        },
+        "media": {
+            "images": [{ "url": "/images/dummy-10.jpeg", "width": 1080, "height": 1076 }]
         }
     },
     {
-        "slug": "bihbul",
-        "title": "Bihbul Typeface is a bla bla bla...",
-        "family": "Bihbul",
+        "slug": "st-hall",
+        "title": "St Hall is a bla bla bla...",
+        "family": "St Hall",
         "subFamily": "",
         "variable": true,
-        "typefaces": [
-            { "fullName": "Bihbul Variable" },
-            { "fullName": "Bihbul Light" },
-            { "fullName": "Bihbul Regular" },
-            { "fullName": "Bihbul Medium" },
-            { "fullName": "Bihbul SemiBold" },
-            { "fullName": "Bihbul Bold" },
-            { "fullName": "Bihbul ExtraBold" },
-            { "fullName": "Bihbul Black" }
+        "typefacesID": [
+            "bdo-grotesk-variable",
+            "bdo-grotesk-light",
+            "bdo-grotesk-regular",
+            "bdo-grotesk-medium",
+            "bdo-grotesk-demibold",
+            "bdo-grotesk-bold",
+            "bdo-grotesk-extrabold",
+            "bdo-grotesk-black"
         ],
         "info": {
             "designer": "Deni Anggara",
             "designerUrl": "https://degarism.com",
+            "designerSlug": "super-lc",
             "manufacturer": "Lokal Container Org.",
             "manufacturerUrl": "https://lokalcontainer.org"
         },
         "meta": {
             "heroImage": {
-                "url": "/images/dummy-11.jpeg",
+                "url": "/images/dummy-9.jpeg",
                 "width": 1280,
-                "height": 1810
+                "height": 1829
             }
+        },
+        "media": {
+            "images": [{ "url": "/images/dummy-9.jpeg", "width": 1280, "height": 1829 }]
+        }
+    },
+    {
+        "slug": "bakery",
+        "title": "Bakery is a bla bla bla...",
+        "family": "Bakery",
+        "subFamily": "",
+        "variable": true,
+        "typefacesID": [
+            "bdo-grotesk-variable",
+            "bdo-grotesk-light",
+            "bdo-grotesk-regular",
+            "bdo-grotesk-medium",
+            "bdo-grotesk-demibold",
+            "bdo-grotesk-bold",
+            "bdo-grotesk-extrabold",
+            "bdo-grotesk-black"
+        ],
+        "info": {
+            "designer": "Deni Anggara",
+            "designerUrl": "https://degarism.com",
+            "designerSlug": "super-lc",
+            "manufacturer": "Lokal Container Org.",
+            "manufacturerUrl": "https://lokalcontainer.org"
+        },
+        "meta": {
+            "heroImage": {
+                "url": "/images/dummy-7.jpeg",
+                "width": 1280,
+                "height": 875
+            }
+        },
+        "media": {
+            "images": [{ "url": "/images/dummy-7.jpeg", "width": 1280, "height": 875 }]
         }
     }
 ]

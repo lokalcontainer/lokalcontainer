@@ -1,7 +1,7 @@
-import { useState, ReactNode, useEffect, FC } from "react";
+import { Component, Children } from "react";
 
 type MasonryProps = {
-    breakpointCols: {
+    breakpointCols?: {
         [key: number]: number;
         default: number;
     };
@@ -9,86 +9,147 @@ type MasonryProps = {
 
 const DEFAULT_COLUMNS = 2;
 
-export const Masonry: FC<MasonryProps> = ({ children, breakpointCols }) => {
-    const [columnCount, setColumnCount] = useState<number>(() => {
-        if (breakpointCols && breakpointCols.default) {
-            return breakpointCols.default;
+class Masonry extends Component<MasonryProps, { columnCount: number }> {
+    constructor(props: MasonryProps) {
+        super(props);
+
+        // Correct scope for when methods are accessed externally
+        this.reCalculateColumnCount = this.reCalculateColumnCount.bind(this);
+        this.reCalculateColumnCountDebounce = this.reCalculateColumnCountDebounce.bind(this);
+
+        // default state
+        let columnCount: number;
+        if (this.props.breakpointCols && this.props.breakpointCols.default) {
+            columnCount = this.props.breakpointCols.default;
         } else {
-            return DEFAULT_COLUMNS;
+            // @ts-ignore
+            columnCount = parseInt(this.props.breakpointCols) || DEFAULT_COLUMNS;
         }
-    });
 
-    const reCalculateColumnCountDebounce = () => {
-        if (typeof window === "undefined") return;
+        this.state = {
+            columnCount
+        };
+    }
+
+    componentDidMount() {
+        this.reCalculateColumnCount();
+
+        // window may not be available in some environments
+        if (window) {
+            window.addEventListener("resize", this.reCalculateColumnCountDebounce);
+        }
+    }
+
+    componentDidUpdate() {
+        this.reCalculateColumnCount();
+    }
+
+    componentWillUnmount() {
+        if (window) {
+            window.removeEventListener("resize", this.reCalculateColumnCountDebounce);
+        }
+    }
+
+    reCalculateColumnCountDebounce() {
         if (!window || !window.requestAnimationFrame) {
-            return reCalculateColumnCount();
+            // IE10+
+            this.reCalculateColumnCount();
+            return;
         }
-        window.requestAnimationFrame(() => reCalculateColumnCount());
-    };
 
-    const reCalculateColumnCount = () => {
-        const windowWidth = window && window.innerWidth;
+        if (window.cancelAnimationFrame) {
+            // IE10+
+            // @ts-ignore
+            window.cancelAnimationFrame(this._lastRecalculateAnimationFrame);
+        }
 
-        let matchedBreakpoint: number = Infinity;
-        let columns: number = breakpointCols.default || DEFAULT_COLUMNS;
+        // @ts-ignore
+        this._lastRecalculateAnimationFrame = window.requestAnimationFrame(() => {
+            this.reCalculateColumnCount();
+        });
+    }
 
-        for (const breakpoint in breakpointCols) {
+    reCalculateColumnCount() {
+        const windowWidth = (window && window.innerWidth) || Infinity;
+        let breakpointColsObject = this.props.breakpointCols;
+
+        // Allow passing a single number to `breakpointCols` instead of an object
+        if (typeof breakpointColsObject !== "object") {
+            breakpointColsObject = {
+                default: breakpointColsObject || DEFAULT_COLUMNS
+            };
+        }
+
+        let matchedBreakpoint = Infinity;
+        let columns = breakpointColsObject.default || DEFAULT_COLUMNS;
+
+        for (let breakpoint in breakpointColsObject) {
             const optBreakpoint = parseInt(breakpoint);
             const isCurrentBreakpoint = optBreakpoint > 0 && windowWidth <= optBreakpoint;
+
             if (isCurrentBreakpoint && optBreakpoint < matchedBreakpoint) {
                 matchedBreakpoint = optBreakpoint;
-                columns = breakpointCols[breakpoint];
+                columns = breakpointColsObject[breakpoint];
             }
         }
 
         columns = Math.max(1, columns || 1);
-        if (columnCount !== columns) {
-            setColumnCount(columns);
+
+        if (this.state.columnCount !== columns) {
+            this.setState({
+                columnCount: columns
+            });
         }
-        // setColumnCount(columns);
-    };
+    }
 
-    const itemsInColumns = () => {
-        let newArr: ReactNode[] = [];
-
-        const currentColumnCount = columnCount;
+    itemsInColumns() {
+        const currentColumnCount = this.state.columnCount;
         const itemsInColumns = new Array(currentColumnCount);
-        const items: ReactNode[] = newArr.concat(children);
+
+        // Force children to be handled as an array
+        const items = Children.toArray(this.props.children);
 
         for (let i = 0; i < items.length; i++) {
             const columnIndex = i % currentColumnCount;
-            if (!itemsInColumns[columnIndex]) itemsInColumns[columnIndex] = [];
+
+            if (!itemsInColumns[columnIndex]) {
+                itemsInColumns[columnIndex] = [];
+            }
+
             itemsInColumns[columnIndex].push(items[i]);
         }
 
         return itemsInColumns;
-    };
+    }
 
-    const renderColumns = () => {
-        const childrenColumns = itemsInColumns();
-        const columnWidth = `${100 / childrenColumns.length}%`;
+    renderColumns() {
+        const childrenInColumns = this.itemsInColumns();
+        const columnWidth = `${100 / childrenInColumns.length}%`;
+        let className: string | undefined = "my-masonry-grid_column";
 
         const columnAttributes = {
-            style: {
-                width: columnWidth
-            }
+            style: { width: columnWidth },
+            className
         };
 
-        return childrenColumns.map((items: any, i: number) => (
-            <ul key={i} className="masonry-column" {...columnAttributes}>
-                {items}
-            </ul>
-        ));
-    };
+        return childrenInColumns.map((items, i) => {
+            return (
+                <ul {...columnAttributes} key={i}>
+                    {items}
+                </ul>
+            );
+        });
+    }
 
-    useEffect(() => {
-        reCalculateColumnCount();
-    }, [breakpointCols]);
+    render() {
+        const { children, breakpointCols, ...rest } = this.props;
 
-    useEffect(() => {
-        window.addEventListener("resize", reCalculateColumnCountDebounce);
-        return () => window.removeEventListener("resize", reCalculateColumnCountDebounce);
-    }, []);
+        return (
+            <div {...rest} className="my-masonry-grid">
+                {this.renderColumns()}
+            </div>
+        );
+    }
+}
 
-    return <div className="masonry">{renderColumns()}</div>;
-};
+export default Masonry;
