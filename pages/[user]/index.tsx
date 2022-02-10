@@ -7,9 +7,7 @@ import { LayoutMain } from "components/LayoutMain";
 
 type ResponseFonts = BaseResponse & { data: FontType[] };
 
-type ResponseProfile = BaseResponse & {
-    data: any;
-};
+type ResponseProfile = BaseResponse & { data: any };
 
 type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 
@@ -38,8 +36,13 @@ export const getServerSideProps: GetServerSideProps<ServerProps> = async (ctx) =
     const reqProfile = await fetchJson<ResponseProfile>(`${host}/v1/users/${slug}`);
     const reqFonts = await fetchJson<ResponseFonts>(`${host}/v1/fonts/owner/${slug}`);
 
+    if (!reqProfile || !reqProfile.success) {
+        return {
+            notFound: true
+        };
+    }
+
     return {
-        props: { profile: reqProfile, slug: slug as string, fonts: reqFonts },
-        notFound: !reqProfile.success
+        props: { profile: reqProfile, slug: slug as string, fonts: reqFonts }
     };
 };
