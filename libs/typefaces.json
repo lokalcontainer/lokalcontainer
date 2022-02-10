@@ -1,0 +1,57 @@
+[
+    {
+        "id": "bdo-grotesk-variable",
+        "fullName": "BDO Grotesk Variable",
+        "url": "/fonts/BDO-Grotesk/variable/BDOGrotesk-VF.ttf"
+    },
+    {
+        "id": "bdo-grotesk-light",
+        "fullName": "BDO Grotesk Light",
+        "url": "/fonts/BDO-Grotesk/static/BDOGrotesk-Light.ttf"
+    },
+    {
+        "id": "bdo-grotesk-regular",
+        "fullName": "BDO Grotesk Regular",
+        "url": "/fonts/BDO-Grotesk/static/BDOGrotesk-Regular.ttf"
+    },
+    {
+        "id": "bdo-grotesk-medium",
+        "fullName": "BDO Grotesk Medium",
+        "url": "/fonts/BDO-Grotesk/static/BDOGrotesk-Medium.ttf"
+    },
+    {
+        "id": "bdo-grotesk-demibold",
+        "fullName": "BDO Grotesk DemiBold",
+        "url": "/fonts/BDO-Grotesk/static/BDOGrotesk-DemiBold.ttf"
+    },
+    {
+        "id": "bdo-grotesk-bold",
+        "fullName": "BDO Grotesk Bold",
+        "url": "/fonts/BDO-Grotesk/static/BDOGrotesk-Bold.ttf"
+    },
+    {
+        "id": "bdo-grotesk-extrabold",
+        "fullName": "BDO Grotesk ExtraBold",
+        "url": "/fonts/BDO-Grotesk/static/BDOGrotesk-ExtraBold.ttf"
+    },
+    {
+        "id": "bdo-grotesk-black",
+        "fullName": "BDO Grotesk Black",
+        "url": "/fonts/BDO-Grotesk/static/BDOGrotesk-Black.ttf"
+    },
+    {
+        "id": "mogi-variable",
+        "fullName": "Mogi Ultra Variable",
+        "url": "/fonts/Mogi/variable/Mogi-Ultra-VF.ttf"
+    },
+    {
+        "id": "mogi-ultra",
+        "fullName": "Mogi Ultra",
+        "url": "/fonts/Mogi/static/Mogi-Ultra.ttf"
+    },
+    {
+        "id": "mogi-ultra-wide",
+        "fullName": "Mogi Ultra Wide",
+        "url": "/fonts/Mogi/static/Mogi-UltraWide.ttf"
+    }
+]
