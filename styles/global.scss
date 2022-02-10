@@ -24,7 +24,7 @@ body {
     color: var(--accents-12);
 
     @include media("screen", ">xlMonitor") {
-        font-size: 20px;
+        font-size: 18px;
     }
 
     &[data-scroll-hide] {
