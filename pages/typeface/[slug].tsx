@@ -26,10 +26,12 @@ export default function Page(props: PageProps) {
 }
 
 export const getServerSideProps: GetServerSideProps<ServerProps> = async (ctx) => {
-    const { params } = ctx;
+    const { params, req } = ctx;
     const slug = params?.slug;
-    const API_URL = process.env.NEXT_PUBLIC_API_URL;
-    const reqFont = await fetchJson<ResponseFont>(`${API_URL}/v1/fonts/${slug}`);
+    const protocol = "http";
+    const url = req?.headers.host;
+    const host = `${protocol}://${url}/api`;
+    const reqFont = await fetchJson<ResponseFont>(`${host}/v1/fonts/${slug}`);
 
     return { props: { font: reqFont }, notFound: !reqFont.success };
 };

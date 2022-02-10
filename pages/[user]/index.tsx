@@ -30,11 +30,13 @@ type ServerProps = {
 };
 
 export const getServerSideProps: GetServerSideProps<ServerProps> = async (ctx) => {
-    const { params } = ctx;
+    const { params, req } = ctx;
     const slug = params?.user;
-    const API_URL = process.env.NEXT_PUBLIC_API_URL;
-    const reqProfile = await fetchJson<ResponseProfile>(`${API_URL}/v1/users/${slug}`);
-    const reqFonts = await fetchJson<ResponseFonts>(`${API_URL}/v1/fonts/owner/${slug}`);
+    const protocol = "http";
+    const url = req?.headers.host;
+    const host = `${protocol}://${url}/api`;
+    const reqProfile = await fetchJson<ResponseProfile>(`${host}/v1/users/${slug}`);
+    const reqFonts = await fetchJson<ResponseFonts>(`${host}/v1/fonts/owner/${slug}`);
 
     return {
         props: { profile: reqProfile, slug: slug as string, fonts: reqFonts },

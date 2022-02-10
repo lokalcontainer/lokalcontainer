@@ -157,8 +157,11 @@ export default function Page(props: PageProps) {
     );
 }
 
-export const getServerSideProps: GetServerSideProps<ServerData> = async () => {
-    const API_URL = process.env.NEXT_PUBLIC_API_URL;
-    const fonts = await fetchJson<ResponseFonts>(`${API_URL}/v1/fonts`);
+export const getServerSideProps: GetServerSideProps<ServerData> = async (ctx) => {
+    const { req } = ctx;
+    const protocol = "http";
+    const url = req?.headers.host;
+    const host = `${protocol}://${url}/api`;
+    const fonts = await fetchJson<ResponseFonts>(`${host}/v1/fonts`);
     return { props: { fonts } };
 };
