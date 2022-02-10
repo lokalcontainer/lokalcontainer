@@ -158,10 +158,10 @@ export default function Page(props: PageProps) {
 }
 
 export const getServerSideProps: GetServerSideProps<ServerData> = async (ctx) => {
-    const { req } = ctx;
+    const { req, query } = ctx;
     const protocol = "http";
     const url = req?.headers.host;
     const host = `${protocol}://${url}/api`;
     const fonts = await fetchJson<ResponseFonts>(`${host}/v1/fonts`);
-    return { props: { fonts } };
+    return { props: { fonts, query } };
 };
