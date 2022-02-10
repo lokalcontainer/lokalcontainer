@@ -13,7 +13,7 @@ export default function Page() {
                 <span style={{ fontSize: "6em", lineHeight: 1 }}>&#9785;</span>
                 <span>
                     Unfortunately, <br />
-                    this page doesn't exist.
+                    this page doesn&#39;t exist.
                 </span>
             </div>
         </LayoutMain>

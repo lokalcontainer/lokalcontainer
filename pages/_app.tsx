@@ -1,24 +1,40 @@
 import "styles/global.scss";
 
-import { AppProps } from "next/app";
-import { ThemeProvider as ProviderTheme } from "next-themes";
-import { Header } from "components/Header";
-import { Footer } from "components/Footer";
+import type { AppProps, AppContext } from "next/app";
+import type { ResponseSession } from "types/session";
 
-export default function MyApp(props: AppProps) {
-    const { Component, pageProps } = props;
+import App from "next/app";
+import { ThemeProvider as ProviderTheme } from "next-themes";
+import { getServerSession } from "libs/get-server-session";
+import { ProviderSession } from "components/Context/ContextSession";
+import { Header } from "components/Header";
+
+interface MyAppProps extends AppProps {
+    session?: ResponseSession;
+}
+
+export default function MyApp(props: MyAppProps) {
+    const { Component, pageProps, session } = props;
 
     return (
         <>
-            <ProviderTheme
-                disableTransitionOnChange
-                defaultTheme="system"
-                themes={["dark", "light"]}
-            >
-                <Header />
-                <Component {...pageProps} />
-                <Footer />
-            </ProviderTheme>
+            <ProviderSession session={session}>
+                <ProviderTheme
+                    disableTransitionOnChange
+                    defaultTheme="system"
+                    themes={["dark", "light"]}
+                >
+                    <Header />
+                    <Component {...pageProps} session={session} />
+                </ProviderTheme>
+            </ProviderSession>
         </>
     );
 }
+
+MyApp.getInitialProps = async (appContext: AppContext) => {
+    const appProps = await App.getInitialProps(appContext);
+    const responseSession = await getServerSession(appContext.ctx);
+
+    return { ...appProps, session: responseSession };
+};

@@ -1,16 +1,29 @@
+import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import type { BaseResponse } from "types/response";
+import type { FontType } from "libs/fonts.dummy";
+
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { AnimatePresence, motion } from "framer-motion";
+import NextDynamic from "next/dynamic";
 import NextLink from "next/link";
 import NextImage from "next/image";
 
-import { fonts, FontType } from "libs/fonts.dummy";
 import rgbDataURL from "libs/lib.blur-url";
-// import useLightBox from "hooks/use-light-box";
+import fetchJson from "libs/lib.fetch";
+import MasonryNew from "components/Masonry";
 import { LayoutMain } from "components/LayoutMain";
-import { Masonry } from "components/Masonry";
-import { LightBox } from "components/LightBox";
-import { PreviewFont } from "components/Preview/PreviewFont";
+
+const LightBox = NextDynamic(() => import("components/LightBox"), { ssr: false });
+const PreviewFont = NextDynamic(() => import("components/Preview/PreviewFont"), { ssr: false });
+
+type ResponseFonts = BaseResponse & {
+    data: FontType[];
+};
+
+type ServerData = {
+    fonts: ResponseFonts;
+};
 
 type FontCardProps = {
     index: number;
@@ -30,7 +43,7 @@ const FontCard = (props: FontCardProps) => {
         if (!query.lightBox) return;
         setIsActive(() => query.lightBox?.includes("true") && query.slug?.includes(item.slug));
         return () => setIsActive(false);
-    }, [query]);
+    }, [query, item.slug]);
 
     return (
         <li>
@@ -46,17 +59,15 @@ const FontCard = (props: FontCardProps) => {
                     title={item.family}
                     onMouseOver={() => setHover(true)}
                     onMouseLeave={() => setHover(false)}
-                    whileHover={{
-                        boxShadow: "0 0 0.25em 0 var(--accents-12)",
-                        transition: { type: "just" }
-                    }}
+                    // whileHover={{
+                    //     boxShadow: "0 0 0.25em 0 var(--accents-12)",
+                    //     transition: { type: "just" }
+                    // }}
                     style={{
                         position: "relative",
                         display: "block",
                         overflow: "hidden",
-                        // border: "1px solid var(--accents-4)",
-                        boxShadow: "0 0 0em 0 var(--accents-12)",
-                        borderRadius: "calc(var(--grid-gap) / 3)"
+                        boxShadow: "0 0 0em 0 var(--accents-12)"
                     }}
                 >
                     <div
@@ -73,7 +84,7 @@ const FontCard = (props: FontCardProps) => {
                             width={item.meta.heroImage.width}
                             height={item.meta.heroImage.height}
                             layout="responsive"
-                            priority
+                            // priority={index < 12}
                             placeholder="blur"
                             blurDataURL={rgbDataURL(200, 200, 200)}
                         />
@@ -88,10 +99,12 @@ const FontCard = (props: FontCardProps) => {
                                         position: "absolute",
                                         inset: 0,
                                         backgroundColor: "var(--accents-12)",
-                                        padding: "var(--grid-gap)"
+                                        padding: "var(--grid-gap)",
+                                        color: "var(--accents-1)"
                                     }}
                                 >
-                                    <div style={{ color: "var(--accents-1)" }}>{item.family}</div>
+                                    <div style={{ fontSize: "2em" }}>{index + 1}</div>
+                                    <div>{item.family}</div>
                                 </motion.div>
                             )}
                         </AnimatePresence>
@@ -102,56 +115,50 @@ const FontCard = (props: FontCardProps) => {
     );
 };
 
-const CustomLightBox = () => {
-    const { query } = useRouter();
+type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 
-    const [newFontObject, setNewFontObject] = useState<FontType | undefined>(() =>
-        fonts.find((item) => item.slug === query.slug)
-    );
+export default function Page(props: PageProps) {
+    const { query } = useRouter();
+    const serverFonts = props.fonts.data;
+    const newFonts = serverFonts.concat(serverFonts, serverFonts, serverFonts, serverFonts);
+    // const newFonts = serverFonts;
+
+    const [selectedFont, setSelectedFont] = useState<FontType | undefined>(undefined);
 
     useEffect(() => {
-        setNewFontObject(() => fonts.find((item) => item.slug === query.slug));
-    }, [query]);
+        const willBePreview = serverFonts.find((item) => item.slug === query.slug);
+        setSelectedFont(willBePreview);
+    }, [query, serverFonts]);
 
-    return (
-        <LightBox>
-            <PreviewFont font={newFontObject} />
-        </LightBox>
-    );
-};
-
-export default function Page() {
-    const newFonts = fonts;
-    // const { lightBox } = useLightBox();
     return (
         <>
             <LayoutMain>
-                <motion.div
-                // animate={{
-                //     width: lightBox ? "50%" : "100%",
-                //     transition: { type: "just" }
-                // }}
+                <MasonryNew
+                    breakpointCols={{
+                        default: 8,
+                        1920: 7,
+                        1600: 5,
+                        1366: 4,
+                        960: 3,
+                        720: 2,
+                        500: 1
+                    }}
                 >
-                    <Masonry
-                        breakpointCols={{
-                            default: 7,
-                            1920: 6,
-                            1600: 5,
-                            1366: 4,
-                            960: 3,
-                            720: 2,
-                            500: 1
-                        }}
-                    >
-                        {newFonts.map((item, i) => (
-                            <FontCard key={i} index={i} item={item} />
-                        ))}
-                    </Masonry>
-                </motion.div>
-
-                <div style={{ minHeight: "150vh" }}></div>
+                    {newFonts.map((item, i) => (
+                        <FontCard key={i} index={i} item={item} />
+                    ))}
+                </MasonryNew>
             </LayoutMain>
-            <CustomLightBox />
+
+            <LightBox>
+                <PreviewFont font={selectedFont} style={{ minHeight: "200vh" }} />
+            </LightBox>
         </>
     );
 }
+
+export const getServerSideProps: GetServerSideProps<ServerData> = async () => {
+    const API_URL = process.env.NEXT_PUBLIC_API_URL;
+    const fonts = await fetchJson<ResponseFonts>(`${API_URL}/v1/fonts`);
+    return { props: { fonts } };
+};
