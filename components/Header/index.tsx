@@ -216,7 +216,20 @@ export const Header = () => {
                 </li> */}
 
                 <li data-menu="text">
-                    <NextLink href="/donate" as="/donate">
+                    <NextLink href="/blog">
+                        <a>
+                            <span>Blog</span>
+                        </a>
+                    </NextLink>
+                </li>
+
+                <li data-menu="text">
+                    <NextLink
+                        href={{
+                            pathname: "/donate/[type]",
+                            query: { type: "eth" }
+                        }}
+                    >
                         <a>
                             <span>Donate</span>
                         </a>
