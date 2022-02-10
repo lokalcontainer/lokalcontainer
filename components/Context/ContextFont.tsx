@@ -1,12 +1,10 @@
 import { createContext, FC, useContext, useEffect, useState } from "react";
-import { fonts, FontType } from "libs/fonts.dummy";
+import { fonts, FontType, typefaces, TypefaceType } from "libs/fonts.dummy";
 
 type ContextFontProps = {
     selectedTypeface: string;
     changeTypeface: (_e: string) => void;
-    typefaces: {
-        fullName: string;
-    }[];
+    typefaces: TypefaceType[];
     font: FontType;
 };
 
@@ -21,18 +19,25 @@ export const ConsumerFont = ContextFont.Consumer;
 
 export const ProviderFont: FC<ProviderFontProps> = (props) => {
     const { children, font } = props;
-    const typefaces = font?.typefaces ?? fonts[0].typefaces;
-    const [selectedTypeface, setSelectedTypeface] = useState(typefaces[0].fullName);
+    const filteredTypefaces = font?.typefacesID?.map(
+        (parent) => typefaces.find((item) => item.id === parent)!
+    )!;
+    const [selectedTypeface, setSelectedTypeface] = useState(filteredTypefaces[0]?.fullName);
 
     const changeTypeface = (fullName: string) => setSelectedTypeface(fullName);
 
     useEffect(() => {
-        changeTypeface(font?.typefaces[0].fullName ?? fonts[0].typefaces[0].fullName);
-    }, [font]);
+        changeTypeface(filteredTypefaces[0].fullName);
+    }, [font, filteredTypefaces]);
 
     return (
         <ContextFont.Provider
-            value={{ selectedTypeface, changeTypeface, typefaces, font: font ?? fonts[0] }}
+            value={{
+                selectedTypeface,
+                changeTypeface,
+                typefaces: filteredTypefaces,
+                font: font ?? fonts[0]
+            }}
         >
             {children}
         </ContextFont.Provider>
