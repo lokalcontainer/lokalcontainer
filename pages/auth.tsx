@@ -12,7 +12,6 @@ import { mutate } from "swr";
 import fetchJson from "libs/lib.fetch";
 import { getServerSession } from "libs/get-server-session";
 import { LayoutMain } from "components/LayoutMain";
-import { ParsedUrlQuery } from "querystring";
 
 type ResponseSignIn = BaseResponse & {
     data: Session;
@@ -239,17 +238,13 @@ export default function Page(props: PageProps) {
                     {selectedTab && <>{selectedTab.component}</>}
                 </motion.div>
             </AnimatePresence>
-
-            <pre>{JSON.stringify(props, null, 2)}</pre>
         </LayoutMain>
     );
 }
 
 export const getServerSideProps: GetServerSideProps<{
     tab: number;
-    query: ParsedUrlQuery;
 }> = async (ctx) => {
-    const { query } = ctx;
     const responseSession = await getServerSession(ctx);
 
     if (responseSession.success) {
@@ -270,5 +265,5 @@ export const getServerSideProps: GetServerSideProps<{
         tab = 1;
     }
 
-    return { props: { tab, query } };
+    return { props: { tab } };
 };
