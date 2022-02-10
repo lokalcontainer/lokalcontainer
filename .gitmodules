@@ -1,6 +1,0 @@
-[submodule "public/fonts"]
-	path = public/fonts
-	url = https://github.com/lokalcontainer/fonts.git
-[submodule "public/--force"]
-	path = public/--force
-	url = https://github.com/lokalcontainer/fonts.git
