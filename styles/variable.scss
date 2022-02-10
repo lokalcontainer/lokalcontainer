@@ -1,6 +1,7 @@
 :root {
     --grid-gap: 0.5em;
 
+    --header-height: calc(var(--grid-gap) * 4);
     --footer-height: 16.66vh;
 
     --no-scroll-padding: 0px;
@@ -19,6 +20,8 @@
     --accents-12: #101010;
 
     --accents-pink: #ffe6ec;
+
+    --alpha-1: rgb(245 245 245 / 90%);
 }
 
 [data-theme="light"] {
@@ -36,6 +39,7 @@
     --accents-12: #101010;
 
     --accents-pink: #ffe6ec;
+    --alpha-1: rgb(245 245 245 / 90%);
 }
 
 [data-theme="dark"] {
@@ -53,4 +57,5 @@
     --accents-12: #f3f3f3;
 
     --accents-pink: #c49ba5;
+    --alpha-1: rgb(10 10 10 / 90%);
 }

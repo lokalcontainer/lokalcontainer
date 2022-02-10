@@ -54,15 +54,21 @@ pre {
 .my-masonry-grid {
     width: 100%;
     display: flex;
-    gap: var(--grid-gap);
+    gap: calc(var(--grid-gap) / 1);
 }
 .my-masonry-grid_column {
-    background-clip: padding-box;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--grid-gap);
 }
 
-.my-masonry-grid_column > * {
-    margin-bottom: var(--grid-gap);
-}
+// .my-masonry-grid_column > * {
+//     margin-bottom: var(--grid-gap);
+// }
 
 .masonry {
     width: 100%;
@@ -75,7 +81,7 @@ pre {
     margin: 0;
     list-style: none;
 
-    > * {
-        margin-bottom: calc(var(--grid-gap) / 1);
-    }
+    // > * {
+    //     margin-bottom: calc(var(--grid-gap) / 1);
+    // }
 }
