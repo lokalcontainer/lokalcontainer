@@ -7,12 +7,12 @@ import { useRouter } from "next/router";
 import { AnimatePresence, motion } from "framer-motion";
 import NextDynamic from "next/dynamic";
 import NextLink from "next/link";
+import NextImage from "next/image";
 
 import rgbDataURL from "libs/lib.blur-url";
 import fetchJson from "libs/lib.fetch";
 import MasonryNew from "components/Masonry";
 import { LayoutMain } from "components/LayoutMain";
-import { Image } from "components/Image";
 
 const LightBox = NextDynamic(() => import("components/LightBox"), { ssr: false });
 const PreviewFont = NextDynamic(() => import("components/Preview/PreviewFont"), { ssr: false });
@@ -96,7 +96,7 @@ const FontCard = (props: FontCardProps) => {
                             height: "100%"
                         }}
                     >
-                        <Image
+                        <NextImage
                             alt={`image-${item.slug}`}
                             src={item.meta.heroImage.url}
                             width={item.meta.heroImage.width}
