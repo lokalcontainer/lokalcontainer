@@ -1,23 +1,20 @@
 @import "variable.scss";
 @import "media.scss";
 
-@font-face {
-    font-family: "BDO Grotesk";
-    src: url("/fonts/BDO-Grotesk/BDOGrotesk-VF.ttf");
-    font-style: normal;
-    font-weight: 300 900;
-}
-
 * {
     box-sizing: border-box;
     border-color: var(--accents-2) !important;
+
+    -webkit-tap-highlight-color: transparent;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
 }
 
 body {
     margin: 0;
     padding: 0;
 
-    font-family: "BDO Grotesk";
+    font-family: var(--font-sans);
     font-size: 16px;
 
     background-color: var(--accents-1);
