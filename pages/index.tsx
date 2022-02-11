@@ -9,7 +9,7 @@ import NextDynamic from "next/dynamic";
 import NextLink from "next/link";
 import NextImage from "next/image";
 
-import rgbDataURL from "libs/lib.blur-url";
+// import rgbDataURL from "libs/lib.blur-url";
 import fetchJson from "libs/lib.fetch";
 import MasonryNew from "components/Masonry";
 import { LayoutMain } from "components/LayoutMain";
@@ -85,7 +85,12 @@ const FontCard = (props: FontCardProps) => {
                         display: "block",
                         overflow: "hidden",
                         boxShadow: "0 0 0em 0 var(--accents-12)"
-                        // border: "1px solid"
+                        // backgroundColor: `rgb(${item.meta.heroImage.colors[0]}, ${item.meta.heroImage.colors[1]}, ${item.meta.heroImage.colors[2]})`
+                        // backgroundImage: `url(${rgbDataURL(
+                        //     item.meta.heroImage.colors[0],
+                        //     item.meta.heroImage.colors[1],
+                        //     item.meta.heroImage.colors[2]
+                        // )})`
                     }}
                 >
                     <div
@@ -93,7 +98,8 @@ const FontCard = (props: FontCardProps) => {
                             position: "relative",
                             overflow: "hidden",
                             width: "100%",
-                            height: "100%"
+                            height: "100%",
+                            backgroundColor: `rgb(${item.meta.heroImage.colors[0]}, ${item.meta.heroImage.colors[1]}, ${item.meta.heroImage.colors[2]})`
                         }}
                     >
                         <NextImage
@@ -102,17 +108,17 @@ const FontCard = (props: FontCardProps) => {
                             width={item.meta.heroImage.width}
                             height={item.meta.heroImage.height}
                             layout="responsive"
-                            // priority
                             quality={100}
-                            placeholder="blur"
+                            // priority
+                            // placeholder="blur"
                             // blurDataURL={`data:image/svg+xml;base64,${toBase64(
                             //     convertImage(item.meta.heroImage.width, item.meta.heroImage.height)
                             // )}`}
-                            blurDataURL={rgbDataURL(
-                                item.meta.heroImage.colors[0],
-                                item.meta.heroImage.colors[1],
-                                item.meta.heroImage.colors[2]
-                            )}
+                            // blurDataURL={rgbDataURL(
+                            //     item.meta.heroImage.colors[0],
+                            //     item.meta.heroImage.colors[1],
+                            //     item.meta.heroImage.colors[2]
+                            // )}
                         />
 
                         <AnimatePresence>
@@ -124,16 +130,26 @@ const FontCard = (props: FontCardProps) => {
                                     style={{
                                         position: "absolute",
                                         inset: 0,
-                                        backgroundColor: "var(--accents-12)",
-                                        padding: "var(--grid-gap)",
-                                        color: "var(--accents-1)"
+                                        backgroundColor: "var(--alpha-1)",
+                                        padding: "var(--grid-gap)"
+                                        // color: "var(--accents-1)"
                                     }}
                                 >
-                                    <div style={{ fontSize: "2em" }}>{index + 1}</div>
-                                    <div>{item.family}</div>
+                                    <div style={{ fontSize: "4em" }}>{index + 1}</div>
                                 </motion.div>
                             )}
                         </AnimatePresence>
+                    </div>
+                    <div style={{ marginBottom: "calc(var(--grid-gap) * 4)" }}>
+                        <span
+                            style={{
+                                fontSize: "0.85em",
+                                fontFeatureSettings: `"case"`
+                            }}
+                        >
+                            {item.subFamily ? item.subFamily : item.family} /{" "}
+                            {item.typefacesID.length} style(s)
+                        </span>
                     </div>
                 </motion.a>
             </NextLink>
@@ -146,13 +162,12 @@ type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 export default function Page(props: PageProps) {
     const { query } = useRouter();
     const serverFonts = props.fonts.data;
-    const newFonts = serverFonts;
+    const newFonts = serverFonts.concat(serverFonts, serverFonts, serverFonts, serverFonts);
 
     const [selectedFont, setSelectedFont] = useState<FontType | undefined>(undefined);
 
     useEffect(() => {
-        const willBePreview = serverFonts.find((item) => item.slug === query.slug);
-        setSelectedFont(willBePreview);
+        setSelectedFont(() => serverFonts.find((item) => item.slug === query.slug));
     }, [query, serverFonts]);
 
     return (
