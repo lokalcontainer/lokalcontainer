@@ -16,23 +16,34 @@
             "bdo-grotesk-black"
         ],
         "info": {
-            "designer": "Deni Anggara",
+            "designer": "Taufik Oktama",
             "designerUrl": "https://degarism.com",
-            "designerSlug": "denianggara",
+            "designerSlug": "otta",
             "manufacturer": "Lokal Container Org.",
             "manufacturerUrl": "https://lokalcontainer.org"
         },
         "meta": {
             "heroImage": {
-                "url": "/images/dummy-1.png",
+                "url": "/static/images/dummy-1.png",
                 "width": 1563,
-                "height": 1173
+                "height": 1173,
+                "colors": [0, 0, 0]
             }
         },
         "media": {
             "images": [
-                { "url": "/images/dummy-1.png", "width": 1563, "height": 1173 },
-                { "url": "/images/dummy-5.jpeg", "width": 1080, "height": 1351 }
+                {
+                    "url": "/static/images/dummy-1.png",
+                    "width": 1563,
+                    "height": 1173,
+                    "colors": [0, 0, 0]
+                },
+                {
+                    "url": "/static/images/dummy-5.jpeg",
+                    "width": 1080,
+                    "height": 1351,
+                    "colors": [0, 0, 0]
+                }
             ]
         }
     },
@@ -52,13 +63,21 @@
         },
         "meta": {
             "heroImage": {
-                "url": "/images/dummy-5.jpeg",
+                "url": "/static/images/dummy-5.jpeg",
                 "width": 1080,
-                "height": 1351
+                "height": 1351,
+                "colors": [119, 117, 116]
             }
         },
         "media": {
-            "images": [{ "url": "/images/dummy-5.jpeg", "width": 1080, "height": 1351 }]
+            "images": [
+                {
+                    "url": "/static/images/dummy-5.jpeg",
+                    "width": 1080,
+                    "height": 1351,
+                    "colors": [119, 117, 116]
+                }
+            ]
         }
     },
     {
@@ -86,13 +105,21 @@
         },
         "meta": {
             "heroImage": {
-                "url": "/images/dummy-6.jpeg",
+                "url": "/static/images/dummy-6.jpeg",
                 "width": 1080,
-                "height": 1080
+                "height": 1080,
+                "colors": [236, 237, 241]
             }
         },
         "media": {
-            "images": [{ "url": "/images/dummy-6.jpeg", "width": 1080, "height": 1080 }]
+            "images": [
+                {
+                    "url": "/static/images/dummy-6.jpeg",
+                    "width": 1080,
+                    "height": 1080,
+                    "colors": [236, 237, 241]
+                }
+            ]
         }
     },
     {
@@ -120,13 +147,21 @@
         },
         "meta": {
             "heroImage": {
-                "url": "/images/dummy-10.jpeg",
+                "url": "/static/images/dummy-10.jpeg",
                 "width": 1080,
-                "height": 1076
+                "height": 1076,
+                "colors": [242, 242, 242]
             }
         },
         "media": {
-            "images": [{ "url": "/images/dummy-10.jpeg", "width": 1080, "height": 1076 }]
+            "images": [
+                {
+                    "url": "/static/images/dummy-10.jpeg",
+                    "width": 1080,
+                    "height": 1076,
+                    "colors": [242, 242, 242]
+                }
+            ]
         }
     },
     {
@@ -154,13 +189,21 @@
         },
         "meta": {
             "heroImage": {
-                "url": "/images/dummy-9.jpeg",
+                "url": "/static/images/dummy-9.jpeg",
                 "width": 1280,
-                "height": 1829
+                "height": 1829,
+                "colors": [181, 182, 186]
             }
         },
         "media": {
-            "images": [{ "url": "/images/dummy-9.jpeg", "width": 1280, "height": 1829 }]
+            "images": [
+                {
+                    "url": "/static/images/dummy-9.jpeg",
+                    "width": 1280,
+                    "height": 1829,
+                    "colors": [181, 182, 186]
+                }
+            ]
         }
     },
     {
@@ -188,13 +231,21 @@
         },
         "meta": {
             "heroImage": {
-                "url": "/images/dummy-7.jpeg",
+                "url": "/static/images/dummy-7.jpeg",
                 "width": 1280,
-                "height": 875
+                "height": 875,
+                "colors": [147, 192, 219]
             }
         },
         "media": {
-            "images": [{ "url": "/images/dummy-7.jpeg", "width": 1280, "height": 875 }]
+            "images": [
+                {
+                    "url": "/static/images/dummy-7.jpeg",
+                    "width": 1280,
+                    "height": 875,
+                    "colors": [147, 192, 219]
+                }
+            ]
         }
     }
 ]
