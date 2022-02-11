@@ -7,12 +7,12 @@ import { useRouter } from "next/router";
 import { AnimatePresence, motion } from "framer-motion";
 import NextDynamic from "next/dynamic";
 import NextLink from "next/link";
-import NextImage from "next/image";
 
 import rgbDataURL from "libs/lib.blur-url";
 import fetchJson from "libs/lib.fetch";
 import MasonryNew from "components/Masonry";
 import { LayoutMain } from "components/LayoutMain";
+import { Image } from "components/Image";
 
 const LightBox = NextDynamic(() => import("components/LightBox"), { ssr: false });
 const PreviewFont = NextDynamic(() => import("components/Preview/PreviewFont"), { ssr: false });
@@ -29,6 +29,23 @@ type FontCardProps = {
     index: number;
     item: FontType;
 };
+
+// const toBase64 = (str: string) =>
+//     typeof window === "undefined" ? Buffer.from(str).toString("base64") : window.btoa(str);
+
+// const convertImage = (w: number, h: number) => `
+//   <svg width="${w}" height="${h}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+//     <defs>
+//       <linearGradient id="g">
+//         <stop stop-color="#333" offset="20%" />
+//         <stop stop-color="#222" offset="50%" />
+//         <stop stop-color="#333" offset="70%" />
+//       </linearGradient>
+//     </defs>
+//     <rect width="${w}" height="${h}" fill="#333" />
+//     <rect id="r" width="${w}" height="${h}" fill="url(#g)" />
+//     <animate xlink:href="#r" attributeName="x" from="-${w}" to="${w}" dur="1s" repeatCount="indefinite"  />
+//   </svg>`;
 
 const FontCard = (props: FontCardProps) => {
     const { item, index } = props;
@@ -68,6 +85,7 @@ const FontCard = (props: FontCardProps) => {
                         display: "block",
                         overflow: "hidden",
                         boxShadow: "0 0 0em 0 var(--accents-12)"
+                        // border: "1px solid"
                     }}
                 >
                     <div
@@ -78,15 +96,23 @@ const FontCard = (props: FontCardProps) => {
                             height: "100%"
                         }}
                     >
-                        <NextImage
+                        <Image
                             alt={`image-${item.slug}`}
                             src={item.meta.heroImage.url}
                             width={item.meta.heroImage.width}
                             height={item.meta.heroImage.height}
                             layout="responsive"
-                            // priority={index < 12}
+                            // priority
+                            quality={100}
                             placeholder="blur"
-                            blurDataURL={rgbDataURL(200, 200, 200)}
+                            // blurDataURL={`data:image/svg+xml;base64,${toBase64(
+                            //     convertImage(item.meta.heroImage.width, item.meta.heroImage.height)
+                            // )}`}
+                            blurDataURL={rgbDataURL(
+                                item.meta.heroImage.colors[0],
+                                item.meta.heroImage.colors[1],
+                                item.meta.heroImage.colors[2]
+                            )}
                         />
 
                         <AnimatePresence>
@@ -120,8 +146,7 @@ type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 export default function Page(props: PageProps) {
     const { query } = useRouter();
     const serverFonts = props.fonts.data;
-    const newFonts = serverFonts.concat(serverFonts, serverFonts, serverFonts, serverFonts);
-    // const newFonts = serverFonts;
+    const newFonts = serverFonts;
 
     const [selectedFont, setSelectedFont] = useState<FontType | undefined>(undefined);
 
