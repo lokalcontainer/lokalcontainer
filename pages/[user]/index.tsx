@@ -4,25 +4,79 @@ import type { BaseResponse } from "types/response";
 
 import fetchJson from "libs/lib.fetch";
 import { LayoutMain } from "components/LayoutMain";
+import { ResponseUser } from "types/user";
 
 type ResponseFonts = BaseResponse & { data: FontType[] };
 
-type ResponseProfile = BaseResponse & { data: any };
+type ResponseProfile = ResponseUser;
 
 type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 
 export default function Page(props: PageProps) {
+    const { profile } = props;
+    const {
+        data: { name, userName, id, image, email }
+    } = profile;
     return (
-        <LayoutMain>
-            <pre>
+        <LayoutMain title={`${profile.data.name} on L / C`}>
+            <div
+                style={{
+                    display: "inline-flex",
+                    border: "1px solid",
+                    gap: "var(--grid-gap)"
+                }}
+            >
+                <div
+                    style={{
+                        backgroundColor: "var(--accents-12)",
+                        display: "inline-block",
+                        position: "relative",
+                        width: 64,
+                        height: 64
+                    }}
+                >
+                    {image ? (
+                        <img
+                            src={image}
+                            width="64"
+                            height="64"
+                            alt={`avatar-${userName}`}
+                            style={{
+                                verticalAlign: "middle",
+                                borderRadius: "100%",
+                                transform: "scale(0.9)"
+                            }}
+                        />
+                    ) : (
+                        <img
+                            src="/images/avatars/avatar-frown.png"
+                            width="64"
+                            height="64"
+                            alt={`avatar-${userName}`}
+                            style={{
+                                verticalAlign: "middle",
+                                borderRadius: "100%",
+                                transform: "scale(0.9)"
+                            }}
+                        />
+                    )}
+                </div>
+
+                <div style={{ paddingRight: "var(--grid-gap)" }}>
+                    <div>{name}</div>
+                    <div>{email}</div>
+                </div>
+            </div>
+
+            {/* <pre>
                 {JSON.stringify({ profile: props.profile.data, fonts: props.fonts.data }, null, 2)}
-            </pre>
+            </pre> */}
         </LayoutMain>
     );
 }
 
 type ServerProps = {
-    profile: any;
+    profile: ResponseUser;
     slug: string;
     fonts: ResponseFonts;
 };

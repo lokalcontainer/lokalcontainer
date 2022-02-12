@@ -1,7 +1,6 @@
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import type { ChangeEvent, CSSProperties } from "react";
-import type { BaseResponse } from "types/response";
-import type { Session } from "types/session";
+import type { ResponseSession } from "types/session";
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -12,10 +11,6 @@ import { mutate } from "swr";
 import fetchJson from "libs/lib.fetch";
 import { getServerSession } from "libs/get-server-session";
 import { LayoutMain } from "components/LayoutMain";
-
-type ResponseSignIn = BaseResponse & {
-    data: Session;
-};
 
 type CustomInputProps = {
     label: string;
@@ -75,7 +70,7 @@ const FormSignIn = () => {
             <Formik
                 initialValues={{ email: "", password: "" }}
                 onSubmit={(v, a) => {
-                    fetchJson<ResponseSignIn>("/api/v1/login", {
+                    fetchJson<ResponseSession>("/api/v1/login", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(v)
@@ -86,7 +81,7 @@ const FormSignIn = () => {
                                 a.setErrors({ [res.data[0].field]: res.data[0].message });
                             } else {
                                 mutate("/api/v1/sessions/me").then(() =>
-                                    replace("/[user]", `/${res.data.userName}`)
+                                    replace("/[user]", `/${res.data?.userName}`)
                                 );
                             }
                         })
@@ -130,7 +125,7 @@ const FormSignUp = () => {
             <Formik
                 initialValues={{ name: "", email: "", password: "" }}
                 onSubmit={(v, a) => {
-                    fetchJson<ResponseSignIn>("/api/v1/register", {
+                    fetchJson<ResponseSession>("/api/v1/register", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(v)

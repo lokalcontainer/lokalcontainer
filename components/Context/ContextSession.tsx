@@ -1,14 +1,15 @@
-import fetchJson from "libs/lib.fetch";
+import type { ResponseSession } from "types/session";
+import type { BaseUser } from "types/user";
 import { createContext, FC, useContext } from "react";
 import useSWR from "swr";
-import { Session, ResponseSession } from "types/session";
+import fetchJson from "libs/lib.fetch";
 
 type ProviderSessionProps = {
     session?: ResponseSession;
 };
 
 type ContextSessionProps = {
-    session?: Session;
+    session?: BaseUser;
 };
 
 const ContextSession = createContext<ContextSessionProps>(undefined!);
