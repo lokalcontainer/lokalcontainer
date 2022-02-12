@@ -6,31 +6,40 @@ import { SITE_DATA } from "libs/site-data.constants";
 
 type LayoutMainProps = {
     style?: CSSProperties;
+    title?: string;
+    description?: string;
+    image?: string;
 };
 
 export const LayoutMain: FC<LayoutMainProps> = (props) => {
-    const { children, style } = props;
+    const {
+        children,
+        style,
+        title = SITE_DATA.title,
+        description = SITE_DATA.description,
+        image = SITE_DATA.image
+    } = props;
     const { asPath } = useRouter();
     const NEW_URL = `${SITE_DATA.url}${asPath}`;
 
     return (
         <>
             <NextHead>
-                <title>{SITE_DATA.title}</title>
-                <meta name="title" content={SITE_DATA.title} />
-                <meta name="description" content={SITE_DATA.description} />
+                <title>{title}</title>
+                <meta name="title" content={title} />
+                <meta name="description" content={description} />
 
                 <meta property="og:type" content={SITE_DATA.type} />
                 <meta property="og:url" content={NEW_URL} />
-                <meta property="og:title" content={SITE_DATA.title} />
-                <meta property="og:description" content={SITE_DATA.description} />
-                <meta property="og:image" content={SITE_DATA.image} />
+                <meta property="og:title" content={title} />
+                <meta property="og:description" content={description} />
+                <meta property="og:image" content={image} />
 
                 <meta property="twitter:card" content="summary_large_image" />
                 <meta property="twitter:url" content={NEW_URL} />
-                <meta property="twitter:title" content={SITE_DATA.title} />
-                <meta property="twitter:description" content={SITE_DATA.description} />
-                <meta property="twitter:image" content={SITE_DATA.image} />
+                <meta property="twitter:title" content={title} />
+                <meta property="twitter:description" content={description} />
+                <meta property="twitter:image" content={image} />
             </NextHead>
             <main
                 style={{
