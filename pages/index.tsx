@@ -85,6 +85,7 @@ const FontCard = (props: FontCardProps) => {
                         display: "block",
                         overflow: "hidden",
                         boxShadow: "0 0 0em 0 var(--accents-12)"
+                        // borderBottom: "1px solid"
                         // backgroundColor: `rgb(${item.meta.heroImage.colors[0]}, ${item.meta.heroImage.colors[1]}, ${item.meta.heroImage.colors[2]})`
                         // backgroundImage: `url(${rgbDataURL(
                         //     item.meta.heroImage.colors[0],
@@ -97,29 +98,40 @@ const FontCard = (props: FontCardProps) => {
                         style={{
                             position: "relative",
                             overflow: "hidden",
+                            // padding: "calc(var(--grid-gap) / 1)",
                             width: "100%",
                             height: "100%",
                             backgroundColor: `rgb(${item.meta.heroImage.colors[0]}, ${item.meta.heroImage.colors[1]}, ${item.meta.heroImage.colors[2]})`
                         }}
                     >
-                        <NextImage
-                            alt={`image-${item.slug}`}
-                            src={item.meta.heroImage.url}
-                            width={item.meta.heroImage.width}
-                            height={item.meta.heroImage.height}
-                            layout="responsive"
-                            quality={100}
-                            // priority
-                            // placeholder="blur"
-                            // blurDataURL={`data:image/svg+xml;base64,${toBase64(
-                            //     convertImage(item.meta.heroImage.width, item.meta.heroImage.height)
-                            // )}`}
-                            // blurDataURL={rgbDataURL(
-                            //     item.meta.heroImage.colors[0],
-                            //     item.meta.heroImage.colors[1],
-                            //     item.meta.heroImage.colors[2]
-                            // )}
-                        />
+                        <div
+                            style={{
+                                position: "relative",
+                                overflow: "hidden",
+                                width: "100%",
+                                height: "100%",
+                                display: "block"
+                            }}
+                        >
+                            <NextImage
+                                alt={`image-${item.slug}`}
+                                src={item.meta.heroImage.url}
+                                width={item.meta.heroImage.width}
+                                height={item.meta.heroImage.height}
+                                layout="responsive"
+                                quality={100}
+                                // priority
+                                // placeholder="blur"
+                                // blurDataURL={`data:image/svg+xml;base64,${toBase64(
+                                //     convertImage(item.meta.heroImage.width, item.meta.heroImage.height)
+                                // )}`}
+                                // blurDataURL={rgbDataURL(
+                                //     item.meta.heroImage.colors[0],
+                                //     item.meta.heroImage.colors[1],
+                                //     item.meta.heroImage.colors[2]
+                                // )}
+                            />
+                        </div>
 
                         <AnimatePresence>
                             {(hover || isActive) && (
@@ -130,21 +142,35 @@ const FontCard = (props: FontCardProps) => {
                                     style={{
                                         position: "absolute",
                                         inset: 0,
-                                        backgroundColor: "var(--alpha-1)",
+                                        backgroundColor: "var(--alpha-2)",
                                         padding: "var(--grid-gap)"
-                                        // color: "var(--accents-1)"
                                     }}
                                 >
-                                    <div style={{ fontSize: "4em" }}>{index + 1}</div>
+                                    <div
+                                        style={{
+                                            fontSize: "6em",
+                                            lineHeight: 0.8
+                                        }}
+                                    >
+                                        {index + 1}
+                                    </div>
                                 </motion.div>
                             )}
                         </AnimatePresence>
                     </div>
-                    <div style={{ marginBottom: "calc(var(--grid-gap) * 4)" }}>
+
+                    <div
+                        style={{
+                            margin: "calc(var(--grid-gap) / 2) 0 calc(var(--grid-gap) * 3) 0"
+                        }}
+                    >
                         <span
                             style={{
-                                fontSize: "0.85em",
-                                fontFeatureSettings: `"case"`
+                                fontSize: "0.75em",
+                                fontFeatureSettings: `"case"`,
+                                textTransform: "uppercase",
+                                fontWeight: 300
+                                // textDecoration: hover ? "underline" : "none",
                             }}
                         >
                             {item.subFamily ? item.subFamily : item.family} /{" "}

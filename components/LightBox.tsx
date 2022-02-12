@@ -93,7 +93,7 @@ export const LightBox: FC<LightBoxProps> = (props) => {
                             position: "relative",
                             // boxShadow: "0 0 0.5em 0 var(--accents-3)",
                             padding: "var(--grid-gap)",
-                            borderRadius: "calc(var(--grid-gap) / 1)",
+                            // borderRadius: "calc(var(--grid-gap) / 1)",
                             border: "1px solid",
                             ...style
                         }}

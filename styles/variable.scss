@@ -33,6 +33,7 @@
     --accents-pink: #ffe6ec;
 
     --alpha-1: rgb(245 245 245 / 90%);
+    --alpha-2: rgb(245 245 245 / 60%);
 }
 
 [data-theme="light"] {
@@ -51,6 +52,7 @@
 
     --accents-pink: #ffe6ec;
     --alpha-1: rgb(245 245 245 / 90%);
+    --alpha-2: rgb(245 245 245 / 60%);
 }
 
 [data-theme="dark"] {
@@ -69,4 +71,5 @@
 
     --accents-pink: #c49ba5;
     --alpha-1: rgb(10 10 10 / 90%);
+    --alpha-2: rgb(10 10 10 / 60%);
 }

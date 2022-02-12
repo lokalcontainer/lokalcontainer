@@ -169,7 +169,7 @@ export const Header = () => {
                 <li data-menu="text">
                     <NextLink href="/">
                         <a>
-                            <span>LC</span>
+                            <span>L / C</span>
                         </a>
                     </NextLink>
                 </li>
@@ -214,7 +214,9 @@ export const Header = () => {
                         <MenuIcon>S</MenuIcon>
                     </MenuButton>
                 </li> */}
+            </ul>
 
+            <ul>
                 <li data-menu="text">
                     <NextLink href="/blog">
                         <a>
@@ -235,21 +237,6 @@ export const Header = () => {
                         </a>
                     </NextLink>
                 </li>
-            </ul>
-
-            <ul>
-                {!session && (
-                    <>
-                        <li data-menu="text">
-                            <NextLink href="/auth?form=sign-in">
-                                <a>
-                                    <span>Login</span>
-                                </a>
-                            </NextLink>
-                        </li>
-                    </>
-                )}
-
                 <li data-menu="text">
                     <NextLink href="/[user]" as="/super-lc">
                         <a>
@@ -257,7 +244,29 @@ export const Header = () => {
                         </a>
                     </NextLink>
                 </li>
+            </ul>
 
+            <ul>
+                {!session ? (
+                    <li data-menu="text">
+                        <NextLink href="/auth?form=sign-in">
+                            <a>
+                                <span>Login</span>
+                            </a>
+                        </NextLink>
+                    </li>
+                ) : (
+                    <li data-menu="text">
+                        <NextLink href={`/${session.userName}`}>
+                            <a>
+                                <span>{session.name}</span>
+                            </a>
+                        </NextLink>
+                    </li>
+                )}
+            </ul>
+
+            <ul>
                 <li>
                     <select
                         value={theme}

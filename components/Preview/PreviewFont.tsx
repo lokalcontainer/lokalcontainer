@@ -2,6 +2,7 @@ import type { CSSProperties } from "react";
 import type { FontType } from "libs/fonts.dummy";
 
 import NextLink from "next/link";
+import useLightBox from "hooks/use-light-box";
 import { ProviderFont, useFont } from "components/Context/ContextFont";
 
 type PreviewFontProps = {
@@ -10,6 +11,7 @@ type PreviewFontProps = {
 };
 
 const PreviewFontHeader = () => {
+    const { lightBox } = useLightBox();
     const { selectedTypeface, typefaces, changeTypeface, font } = useFont();
 
     return (
@@ -48,6 +50,15 @@ const PreviewFontHeader = () => {
                         ))}
                     </select>
                 </li>
+                {lightBox && (
+                    <li>
+                        <NextLink href="/typeface/[slug]" as={`/typeface/${font.slug}`}>
+                            <a>
+                                <span>Detail</span>
+                            </a>
+                        </NextLink>
+                    </li>
+                )}
                 <li>
                     <NextLink href="/[user]" as={`/${font.info.designerSlug}`}>
                         <a>
