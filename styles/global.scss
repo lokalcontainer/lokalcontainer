@@ -20,9 +20,9 @@ body {
     background-color: var(--accents-1);
     color: var(--accents-12);
 
-    @include media("screen", ">xlMonitor") {
-        font-size: 18px;
-    }
+    // @include media("screen", ">xlMonitor") {
+    //     font-size: 18px;
+    // }
 
     &[data-scroll-hide] {
         overflow: hidden;

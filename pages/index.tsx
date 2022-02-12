@@ -203,11 +203,11 @@ export default function Page(props: PageProps) {
                     breakpointCols={{
                         default: 8,
                         1920: 7,
-                        1600: 5,
-                        1366: 4,
-                        960: 3,
-                        720: 2,
-                        500: 1
+                        1600: 6,
+                        1366: 5,
+                        960: 4,
+                        720: 3,
+                        500: 2
                     }}
                 >
                     {newFonts.map((item, i) => (
