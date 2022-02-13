@@ -1,32 +1,24 @@
-import { CSSProperties, FC, useCallback } from "react";
+import type { CSSProperties, FC } from "react";
 import { useEffect, useRef } from "react";
-import { useRouter } from "next/router";
 import { AnimatePresence, motion } from "framer-motion";
 import useLightBox from "hooks/use-light-box";
 
 type LightBoxProps = {
     style?: CSSProperties;
+    onRequestClose: () => void;
 };
 
 export const LightBox: FC<LightBoxProps> = (props) => {
-    const { children, style } = props;
-    const { push } = useRouter();
+    const { children, style, onRequestClose } = props;
 
     const { lightBox: state } = useLightBox();
-
-    const closeHandler = useCallback(
-        () => push("/", "/", { shallow: true, scroll: false }),
-        [push]
-    );
-
-    // const closeHandler = () => push("/", "/", { shallow: true, scroll: false });
 
     const refParent = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const keyboardHandler = (e: globalThis.KeyboardEvent) => {
             const key = e.key;
-            if (key === "Escape") return closeHandler();
+            if (key === "Escape") return onRequestClose();
         };
 
         if (!state) return;
@@ -56,7 +48,7 @@ export const LightBox: FC<LightBoxProps> = (props) => {
             body.removeAttribute(bodyAttr);
             parentCurrent.style.setProperty("right", `-${bodyPaddingRight + scrollBarWidth}px`);
         };
-    }, [state, closeHandler]);
+    }, [state, onRequestClose]);
 
     return (
         <AnimatePresence initial={true} exitBeforeEnter>
@@ -77,7 +69,7 @@ export const LightBox: FC<LightBoxProps> = (props) => {
                     }}
                 >
                     <div
-                        onClick={closeHandler}
+                        onClick={onRequestClose}
                         style={{
                             position: "fixed",
                             inset: 0
@@ -103,7 +95,7 @@ export const LightBox: FC<LightBoxProps> = (props) => {
 
                     <motion.button
                         // whileHover={{ scale: 1.2 }}
-                        onClick={closeHandler}
+                        onClick={onRequestClose}
                         style={{
                             appearance: "none",
                             background: "none",
