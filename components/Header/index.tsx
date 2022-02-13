@@ -1,10 +1,11 @@
 import styles from "styles/header.module.scss";
 // import type { FC } from "react";
 // import { useEffect, useRef, useState } from "react";
-// import { useTheme } from "next-themes";
+import { useTheme } from "next-themes";
 // import { AnimatePresence, motion } from "framer-motion";
 // import { useRouter } from "next/router";
 import NextLink from "next/link";
+// import { DropDown } from "components/Utils/DropDown";
 
 // import { STATIC_MENU } from "libs/menu.constants";
 // import useOnClickOutside from "hooks/use-on-click-outside";
@@ -140,7 +141,7 @@ import NextLink from "next/link";
 // };
 
 export const Header = () => {
-    // const { theme, themes, setTheme } = useTheme();
+    const { theme, themes, setTheme } = useTheme();
     // const { session } = useSession();
 
     // const [search, setSearch] = useState(false);
@@ -264,7 +265,11 @@ export const Header = () => {
                 )}
             </ul> */}
 
-            {/* <ul>
+            <ul>
+                {/* <li data-menu="text">
+                    <DropDown label="Share yours" />
+                </li> */}
+
                 <li>
                     <select
                         value={theme}
@@ -278,7 +283,7 @@ export const Header = () => {
                         ))}
                     </select>
                 </li>
-            </ul> */}
+            </ul>
         </header>
     );
 };
