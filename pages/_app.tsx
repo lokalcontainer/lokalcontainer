@@ -8,6 +8,7 @@ import { ThemeProvider as ProviderTheme } from "next-themes";
 import { getServerSession } from "libs/get-server-session";
 import { ProviderSession } from "components/Context/ContextSession";
 import { Header } from "components/Header";
+import { Footer } from "components/Footer";
 
 interface MyAppProps extends AppProps {
     session?: ResponseSession;
@@ -26,6 +27,7 @@ export default function MyApp(props: MyAppProps) {
                 >
                     <Header />
                     <Component {...pageProps} session={session} />
+                    <Footer />
                 </ProviderTheme>
             </ProviderSession>
         </>
