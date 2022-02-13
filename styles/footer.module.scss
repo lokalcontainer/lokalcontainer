@@ -1,21 +1,31 @@
 .app_footer {
-    height: var(--footer-height);
+    height: calc(var(--header-height) / 1.5);
     width: 100%;
 
-    padding: var(--grid-gap) calc(var(--grid-gap) * 2);
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1999;
 
-    background-color: var(--accents-pink);
-    color: var(--accents-6);
+    padding: 0 calc(var(--grid-gap) * 2);
+
+    background-color: var(--accents-1);
+    color: var(--accents-6) !important;
 
     display: grid;
     grid-template-columns: repeat(5, 1fr);
+    align-items: center;
     gap: var(--grid-gap);
+
+    // box-shadow: 0 -1px 0.25em -0.2em var(--accents-8), 0 0 0.05em 0 var(--accents-8);
+    // border-top: 1px solid var(--accents-3);
 
     ul {
         list-style: none;
         padding: 0;
         margin: 0;
 
-        font-size: 0.8em;
+        font-size: 0.7em;
     }
 }
