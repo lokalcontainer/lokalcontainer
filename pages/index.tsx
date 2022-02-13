@@ -4,15 +4,13 @@ import type { FontType } from "libs/fonts.dummy";
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { AnimatePresence, motion } from "framer-motion";
 import NextDynamic from "next/dynamic";
-import NextLink from "next/link";
-import NextImage from "next/image";
 
 // import rgbDataURL from "libs/lib.blur-url";
 import fetchJson from "libs/lib.fetch";
 import MasonryNew from "components/Masonry";
 import { LayoutMain } from "components/LayoutMain";
+import { PostCard } from "components/Utils/PostCard";
 
 const LightBox = NextDynamic(() => import("components/LightBox"), { ssr: false });
 const PreviewFont = NextDynamic(() => import("components/Preview/PreviewFont"), { ssr: false });
@@ -51,7 +49,6 @@ const FontCard = (props: FontCardProps) => {
     const { item, index } = props;
     const { query } = useRouter();
 
-    const [hover, setHover] = useState(false);
     const [isActive, setIsActive] = useState(
         () => query.lightBox?.includes("true") && query.slug?.includes(item.slug)
     );
@@ -63,132 +60,43 @@ const FontCard = (props: FontCardProps) => {
     }, [query, item.slug]);
 
     return (
-        <li>
-            <NextLink
-                href={{ pathname: "/", query: { lightBox: true, slug: item.slug, index } }}
-                as={`/typeface/${item.slug}`}
-                scroll={false}
-                shallow={true}
-                passHref
-            >
-                <motion.a
-                    aria-label={item.family}
-                    title={item.family}
-                    onMouseOver={() => setHover(true)}
-                    onMouseLeave={() => setHover(false)}
-                    // whileHover={{
-                    //     boxShadow: "0 0 0.25em 0 var(--accents-12)",
-                    //     transition: { type: "just" }
-                    // }}
-                    style={{
-                        position: "relative",
-                        display: "block",
-                        overflow: "hidden",
-                        boxShadow: "0 0 0em 0 var(--accents-12)"
-                        // borderBottom: "1px solid"
-                        // backgroundColor: `rgb(${item.meta.heroImage.colors[0]}, ${item.meta.heroImage.colors[1]}, ${item.meta.heroImage.colors[2]})`
-                        // backgroundImage: `url(${rgbDataURL(
-                        //     item.meta.heroImage.colors[0],
-                        //     item.meta.heroImage.colors[1],
-                        //     item.meta.heroImage.colors[2]
-                        // )})`
-                    }}
-                >
-                    <div
-                        style={{
-                            position: "relative",
-                            overflow: "hidden",
-                            // padding: "calc(var(--grid-gap) / 1)",
-                            width: "100%",
-                            height: "100%",
-                            backgroundColor: `rgb(${item.meta.heroImage.colors[0]}, ${item.meta.heroImage.colors[1]}, ${item.meta.heroImage.colors[2]})`
-                        }}
-                    >
-                        <div
-                            style={{
-                                position: "relative",
-                                overflow: "hidden",
-                                width: "100%",
-                                height: "100%",
-                                display: "block"
-                            }}
-                        >
-                            <NextImage
-                                alt={`image-${item.slug}`}
-                                src={item.meta.heroImage.url}
-                                width={item.meta.heroImage.width}
-                                height={item.meta.heroImage.height}
-                                layout="responsive"
-                                quality={100}
-                                // priority
-                                // placeholder="blur"
-                                // blurDataURL={`data:image/svg+xml;base64,${toBase64(
-                                //     convertImage(item.meta.heroImage.width, item.meta.heroImage.height)
-                                // )}`}
-                                // blurDataURL={rgbDataURL(
-                                //     item.meta.heroImage.colors[0],
-                                //     item.meta.heroImage.colors[1],
-                                //     item.meta.heroImage.colors[2]
-                                // )}
-                            />
-                        </div>
-
-                        <AnimatePresence>
-                            {(hover || isActive) && (
-                                <motion.div
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1, transition: { type: "just" } }}
-                                    exit={{ opacity: 0 }}
-                                    style={{
-                                        position: "absolute",
-                                        inset: 0,
-                                        backgroundColor: "var(--alpha-2)",
-                                        padding: "var(--grid-gap)"
-                                    }}
-                                >
-                                    <div
-                                        style={{
-                                            fontSize: "6em",
-                                            lineHeight: 0.8
-                                        }}
-                                    >
-                                        {index + 1}
-                                    </div>
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
-                    </div>
-
-                    <div
-                        style={{
-                            margin: "calc(var(--grid-gap) / 2) 0 calc(var(--grid-gap) * 3) 0"
-                        }}
-                    >
-                        <span
-                            style={{
-                                fontSize: "0.75em",
-                                fontFeatureSettings: `"case"`,
-                                textTransform: "uppercase",
-                                fontWeight: 300
-                                // textDecoration: hover ? "underline" : "none",
-                            }}
-                        >
-                            {item.subFamily ? item.subFamily : item.family} /{" "}
-                            {item.typefacesID.length} style(s)
-                        </span>
-                    </div>
-                </motion.a>
-            </NextLink>
-        </li>
+        <>
+            <PostCard
+                index={index}
+                label={`${item.subFamily ? item.subFamily : item.family} / ${
+                    item.typefacesID.length
+                } style(s)`}
+                isActive={isActive}
+                link={{
+                    href: {
+                        pathname: "/",
+                        query: { lightBox: true, slug: item.slug, index }
+                    },
+                    as: `/typeface/${item.slug}`,
+                    scroll: false,
+                    shallow: true,
+                    passHref: true
+                }}
+                image={{
+                    url: item.meta.heroImage.url,
+                    width: item.meta.heroImage.width,
+                    height: item.meta.heroImage.height
+                }}
+                style={{
+                    backgroundColor: `rgb(${item.meta.heroImage.colors[0]}, ${item.meta.heroImage.colors[1]}, ${item.meta.heroImage.colors[2]})`
+                }}
+            />
+        </>
     );
 };
 
 type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 
 export default function Page(props: PageProps) {
-    const { query } = useRouter();
+    const { query, push } = useRouter();
     const serverFonts = props.fonts.data;
-    const newFonts = serverFonts.concat(serverFonts, serverFonts, serverFonts, serverFonts);
+    // const newFonts = serverFonts.concat(serverFonts, serverFonts, serverFonts, serverFonts);
+    const newFonts = serverFonts;
 
     const [selectedFont, setSelectedFont] = useState<FontType | undefined>(undefined);
 
@@ -216,7 +124,7 @@ export default function Page(props: PageProps) {
                 </MasonryNew>
             </LayoutMain>
 
-            <LightBox>
+            <LightBox onRequestClose={() => push("/", "/", { shallow: true, scroll: false })}>
                 <PreviewFont font={selectedFont} style={{ minHeight: "200vh" }} />
             </LightBox>
         </>
