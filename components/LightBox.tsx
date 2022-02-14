@@ -1,28 +1,112 @@
 import type { CSSProperties, FC } from "react";
 import { useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import NextHead from "next/head";
 import useLightBox from "hooks/use-light-box";
 
-type LightBoxProps = {
-    style?: CSSProperties;
+type BaseProps = {
     onRequestClose: () => void;
+    title?: string | JSX.Element;
+};
+
+type LightBoxProps = BaseProps & {
+    style?: CSSProperties;
+};
+
+type LightBoxHeaderProps = BaseProps & {};
+
+const LightBoxHeader = (props: LightBoxHeaderProps) => {
+    const { title, onRequestClose } = props;
+    return (
+        <header
+            style={{
+                position: "sticky",
+                top: 0,
+                backgroundColor: "var(--alpha-1)",
+                zIndex: 1,
+                height: "var(--header-height)",
+                width: "100%",
+                margin: "0 auto",
+                display: "flex",
+                alignItems: "center",
+                // boxShadow: "0 0 1em -0.75em var(--accents-6), 0 -1px 0.25em 0em var(--accents-4)",
+                padding: "0 var(--grid-gap)",
+                pointerEvents: "initial"
+            }}
+        >
+            <button
+                onClick={onRequestClose}
+                style={{
+                    appearance: "none",
+                    background: "none",
+                    border: "1px solid",
+                    padding: 0,
+                    margin: 0,
+                    fontFamily: "inherit",
+                    fontSize: "inherit",
+                    fontWeight: "bold",
+                    cursor: "pointer",
+                    aspectRatio: "1/1",
+                    width: "1.5em",
+                    backgroundColor: "var(--accents-1)",
+                    color: "var(--accents-12)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    position: "absolute",
+                    right: "calc(var(--grid-gap) * 2)"
+                }}
+            >
+                <span
+                    style={{
+                        fontSize: "0.8em",
+                        fontWeight: "bold",
+                        display: "inline-flex",
+                        alignItems: "center"
+                    }}
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="1.5em"
+                        width="1.5em"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                    >
+                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" />
+                    </svg>
+                </span>
+            </button>
+            <ul
+                style={{
+                    listStyle: "none",
+                    padding: "0 var(--grid-gap)",
+                    margin: "0 auto",
+                    width: "100%"
+                    // maxWidth: 1200
+                }}
+            >
+                <li>{title}</li>
+            </ul>
+        </header>
+    );
 };
 
 export const LightBox: FC<LightBoxProps> = (props) => {
-    const { children, style, onRequestClose } = props;
+    const { children, style, onRequestClose, title = "Light Box" } = props;
 
     const { lightBox: state } = useLightBox();
 
     const refParent = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        if (!state) return;
+        if (!refParent.current) return;
+
         const keyboardHandler = (e: globalThis.KeyboardEvent) => {
             const key = e.key;
             if (key === "Escape") return onRequestClose();
         };
 
-        if (!state) return;
-        if (!refParent.current) return;
         const html = document.documentElement;
         const body = document.body;
         const bodyAttr = "data-scroll-hide";
@@ -48,79 +132,65 @@ export const LightBox: FC<LightBoxProps> = (props) => {
             body.removeAttribute(bodyAttr);
             parentCurrent.style.setProperty("right", `-${bodyPaddingRight + scrollBarWidth}px`);
         };
-    }, [state, onRequestClose]);
+    }, [state]);
 
     return (
         <AnimatePresence initial={true} exitBeforeEnter>
             {state && (
-                <motion.div
-                    ref={refParent}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1, transition: { type: "just" } }}
-                    exit={{ opacity: 0, transition: { type: "just" } }}
-                    style={{
-                        position: "fixed",
-                        inset: 0,
-                        zIndex: 2000,
-                        overflowY: "scroll",
-                        padding:
-                            "calc(var(--header-height) + var(--grid-gap)) calc(var(--grid-gap) * 6) calc(var(--grid-gap) * 3) calc(var(--grid-gap) * 6)",
-                        backgroundColor: "var(--alpha-1)"
-                    }}
-                >
-                    <div
-                        onClick={onRequestClose}
-                        style={{
-                            position: "fixed",
-                            inset: 0
-                        }}
-                    />
+                <>
+                    <NextHead>
+                        <title>{title}</title>
+                    </NextHead>
 
                     <motion.div
+                        ref={refParent}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1, transition: { type: "just" } }}
+                        exit={{ opacity: 0, transition: { type: "just" } }}
                         style={{
-                            minHeight: "calc(100vh - calc(var(--grid-gap) * 8))",
-                            // overflow: "hidden",
-                            backgroundColor: "var(--accents-1)",
-                            // backgroundColor: "var(--alpha-1)",
-                            position: "relative",
-                            // boxShadow: "0 0 0.5em 0 var(--accents-3)",
-                            padding: "var(--grid-gap)",
-                            // borderRadius: "calc(var(--grid-gap) / 1)",
-                            border: "1px solid",
-                            ...style
-                        }}
-                    >
-                        {children}
-                    </motion.div>
-
-                    <motion.button
-                        // whileHover={{ scale: 1.2 }}
-                        onClick={onRequestClose}
-                        style={{
-                            appearance: "none",
-                            background: "none",
-                            border: "none",
-                            borderRadius: "100%",
-                            padding: 0,
-                            margin: 0,
                             position: "fixed",
-                            top: "calc(var(--grid-gap) * 1)",
-                            left: "calc(var(--grid-gap) * 1)",
-                            fontFamily: "inherit",
-                            fontSize: "inherit",
-                            cursor: "pointer",
-                            aspectRatio: "1/1",
-                            width: "1.5em",
-                            backgroundColor: "var(--accents-1)",
-                            color: "var(--accents-12)",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center"
+                            inset: 0,
+                            zIndex: 2000,
+                            overflowY: "scroll",
+                            backgroundColor: "var(--alpha-1)"
                         }}
                     >
-                        <span style={{ fontSize: "0.8em", fontWeight: "bold" }}>&#9587;</span>
-                    </motion.button>
-                </motion.div>
+                        <div
+                            onClick={onRequestClose}
+                            style={{
+                                position: "fixed",
+                                inset: 0,
+                                cursor: "zoom-out"
+                            }}
+                        />
+
+                        <div
+                            style={{
+                                pointerEvents: "none",
+                                position: "relative",
+                                padding: "0 0 calc(var(--grid-gap) * 3) 0"
+                            }}
+                        >
+                            <LightBoxHeader title={title} onRequestClose={onRequestClose} />
+
+                            <div
+                                style={{
+                                    pointerEvents: "initial",
+                                    position: "relative",
+                                    width: "100%",
+                                    maxWidth: 1366,
+                                    margin: "0 auto",
+                                    minHeight: "calc(100vh - calc(var(--grid-gap) * 10))",
+                                    // backgroundColor: "var(--accents-pink)",
+                                    padding: "var(--grid-gap) calc(var(--grid-gap) * 2)",
+                                    ...style
+                                }}
+                            >
+                                {children}
+                            </div>
+                        </div>
+                    </motion.div>
+                </>
             )}
         </AnimatePresence>
     );
