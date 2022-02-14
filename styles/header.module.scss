@@ -68,7 +68,7 @@
                 border-radius: 0;
 
                 background-color: inherit;
-                color: var(--accents-8);
+                // color: var(--accents-8);
 
                 border: none;
                 // padding: 0 var(--grid-gap);
@@ -95,9 +95,9 @@
                     text-overflow: ellipsis;
                 }
 
-                &:hover {
-                    color: var(--accents-12);
-                }
+                // &:hover {
+                //     color: var(--accents-12);
+                // }
 
                 // position: relative;
 

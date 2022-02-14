@@ -20,7 +20,7 @@ export default function Page(props: PageProps) {
     return (
         <LayoutMain>
             <PreviewFont font={props.font.data} />
-            <pre>{JSON.stringify(props.font.data, null, 2)}</pre>
+            {/* <pre>{JSON.stringify(props.font.data, null, 2)}</pre> */}
         </LayoutMain>
     );
 }

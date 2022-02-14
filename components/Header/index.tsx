@@ -1,7 +1,7 @@
 import styles from "styles/header.module.scss";
 // import type { FC } from "react";
 // import { useEffect, useRef, useState } from "react";
-// import { useTheme } from "next-themes";
+import { useTheme } from "next-themes";
 // import { AnimatePresence, motion } from "framer-motion";
 // import { useRouter } from "next/router";
 import NextLink from "next/link";
@@ -141,7 +141,7 @@ import NextLink from "next/link";
 // };
 
 export const Header = () => {
-    // const { theme, themes, setTheme } = useTheme();
+    const { theme, themes, setTheme } = useTheme();
     // const { session } = useSession();
 
     // const [search, setSearch] = useState(false);
@@ -267,10 +267,10 @@ export const Header = () => {
 
             <ul />
 
-            <ul />
+            {/* <ul /> */}
 
-            {/* <ul>
-                <li
+            <ul>
+                {/* <li
                     style={{
                         // backgroundColor: "var(--accents-pink)",
                         backgroundColor: "var(--accents-8)",
@@ -322,29 +322,49 @@ export const Header = () => {
                                 }
                             />
                         </li>
-
-                        <li>
-                            <select
-                                value={theme}
-                                onChange={(e) => setTheme(e.target.value)}
-                                style={{ textTransform: "capitalize" }}
-                            >
-                                {themes.map((item, i) => (
-                                    <option key={i} value={item}>
-                                        {item}
-                                    </option>
-                                ))}
-                            </select>
-                        </li>
                     </ul>
-                </li>
-            </ul> */}
+                </li> */}
+                {/* <li>
+                    <select
+                        value={theme}
+                        onChange={(e) => setTheme(e.target.value)}
+                        style={{ textTransform: "capitalize" }}
+                    >
+                        {themes.map((item, i) => (
+                            <option key={i} value={item}>
+                                {item}
+                            </option>
+                        ))}
+                    </select>
+                </li> */}
+            </ul>
 
             <ul style={{ gap: 0, justifyContent: "end" }}>
+                <li>
+                    <select
+                        value={theme}
+                        onChange={(e) => setTheme(e.target.value)}
+                        style={{
+                            textTransform: "uppercase",
+                            border: "1px solid",
+                            height: "1.75em",
+                            marginRight: "var(--grid-gap)",
+                            outline: "none"
+                        }}
+                    >
+                        {themes.map((item, i) => (
+                            <option key={i} value={item}>
+                                {item}
+                            </option>
+                        ))}
+                    </select>
+                </li>
+
                 <li
                     style={{
                         aspectRatio: "1/1",
-                        backgroundColor: "var(--accents-3)",
+                        // backgroundColor: "var(--accents-3)",
+                        border: "1px solid",
                         padding: "calc(var(--grid-gap) / 3)"
                     }}
                 >
@@ -366,8 +386,10 @@ export const Header = () => {
                 <li
                     style={{
                         aspectRatio: "1/1",
-                        backgroundColor: "var(--accents-2)",
-                        padding: "calc(var(--grid-gap) / 3)"
+                        // backgroundColor: "var(--accents-2)",
+                        border: "1px solid",
+                        padding: "calc(var(--grid-gap) / 3)",
+                        marginLeft: -1
                     }}
                 >
                     <a>

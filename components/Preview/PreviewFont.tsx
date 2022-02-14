@@ -20,7 +20,7 @@ const PreviewFontHeader = () => {
                 style={{
                     listStyle: "none",
                     padding: 0,
-                    margin: "0 calc(var(--grid-gap) * 8) 0 0",
+                    margin: 0,
                     fontWeight: 300,
                     display: "flex",
                     alignItems: "center",
@@ -72,8 +72,13 @@ const PreviewFontHeader = () => {
 };
 
 const PreviewFontContent = () => {
-    const { selectedTypeface } = useFont();
-    return <div>{selectedTypeface}</div>;
+    const { selectedTypeface, font } = useFont();
+    return (
+        <div>
+            {selectedTypeface}
+            <pre>{JSON.stringify(font, null, 2)}</pre>
+        </div>
+    );
 };
 
 export const PreviewFont = (props: PreviewFontProps) => {
