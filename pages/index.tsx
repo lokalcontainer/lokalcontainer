@@ -124,7 +124,12 @@ export default function Page(props: PageProps) {
                 </MasonryNew>
             </LayoutMain>
 
-            <LightBox onRequestClose={() => push("/", "/", { shallow: true, scroll: false })}>
+            <LightBox
+                title={`${
+                    selectedFont?.subFamily ? selectedFont.subFamily : selectedFont?.family
+                } by ${selectedFont?.info.designer}`}
+                onRequestClose={() => push("/", "/", { shallow: true, scroll: false })}
+            >
                 <PreviewFont font={selectedFont} style={{ minHeight: "200vh" }} />
             </LightBox>
         </>
