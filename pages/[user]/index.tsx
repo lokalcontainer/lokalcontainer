@@ -2,7 +2,7 @@ import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import type { FontType } from "libs/fonts.dummy";
 import type { BaseResponse } from "types/response";
 import type { ResponseUser } from "types/user";
-import NextImage from "next/image";
+// import NextImage from "next/image";
 import { useRouter } from "next/router";
 
 import fetchJson from "libs/lib.fetch";
@@ -27,7 +27,7 @@ export default function Page(props: PageProps) {
     return (
         <>
             <LayoutMain title={`${profile.data.name} on L / C`}>
-                <div
+                {/* <div
                     style={{
                         position: "sticky",
                         top: "var(--header-height)",
@@ -89,7 +89,7 @@ export default function Page(props: PageProps) {
                             <div style={{ padding: "0 var(--grid-gap)" }}>{email}</div>
                         </div>
                     </div>
-                </div>
+                </div> */}
 
                 <div>
                     {props.fonts.data.length !== 0 && (
