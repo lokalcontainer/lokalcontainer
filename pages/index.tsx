@@ -2,7 +2,7 @@ import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import type { BaseResponse } from "types/response";
 import type { FontType } from "libs/fonts.dummy";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import NextDynamic from "next/dynamic";
 
@@ -95,8 +95,9 @@ type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 export default function Page(props: PageProps) {
     const { query, push } = useRouter();
     const serverFonts = props.fonts.data;
-    // const newFonts = serverFonts.concat(serverFonts, serverFonts, serverFonts, serverFonts);
-    const newFonts = serverFonts;
+    const newFonts = serverFonts.concat(serverFonts, serverFonts, serverFonts, serverFonts);
+    // const newFonts = serverFonts;
+    const fonts = useMemo(() => newFonts, [newFonts]);
 
     const [selectedFont, setSelectedFont] = useState<FontType | undefined>(undefined);
 
@@ -110,15 +111,15 @@ export default function Page(props: PageProps) {
                 <MasonryNew
                     breakpointCols={{
                         default: 8,
-                        1920: 7,
-                        1600: 6,
-                        1366: 5,
-                        960: 4,
-                        720: 3,
-                        500: 2
+                        2200: 7,
+                        1920: 6,
+                        1680: 5,
+                        1440: 4,
+                        1280: 3,
+                        960: 2
                     }}
                 >
-                    {newFonts.map((item, i) => (
+                    {fonts.map((item, i) => (
                         <FontCard key={i} index={i} item={item} />
                     ))}
                 </MasonryNew>
@@ -130,7 +131,7 @@ export default function Page(props: PageProps) {
                 } by ${selectedFont?.info.designer}`}
                 onRequestClose={() => push("/", "/", { shallow: true, scroll: false })}
             >
-                <PreviewFont font={selectedFont} style={{ minHeight: "200vh" }} />
+                <PreviewFont font={selectedFont} />
             </LightBox>
         </>
     );

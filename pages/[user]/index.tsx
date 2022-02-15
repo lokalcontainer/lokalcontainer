@@ -2,11 +2,11 @@ import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import type { FontType } from "libs/fonts.dummy";
 import type { BaseResponse } from "types/response";
 import type { ResponseUser } from "types/user";
-// import NextImage from "next/image";
 import { useRouter } from "next/router";
 
 import fetchJson from "libs/lib.fetch";
 import { LayoutMain } from "components/LayoutMain";
+import { LayoutUser } from "components/Utils/LayoutUser";
 import { PostCard } from "components/Utils/PostCard";
 import Masonry from "components/Masonry";
 import LightBox from "components/LightBox";
@@ -20,91 +20,28 @@ type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 export default function Page(props: PageProps) {
     const { profile } = props;
     const {
-        data: { name, userName, image, email }
+        data: { userName }
     } = profile;
 
     const { push } = useRouter();
     return (
         <>
             <LayoutMain title={`${profile.data.name} on L / C`}>
-                {/* <div
-                    style={{
-                        position: "sticky",
-                        top: "var(--header-height)",
-                        zIndex: 10,
-                        backgroundColor: "var(--accents-1)",
-                        marginBottom: "calc(var(--grid-gap) / 1)"
-                    }}
-                >
-                    <div
-                        style={{
-                            display: "grid",
-                            gridTemplateColumns: "64px 3fr",
-                            border: "1px solid"
-                        }}
-                    >
-                        <div
-                            style={{
-                                backgroundColor: "var(--accents-12)",
-                                position: "relative",
-                                width: 64,
-                                height: 64
-                            }}
-                        >
-                            {image ? (
-                                <NextImage
-                                    src={image}
-                                    width="64"
-                                    height="64"
-                                    alt={`avatar-${userName}`}
-                                    priority
-                                />
-                            ) : (
-                                <NextImage
-                                    src="/images/avatars/avatar-frown.png"
-                                    width="64"
-                                    height="64"
-                                    alt={`avatar-${userName}`}
-                                    priority
-                                />
-                            )}
-                        </div>
-
-                        <div
-                            style={{
-                                display: "flex",
-                                flexDirection: "column",
-                                gap: "calc(var(--grid-gap) / 2)",
-                                borderLeft: "1px solid"
-                            }}
-                        >
-                            <div
-                                style={{
-                                    padding: "calc(var(--grid-gap) / 2) var(--grid-gap)",
-                                    borderBottom: "1px solid"
-                                }}
-                            >
-                                <span style={{ fontSize: "1.3em" }}>{name}</span>
-                            </div>
-                            <div style={{ padding: "0 var(--grid-gap)" }}>{email}</div>
-                        </div>
-                    </div>
-                </div> */}
-
-                <div>
+                <LayoutUser user={profile}>
                     {props.fonts.data.length !== 0 && (
                         <Masonry
                             breakpointCols={{
-                                default: 8,
-                                1920: 7,
-                                1600: 6,
-                                1366: 5,
-                                960: 4,
+                                default: 6,
+                                1680: 5,
+                                1440: 4,
+                                1280: 6,
+                                1024: 5,
+                                860: 4,
                                 720: 3,
-                                500: 2
+                                520: 2
                             }}
                         >
-                            {props.fonts.data.map((item, i) => (
+                            {props.fonts.data.concat(props.fonts.data).map((item, i) => (
                                 <PostCard
                                     key={i}
                                     index={i}
@@ -134,7 +71,7 @@ export default function Page(props: PageProps) {
                             ))}
                         </Masonry>
                     )}
-                </div>
+                </LayoutUser>
 
                 {/* <pre>{JSON.stringify({ fonts: props.fonts.data }, null, 2)}</pre> */}
             </LayoutMain>
