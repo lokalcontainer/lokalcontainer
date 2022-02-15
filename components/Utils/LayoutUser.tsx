@@ -100,9 +100,9 @@ export const LayoutUser: FC<LayoutUserProps> = (props) => {
                         gap: "var(--grid-gap)"
                     }}
                 >
-                    <li>Works</li>
-                    <li>Thoughts</li>
-                    <li>Appreciations</li>
+                    <li style={{ fontSize: "0.85em" }}>Works</li>
+                    <li style={{ fontSize: "0.85em" }}>Thoughts</li>
+                    <li style={{ fontSize: "0.85em" }}>Appreciations</li>
                 </ul>
 
                 {children}

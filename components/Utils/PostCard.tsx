@@ -61,7 +61,7 @@ export const PostCard = (props: PostCardProps) => {
                                 height={image ? image.height : 128}
                                 layout="responsive"
                                 quality={100}
-                                priority={index <= 24}
+                                priority={index <= 16}
                                 // placeholder="blur"
                                 // blurDataURL={`data:image/svg+xml;base64,${toBase64(
                                 //     convertImage(item.meta.heroImage.width, item.meta.heroImage.height)

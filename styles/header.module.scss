@@ -55,7 +55,8 @@
             a,
             button,
             input[type="text"],
-            select {
+            select,
+            > span {
                 // min-width: 2em;
                 // margin: 0;
                 // padding: calc(var(--grid-gap) / 3) var(--grid-gap);
