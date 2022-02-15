@@ -1,3 +1,4 @@
+import styles from "styles/modal.module.scss";
 import type { CSSProperties, FC } from "react";
 import { useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -22,7 +23,7 @@ const LightBoxHeader = (props: LightBoxHeaderProps) => {
             style={{
                 position: "sticky",
                 top: 0,
-                backgroundColor: "var(--alpha-1)",
+                // backgroundColor: "var(--alpha-2)",
                 zIndex: 1,
                 height: "var(--header-height)",
                 width: "100%",
@@ -81,11 +82,23 @@ const LightBoxHeader = (props: LightBoxHeaderProps) => {
                     listStyle: "none",
                     padding: "0 var(--grid-gap)",
                     margin: "0 auto",
-                    width: "100%"
+                    width: "100%",
+                    display: "flex"
                     // maxWidth: 1200
                 }}
             >
-                <li>{title}</li>
+                <li
+                    style={{
+                        border: "1px solid",
+                        backgroundColor: "var(--accents-1)",
+                        height: "1.5em",
+                        display: "inline-flex",
+                        alignItems: "center",
+                        padding: "0 var(--grid-gap)"
+                    }}
+                >
+                    {title}
+                </li>
             </ul>
         </header>
     );
@@ -97,6 +110,7 @@ export const LightBox: FC<LightBoxProps> = (props) => {
     const { lightBox: state } = useLightBox();
 
     const refParent = useRef<HTMLDivElement>(null);
+    const refContent = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         if (!state) return;
@@ -147,13 +161,7 @@ export const LightBox: FC<LightBoxProps> = (props) => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1, transition: { type: "just" } }}
                         exit={{ opacity: 0, transition: { type: "just" } }}
-                        style={{
-                            position: "fixed",
-                            inset: 0,
-                            zIndex: 2000,
-                            overflowY: "scroll",
-                            backgroundColor: "var(--alpha-1)"
-                        }}
+                        className={styles.container}
                     >
                         <div
                             onClick={onRequestClose}
@@ -174,19 +182,12 @@ export const LightBox: FC<LightBoxProps> = (props) => {
                             <LightBoxHeader title={title} onRequestClose={onRequestClose} />
 
                             <div
-                                style={{
-                                    pointerEvents: "initial",
-                                    position: "relative",
-                                    width: "100%",
-                                    maxWidth: 1366,
-                                    margin: "0 auto",
-                                    minHeight: "calc(100vh - calc(var(--grid-gap) * 10))",
-                                    // backgroundColor: "var(--accents-pink)",
-                                    padding: "var(--grid-gap) calc(var(--grid-gap) * 2)",
-                                    ...style
-                                }}
+                                ref={refContent}
+                                className={styles.content_box}
+                                data-layout="fluid"
+                                style={{ ...style }}
                             >
-                                {children}
+                                <div style={{ height: "100%" }}>{children}</div>
                             </div>
                         </div>
                     </motion.div>

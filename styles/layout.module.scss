@@ -1,0 +1,44 @@
+@import "media.scss";
+
+.user {
+    position: relative;
+
+    @include media("screen", ">sMonitor") {
+        display: grid;
+        gap: calc(var(--grid-gap) * 1);
+    }
+    @include media("screen", ">xxlMonitor") {
+        // 8 Rows
+        grid-template-columns: 1.5fr 6.5fr;
+    }
+    @include media("screen", "<xxlMonitor") {
+        // 7 Rows
+        grid-template-columns: 1.5fr 5.5fr;
+    }
+    @include media("screen", "<xlMonitor") {
+        // 6 Rows
+        grid-template-columns: 1.35fr 4.65fr;
+    }
+    @include media("screen", "<lgMonitor") {
+        // 5 Rows
+        grid-template-columns: 1.25fr 3.75fr;
+    }
+    @include media("screen", "<mMonitor") {
+        // 4 Rows
+        grid-template-columns: 1.15fr 2.85fr;
+    }
+
+    .aside {
+        position: relative;
+
+        > ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            position: sticky;
+            top: calc(var(--header-height) * 2);
+            background-color: var(--accents-1);
+            margin-bottom: var(--grid-gap);
+        }
+    }
+}

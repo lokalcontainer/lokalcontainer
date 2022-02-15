@@ -48,6 +48,23 @@ pre {
     position: relative;
 }
 
+[data-layout="fluid"] {
+    width: 100%;
+    margin: 0 auto;
+    // padding-inline: calc(var(--grid-gap) * 6) !important;
+
+    @include media("screen", ">xlMonitor") {
+        max-width: 2186px;
+    }
+    @include media("screen", "<xlMonitor") {
+        max-width: 1440px;
+    }
+    @include media("screen", "<mMonitor") {
+        max-width: 1024px;
+        padding-inline: 0 !important;
+    }
+}
+
 .my-masonry-grid {
     width: 100%;
     display: flex;

@@ -15,66 +15,69 @@ const PreviewFontHeader = () => {
     const { selectedTypeface, typefaces, changeTypeface, font } = useFont();
 
     return (
-        <header>
-            <ul
-                style={{
-                    listStyle: "none",
-                    padding: 0,
-                    margin: 0,
-                    fontWeight: 300,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between"
-                }}
-            >
+        <ul
+            style={{
+                listStyle: "none",
+                padding: "0 var(--grid-gap)",
+                margin: 0,
+                fontWeight: 300,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                height: "var(--header-height)",
+                // backgroundColor: "var(--alpha-2)",
+                // borderBottom: "1px solid",
+                position: "sticky",
+                top: "var(--header-height)"
+            }}
+        >
+            <li>
+                <select
+                    value={selectedTypeface}
+                    onChange={(e) => changeTypeface(e.target.value)}
+                    style={{
+                        fontFamily: "inherit",
+                        fontSize: "inherit",
+                        fontWeight: "inherit",
+                        height: "calc(var(--grid-gap) * 3)",
+                        border: "1px solid",
+                        borderRadius: "calc(var(--grid-gap) / 3)",
+                        backgroundColor: "var(--accents-1)",
+                        color: "var(--accents-12)",
+                        padding: "0 calc(var(--grid-gap) / 2)"
+                    }}
+                >
+                    {typefaces.map((item, i) => (
+                        <option key={i} value={item.fullName}>
+                            {item.fullName}
+                        </option>
+                    ))}
+                </select>
+            </li>
+            {lightBox && (
                 <li>
-                    <select
-                        value={selectedTypeface}
-                        onChange={(e) => changeTypeface(e.target.value)}
-                        style={{
-                            fontFamily: "inherit",
-                            fontSize: "inherit",
-                            fontWeight: "inherit",
-                            height: "calc(var(--grid-gap) * 3)",
-                            border: "1px solid",
-                            borderRadius: "calc(var(--grid-gap) / 3)",
-                            backgroundColor: "var(--accents-1)",
-                            color: "var(--accents-12)",
-                            padding: "0 calc(var(--grid-gap) / 2)"
-                        }}
-                    >
-                        {typefaces.map((item, i) => (
-                            <option key={i} value={item.fullName}>
-                                {item.fullName}
-                            </option>
-                        ))}
-                    </select>
-                </li>
-                {lightBox && (
-                    <li>
-                        <NextLink href="/typeface/[slug]" as={`/typeface/${font.slug}`}>
-                            <a>
-                                <span>Detail</span>
-                            </a>
-                        </NextLink>
-                    </li>
-                )}
-                <li>
-                    <NextLink href="/[user]" as={`/${font.info.designerSlug}`}>
+                    <NextLink href="/typeface/[slug]" as={`/typeface/${font.slug}`}>
                         <a>
-                            <span>By {font.info.designer}</span>
+                            <span>Detail</span>
                         </a>
                     </NextLink>
                 </li>
-            </ul>
-        </header>
+            )}
+            <li>
+                <NextLink href="/[user]" as={`/${font.info.designerSlug}`}>
+                    <a>
+                        <span>By {font.info.designer}</span>
+                    </a>
+                </NextLink>
+            </li>
+        </ul>
     );
 };
 
 const PreviewFontContent = () => {
     const { selectedTypeface, font } = useFont();
     return (
-        <div>
+        <div style={{ minHeight: "200vh" }}>
             {selectedTypeface}
             <pre>{JSON.stringify(font, null, 2)}</pre>
         </div>

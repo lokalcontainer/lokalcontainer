@@ -1,9 +1,10 @@
-$phone: 400px;
-$tablet: 768px;
-$sMonitor: 1024px;
-$mMonitor: 1366px;
-$lgMonitor: 1600px;
+$phone: 520px;
+$tablet: 960px;
+$sMonitor: 1280px;
+$mMonitor: 1440px;
+$lgMonitor: 1680px;
 $xlMonitor: 1920px;
+$xxlMonitor: 2200px;
 
 @function translate-media-condition($c) {
     $condMap: (
@@ -23,6 +24,8 @@ $xlMonitor: 1920px;
         "<lgMonitor": "(max-width: #{$lgMonitor})",
         ">xlMonitor": "(min-width: #{$xlMonitor + 1})",
         "<xlMonitor": "(max-width: #{$xlMonitor})",
+        ">xxlMonitor": "(min-width: #{$xxlMonitor + 1})",
+        "<xxlMonitor": "(max-width: #{$xxlMonitor})"
     );
     @return map-get($condMap, $c);
 }
