@@ -5,6 +5,7 @@ import { useTheme } from "next-themes";
 // import { AnimatePresence, motion } from "framer-motion";
 // import { useRouter } from "next/router";
 import NextLink from "next/link";
+import useWindowSize from "hooks/use-window-size";
 // import { DropDown } from "components/Utils/DropDown";
 
 // import { STATIC_MENU } from "libs/menu.constants";
@@ -142,6 +143,7 @@ import NextLink from "next/link";
 
 export const Header = () => {
     const { theme, themes, setTheme } = useTheme();
+    const { width, height } = useWindowSize();
     // const { session } = useSession();
 
     // const [search, setSearch] = useState(false);
@@ -174,6 +176,11 @@ export const Header = () => {
                             <span>L / C</span>
                         </a>
                     </NextLink>
+                </li>
+                <li>
+                    <a>
+                        <span style={{ fontFeatureSettings: `"tnum"` }}>W / {width}</span>
+                    </a>
                 </li>
                 {/* <MainMenu /> */}
 
