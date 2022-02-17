@@ -57,7 +57,7 @@ const CustomInput = (props: CustomInputProps) => {
 };
 
 const FormSignIn = () => {
-    const { replace } = useRouter();
+    const { replace, query } = useRouter();
     return (
         <div
             style={{
@@ -81,7 +81,7 @@ const FormSignIn = () => {
                                 a.setErrors({ [res.data[0].field]: res.data[0].message });
                             } else {
                                 mutate("/api/v1/sessions/me").then(() =>
-                                    replace("/[user]", `/${res.data?.userName}`)
+                                    replace(query.callback_url as string)
                                 );
                             }
                         })
@@ -212,8 +212,11 @@ export default function Page(props: PageProps) {
                         <li key={i}>
                             <button
                                 onClick={() => {
-                                    // setSelectedTab(item);
-                                    replace(`/auth?form=${item.label}`);
+                                    replace(
+                                        `/auth?form=${item.label}&callback_url=${
+                                            query.callback_url ?? "/"
+                                        }`
+                                    );
                                 }}
                             >
                                 {item.label}
