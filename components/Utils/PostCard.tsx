@@ -7,6 +7,10 @@ type PostCardProps = {
     index: number;
     label: string;
     link: LinkProps;
+    author?: {
+        name: string;
+        userName: string;
+    };
     style?: CSSProperties;
     isActive?: boolean;
     image?: {
@@ -17,11 +21,11 @@ type PostCardProps = {
 };
 
 export const PostCard = (props: PostCardProps) => {
-    const { label, link, image, index, isActive, style } = props;
+    const { label, link, image, index, isActive, style, author } = props;
 
     const [hover, setHover] = useState(false);
     return (
-        <li>
+        <li style={{ marginBottom: "calc(var(--grid-gap) * 3)" }}>
             <NextLink {...link}>
                 <a
                     title={label}
@@ -100,11 +104,7 @@ export const PostCard = (props: PostCardProps) => {
                         </AnimatePresence>
                     </div>
 
-                    <div
-                        style={{
-                            margin: "calc(var(--grid-gap) / 2) 0 calc(var(--grid-gap) * 3) 0"
-                        }}
-                    >
+                    <div style={{ marginTop: "var(--grid-gap)" }}>
                         <span
                             style={{
                                 fontSize: "0.75em",
@@ -123,6 +123,22 @@ export const PostCard = (props: PostCardProps) => {
                     </div>
                 </a>
             </NextLink>
+
+            {author && (
+                <div style={{ color: "var(--accents-5)", fontWeight: 700, fontSize: "0.75em" }}>
+                    <span>By</span>{" "}
+                    <NextLink
+                        href={{
+                            pathname: "/[user]",
+                            query: { user: author.userName }
+                        }}
+                    >
+                        <a>
+                            <span style={{ color: "var(--accents-5)" }}>{author.name}</span>
+                        </a>
+                    </NextLink>
+                </div>
+            )}
         </li>
     );
 };
