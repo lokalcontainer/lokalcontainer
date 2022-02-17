@@ -17,89 +17,69 @@ type LightBoxProps = BaseProps & {
 type LightBoxHeaderProps = BaseProps & {};
 
 const LightBoxHeader = (props: LightBoxHeaderProps) => {
-    const { title, onRequestClose } = props;
+    const { onRequestClose } = props;
     return (
         <header
             style={{
                 position: "sticky",
                 top: 0,
-                // backgroundColor: "var(--alpha-2)",
+                // backgroundColor: "var(--accents-4)",
                 zIndex: 1,
-                height: "var(--header-height)",
+
                 width: "100%",
                 margin: "0 auto",
-                display: "flex",
-                alignItems: "center",
+                // display: "flex",
+                // alignItems: "center",
                 // boxShadow: "0 0 1em -0.75em var(--accents-6), 0 -1px 0.25em 0em var(--accents-4)",
-                padding: "0 var(--grid-gap)",
+                // padding: "0 var(--grid-gap)",
                 pointerEvents: "initial"
             }}
         >
-            <button
-                onClick={onRequestClose}
-                style={{
-                    appearance: "none",
-                    background: "none",
-                    border: "1px solid",
-                    padding: 0,
-                    margin: 0,
-                    fontFamily: "inherit",
-                    fontSize: "inherit",
-                    fontWeight: "bold",
-                    cursor: "pointer",
-                    aspectRatio: "1/1",
-                    width: "1.5em",
-                    backgroundColor: "var(--accents-1)",
-                    color: "var(--accents-12)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    position: "absolute",
-                    right: "calc(var(--grid-gap) * 2)"
-                }}
-            >
-                <span
+            <div style={{ height: "var(--header-height)" }}>
+                <button
+                    onClick={onRequestClose}
                     style={{
-                        fontSize: "0.8em",
-                        fontWeight: "bold",
-                        display: "inline-flex",
-                        alignItems: "center"
-                    }}
-                >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        height="1.5em"
-                        width="1.5em"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                    >
-                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" />
-                    </svg>
-                </span>
-            </button>
-            <ul
-                style={{
-                    listStyle: "none",
-                    padding: "0 var(--grid-gap)",
-                    margin: "0 auto",
-                    width: "100%",
-                    display: "flex"
-                    // maxWidth: 1200
-                }}
-            >
-                <li
-                    style={{
+                        appearance: "none",
+                        background: "none",
                         border: "1px solid",
+                        borderRadius: "calc(var(--grid-gap) / 3)",
+                        padding: 0,
+                        margin: 0,
+                        fontFamily: "inherit",
+                        fontSize: "inherit",
+                        fontWeight: "bold",
+                        cursor: "pointer",
+                        aspectRatio: "1/1",
+                        width: "1.4em",
                         backgroundColor: "var(--accents-1)",
-                        height: "1.5em",
-                        display: "inline-flex",
+                        color: "var(--accents-12)",
+                        display: "flex",
                         alignItems: "center",
-                        padding: "0 var(--grid-gap)"
+                        justifyContent: "center",
+                        position: "absolute",
+                        right: "calc(var(--grid-gap) * 2)"
                     }}
                 >
-                    {title}
-                </li>
-            </ul>
+                    <span
+                        style={{
+                            fontSize: "0.8em",
+                            fontWeight: "bold",
+                            display: "inline-flex",
+                            alignItems: "center"
+                        }}
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            height="1.5em"
+                            width="1.5em"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                        >
+                            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" />
+                        </svg>
+                    </span>
+                </button>
+            </div>
         </header>
     );
 };
@@ -176,7 +156,8 @@ export const LightBox: FC<LightBoxProps> = (props) => {
                             style={{
                                 pointerEvents: "none",
                                 position: "relative",
-                                padding: "0 0 calc(var(--grid-gap) * 3) 0"
+                                padding: "0 0 calc(var(--grid-gap) * 3) 0",
+                                paddingInline: "calc(var(--grid-gap) * 3)"
                             }}
                         >
                             <LightBoxHeader title={title} onRequestClose={onRequestClose} />
