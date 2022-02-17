@@ -1,14 +1,12 @@
 import "styles/global.scss";
 
-import type { AppProps, AppContext } from "next/app";
+import type { AppProps } from "next/app";
 import type { ResponseSession } from "types/session";
 
-import App from "next/app";
 import { ThemeProvider as ProviderTheme } from "next-themes";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import nProgress from "nprogress";
-import { getServerSession } from "libs/get-server-session";
 import { ProviderSession } from "components/Context/ContextSession";
 import { Header } from "components/Header";
 import { Footer } from "components/Footer";
@@ -17,10 +15,16 @@ interface MyAppProps extends AppProps {
     session?: ResponseSession;
 }
 
-nProgress.configure({ showSpinner: false });
+nProgress.configure({
+    showSpinner: true,
+    easing: "ease-in",
+    speed: 250,
+    minimum: 0.01,
+    trickleSpeed: 80
+});
 
 export default function MyApp(props: MyAppProps) {
-    const { Component, pageProps, session } = props;
+    const { Component, pageProps } = props;
     const { events } = useRouter();
 
     useEffect(() => {
@@ -40,24 +44,17 @@ export default function MyApp(props: MyAppProps) {
 
     return (
         <>
-            <ProviderSession session={session}>
+            <ProviderSession>
                 <ProviderTheme
                     disableTransitionOnChange
                     defaultTheme="system"
                     themes={["dark", "light"]}
                 >
                     <Header />
-                    <Component {...pageProps} session={session} />
+                    <Component {...pageProps} />
                     <Footer />
                 </ProviderTheme>
             </ProviderSession>
         </>
     );
 }
-
-MyApp.getInitialProps = async (appContext: AppContext) => {
-    const appProps = await App.getInitialProps(appContext);
-    const responseSession = await getServerSession(appContext.ctx);
-
-    return { ...appProps, session: responseSession };
-};
