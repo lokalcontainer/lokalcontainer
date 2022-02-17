@@ -1,5 +1,6 @@
 import type { GetServerSidePropsContext, NextPageContext } from "next";
-import { ResponseSession } from "types/session";
+import type { ResponseSession } from "types/session";
+import fetchJson from "./lib.fetch";
 
 export const getServerSession = async (
     ctx: GetServerSidePropsContext | NextPageContext
@@ -8,10 +9,11 @@ export const getServerSession = async (
     const protocol = "http";
     const url = req?.headers.host;
     const host = `${protocol}://${url}/api`;
-    const reqUser = await fetch(`${host}/v1/sessions/me`, {
+    const reqUser = await fetchJson<ResponseSession>(`${host}/v1/sessions/me`, {
         // @ts-ignore
-        headers: req?.headers
+        headers: req?.headers,
+        method: "GET"
     });
 
-    return reqUser.json();
+    return reqUser;
 };

@@ -56,7 +56,15 @@ const PreviewFontHeader = () => {
             </li>
             {lightBox && (
                 <li>
-                    <NextLink href="/typeface/[slug]" as={`/typeface/${font.slug}`}>
+                    <NextLink
+                        href={{
+                            pathname: "/[user]/[post]",
+                            query: {
+                                user: font.info.designerSlug,
+                                post: font.slug
+                            }
+                        }}
+                    >
                         <a>
                             <span>Detail</span>
                         </a>

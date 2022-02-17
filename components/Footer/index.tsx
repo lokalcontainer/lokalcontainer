@@ -1,7 +1,13 @@
 import styles from "styles/footer.module.scss";
+import NextDynamic from "next/dynamic";
 // import NextLink from "next/link";
 // import { STATIC_SOCIAL_MENU } from "libs/menu.constants";
 import useLightBox from "hooks/use-light-box";
+
+const Measurment = NextDynamic(() => import("components/Utils/Measurement"), {
+    ssr: false,
+    loading: () => <span>Loading...</span>
+});
 
 export const Footer = () => {
     const date = new Date();
@@ -16,6 +22,12 @@ export const Footer = () => {
                     <ul>
                         <li>Lokal Container &copy; {currentYear}</li>
                         {/* <li>hey@lokalcontainer.org</li> */}
+                    </ul>
+
+                    <ul>
+                        <li>
+                            <Measurment />
+                        </li>
                     </ul>
 
                     {/* <ul>
