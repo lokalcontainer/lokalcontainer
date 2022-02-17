@@ -6,7 +6,6 @@ export default function Measurment() {
         <span
             style={{
                 fontFeatureSettings: `"tnum", "case"`,
-                cursor: "initial",
                 pointerEvents: "none",
                 touchAction: "none",
                 userSelect: "none"

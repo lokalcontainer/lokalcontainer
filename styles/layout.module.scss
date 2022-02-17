@@ -1,4 +1,5 @@
 @import "media.scss";
+@import "mixin.scss";
 
 .user {
     position: relative;
@@ -39,6 +40,164 @@
             top: calc(var(--header-height) * 2);
             background-color: var(--accents-1);
             margin-bottom: var(--grid-gap);
+        }
+    }
+}
+
+.post {
+    position: relative;
+
+    .header {
+        z-index: 10;
+        margin: 0;
+        // margin-bottom: 1em;
+        // margin-block: 0 1em;
+        position: sticky;
+        top: var(--header-height);
+        background-color: var(--accents-1);
+        height: var(--header-height);
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+
+        > span,
+        > a {
+            font-size: 1.65em;
+            color: var(--accents-6);
+            font-weight: 900;
+        }
+
+        > a {
+            &:hover {
+                text-decoration: underline !important;
+            }
+            &:last-child {
+                color: var(--accents-12);
+            }
+        }
+
+        // @include media("screen", "<sMonitor") {
+        //     margin-top: 0;
+        // }
+    }
+
+    .post_content {
+        // padding-inline: 2em;
+
+        @include media("screen", ">sMonitor") {
+            display: grid;
+            gap: calc(var(--grid-gap) * 1);
+        }
+        @include media("screen", "<sMonitor") {
+            display: flex;
+            flex-direction: column-reverse;
+        }
+        @include media("screen", ">xxlMonitor") {
+            // 8 Rows
+            grid-template-columns: 6.5fr 1.5fr;
+        }
+        @include media("screen", "<xxlMonitor") {
+            // 7 Rows
+            grid-template-columns: 5.5fr 1.5fr;
+        }
+        @include media("screen", "<xlMonitor") {
+            // 6 Rows
+            grid-template-columns: 4.65fr 1.35fr;
+        }
+        @include media("screen", "<lgMonitor") {
+            // 5 Rows
+            grid-template-columns: 3.75fr 1.25fr;
+        }
+        @include media("screen", "<mMonitor") {
+            // 4 Rows
+            grid-template-columns: 2.85fr 1.15fr;
+        }
+
+        .sub_header {
+            list-style: none;
+            padding: 0;
+            padding-block: calc(var(--grid-gap) / 1);
+            margin: 0;
+            margin-bottom: 2em;
+
+            position: sticky;
+            top: calc(var(--header-height) * 1);
+            // height: calc(var(--header-height) / 1.25);
+
+            background-color: var(--accents-1);
+
+            display: flex;
+            align-items: center;
+            gap: calc(var(--grid-gap) / 2);
+
+            @include borderShadow();
+
+            > li {
+                a {
+                    display: inline-flex;
+                    align-items: center;
+                    padding-inline: calc(var(--grid-gap) / 1.5);
+                    border: 1px solid transparent !important;
+                    border-radius: 1em;
+                    color: var(--accents-10);
+                    font-weight: 700;
+
+                    transition: border-color 300ms ease, border-radius 300ms ease 50ms;
+
+                    &[data-active="false"] {
+                        &:hover {
+                            // border-color: var(--accents-8) !important;
+                            border-radius: 0.15em;
+                        }
+                    }
+
+                    &[data-active="true"] {
+                        // border-color: var(--accents-8) !important;
+                        background-color: var(--accents-3);
+                        border-radius: 0.15em;
+                    }
+
+                    > span {
+                        display: block;
+                    }
+                }
+            }
+        }
+
+        .aside {
+            position: relative;
+
+            > ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+
+                position: sticky;
+                top: calc(var(--header-height) * 2);
+
+                li {
+                    a {
+                        &[data-active="true"] {
+                            color: red !important;
+                        }
+                    }
+                }
+
+                // li {
+                //     &:first-child {
+                //         @include media("screen", ">sMonitor") {
+                //             @include borderShadow();
+                //         }
+                //     }
+                // }
+            }
+            // style={{
+            //                 position: "sticky",
+            //                 top: "calc(var(--header-height) * 1)",
+            //                 listStyle: "none",
+            //                 padding: 0,
+            //                 margin: 0
+            //             }}
         }
     }
 }

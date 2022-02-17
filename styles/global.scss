@@ -3,7 +3,7 @@
 
 * {
     box-sizing: border-box;
-    border-color: var(--accents-3) !important;
+    // border-color: var(--accents-3) !important;
 
     -webkit-tap-highlight-color: transparent;
     -moz-osx-font-smoothing: grayscale;
@@ -35,7 +35,7 @@ body {
 }
 
 a {
-    color: inherit;
+    color: currentColor;
     font-family: inherit;
     text-decoration: none;
 }
@@ -105,7 +105,7 @@ pre {
 }
 
 #nprogress .bar {
-    background: var(--accents-2);
+    background: var(--accents-12);
 
     position: fixed;
     z-index: 2002;
@@ -117,19 +117,31 @@ pre {
 }
 
 /* Fancy blur effect */
-#nprogress .peg {
-    display: block;
-    position: absolute;
-    right: 0px;
-    width: calc(var(--grid-gap) * 20);
-    height: 100%;
-    box-shadow: 0px 0px 15px #0000ff, 0px 0px 5px #00ffff;
-    opacity: 1;
+// #nprogress .peg {
+//     display: block;
+//     position: absolute;
+//     right: 0px;
+//     width: calc(var(--grid-gap) * 20);
+//     height: 100%;
+//     box-shadow: 0px 0px 15px #0000ff, 0px 0px 5px #ff00ff;
+//     opacity: 1;
 
-    -webkit-transform: rotate(3deg) translate(0px, -4px);
-    -ms-transform: rotate(3deg) translate(0px, -4px);
-    transform: rotate(3deg) translate(0px, -4px);
-}
+//     -webkit-transform: rotate(3deg) translate(0px, -4px);
+//     -ms-transform: rotate(3deg) translate(0px, -4px);
+//     transform: rotate(3deg) translate(0px, -4px);
+
+//     // &::after {
+//     //     content: "";
+//     //     position: absolute;
+//     //     right: 0;
+//     //     top: 0;
+//     //     transform: translate(50%, -50%);
+//     //     width: var(--grid-gap);
+//     //     height: var(--grid-gap);
+//     //     border-radius: 100%;
+//     //     background-color: var(--accents-8);
+//     // }
+// }
 
 /* Remove these to get rid of the spinner */
 #nprogress .spinner {
@@ -140,30 +152,29 @@ pre {
     left: 50%;
     transform: translate(-50%, -50%);
 
-    width: 6em;
-    height: 6em;
-    border: 1px solid;
-    border-radius: var(--grid-gap);
+    // width: 6em;
+    // height: 6em;
+    // border: 1px solid;
+    // border-radius: var(--grid-gap);
     display: flex;
     align-items: center;
     justify-content: center;
 
-    background-color: var(--alpha-2);
+    // background-color: var(--alpha-1);
 }
 
 #nprogress .spinner-icon {
-    width: calc(var(--grid-gap) * 3);
-    height: calc(var(--grid-gap) * 3);
+    width: calc(var(--grid-gap) * 10);
+    height: calc(var(--grid-gap) * 10);
     box-sizing: border-box;
 
-    border: solid 2px transparent;
-    border-top-color: #0000ff;
-    border-left-color: #0000ff;
+    border: solid calc(var(--grid-gap) / 2.5) transparent;
+    border-top-color: var(--accents-12);
+    border-left-color: var(--accents-12);
     border-radius: 50%;
-    filter: drop-shadow(0 0 2px #0000ff);
+    // filter: drop-shadow(0 0 2px #0000ff);
 
-    -webkit-animation: nprogress-spinner 400ms linear infinite;
-    animation: nprogress-spinner 400ms linear infinite;
+    animation: nprogress-spinner 350ms linear infinite;
 }
 
 .nprogress-custom-parent {

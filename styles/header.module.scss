@@ -1,12 +1,12 @@
 .app_header {
     position: sticky;
     top: 0;
-    padding-inline: calc(var(--grid-gap) * 2);
+    padding-inline: calc(var(--grid-gap) * 3);
     // padding-block: calc(var(--grid-gap) / 2);
     z-index: 1000;
 
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     align-items: center;
     gap: var(--grid-gap);
 
@@ -29,7 +29,7 @@
 
         display: flex;
         align-items: center;
-        gap: calc(var(--grid-gap) / 1);
+        gap: calc(var(--grid-gap) / 2);
         // height: 100%;
 
         > li {
@@ -38,12 +38,13 @@
             // border-radius: calc(var(--grid-gap) / 3);
             // border: 1px solid;
             // min-height: calc(var(--grid-gap) * 3);
+            position: relative;
             height: 100%;
             // border: 1px solid;
 
             display: inline-flex;
             align-items: center;
-            justify-content: flex-start;
+            justify-content: center;
 
             // font-weight: 300;
 
@@ -52,10 +53,16 @@
                 padding: 0;
             }
 
-            a,
-            button,
-            input[type="text"],
-            select,
+            > a {
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+
+            > a,
+            > button,
+            > input[type="text"],
+            > select,
             > span {
                 // min-width: 2em;
                 // margin: 0;
@@ -91,9 +98,10 @@
                 span {
                     display: inline-flex;
                     align-items: center;
-                    white-space: nowrap;
+                    justify-content: center;
                     overflow: hidden;
-                    text-overflow: ellipsis;
+                    // white-space: nowrap;
+                    // text-overflow: ellipsis;
                 }
 
                 // &:hover {

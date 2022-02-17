@@ -1,0 +1,3 @@
+@mixin borderShadow {
+    box-shadow: 0 0.35em 0.75em -0.75em var(--accents-4), 0 2px 0.2em -0.2em var(--accents-6);
+}
