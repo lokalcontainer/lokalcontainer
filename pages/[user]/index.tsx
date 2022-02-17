@@ -5,6 +5,7 @@ import type { ResponseUser } from "types/user";
 import { useRouter } from "next/router";
 
 import fetchJson from "libs/lib.fetch";
+import getServerUser from "libs/get-server-account";
 import { LayoutMain } from "components/LayoutMain";
 import { LayoutUser } from "components/Utils/LayoutUser";
 import { PostCard } from "components/Utils/PostCard";
@@ -12,8 +13,6 @@ import Masonry from "components/Masonry";
 import LightBox from "components/LightBox";
 
 type ResponseFonts = BaseResponse & { data: FontType[] };
-
-type ResponseProfile = ResponseUser;
 
 type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 
@@ -51,11 +50,12 @@ export default function Page(props: PageProps) {
                                             pathname: "/[user]",
                                             query: {
                                                 user: userName,
+                                                font: item.slug,
                                                 lightBox: true,
                                                 slug: item.slug
                                             }
                                         },
-                                        as: `/typeface/${item.slug}`,
+                                        as: `/${userName}/${item.slug}`,
                                         scroll: false,
                                         shallow: true
                                     }}
@@ -72,8 +72,6 @@ export default function Page(props: PageProps) {
                         </Masonry>
                     )}
                 </LayoutUser>
-
-                {/* <pre>{JSON.stringify({ fonts: props.fonts.data }, null, 2)}</pre> */}
             </LayoutMain>
 
             <LightBox
@@ -99,15 +97,10 @@ export const getServerSideProps: GetServerSideProps<ServerProps> = async (ctx) =
     const protocol = "http";
     const url = req?.headers.host;
     const host = `${protocol}://${url}/api`;
-    const reqProfile = await fetchJson<ResponseProfile>(`${host}/v1/users/${slug}`);
+    const reqProfile = await getServerUser(ctx);
     const reqFonts = await fetchJson<ResponseFonts>(`${host}/v1/fonts/owner/${slug}`);
 
-    if (!reqProfile || !reqProfile.success) {
-        return {
-            notFound: true
-        };
-    }
-
+    if (!reqProfile || !reqProfile.success) return { notFound: true };
     return {
         props: { profile: reqProfile, slug: slug as string, fonts: reqFonts }
     };

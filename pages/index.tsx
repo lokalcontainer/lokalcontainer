@@ -67,12 +67,13 @@ const FontCard = (props: FontCardProps) => {
                     item.typefacesID.length
                 } style(s)`}
                 isActive={isActive}
+                author={{ userName: item.info.designerSlug, name: item.info.designer }}
                 link={{
                     href: {
                         pathname: "/",
-                        query: { lightBox: true, slug: item.slug, index }
+                        query: { lightBox: true, post: item.slug, index }
                     },
-                    as: `/typeface/${item.slug}`,
+                    as: `/${item.info.designerSlug}/${item.slug}`,
                     scroll: false,
                     shallow: true,
                     passHref: true
@@ -95,14 +96,14 @@ type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 export default function Page(props: PageProps) {
     const { query, push } = useRouter();
     const serverFonts = props.fonts.data;
-    const newFonts = serverFonts.concat(serverFonts, serverFonts, serverFonts, serverFonts);
-    // const newFonts = serverFonts;
+    // const newFonts = serverFonts.concat(serverFonts, serverFonts, serverFonts, serverFonts);
+    const newFonts = serverFonts;
     const fonts = useMemo(() => newFonts, [newFonts]);
 
     const [selectedFont, setSelectedFont] = useState<FontType | undefined>(undefined);
 
     useEffect(() => {
-        setSelectedFont(() => serverFonts.find((item) => item.slug === query.slug));
+        setSelectedFont(() => serverFonts.find((item) => item.slug === query.post));
     }, [query, serverFonts]);
 
     return (
@@ -119,7 +120,7 @@ export default function Page(props: PageProps) {
                         960: 2
                     }}
                 >
-                    {fonts.map((item, i) => (
+                    {fonts.concat(fonts).map((item, i) => (
                         <FontCard key={i} index={i} item={item} />
                     ))}
                 </MasonryNew>
