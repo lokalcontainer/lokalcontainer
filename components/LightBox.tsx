@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import NextHead from "next/head";
 import useLightBox from "hooks/use-light-box";
+import useOnClickOutside from "hooks/use-on-click-outside";
 
 type BaseProps = {
     onRequestClose: () => void;
@@ -23,15 +24,9 @@ const LightBoxHeader = (props: LightBoxHeaderProps) => {
             style={{
                 position: "sticky",
                 top: 0,
-                // backgroundColor: "var(--accents-4)",
                 zIndex: 1,
-
                 width: "100%",
                 margin: "0 auto",
-                // display: "flex",
-                // alignItems: "center",
-                // boxShadow: "0 0 1em -0.75em var(--accents-6), 0 -1px 0.25em 0em var(--accents-4)",
-                // padding: "0 var(--grid-gap)",
                 pointerEvents: "initial"
             }}
         >
@@ -57,7 +52,8 @@ const LightBoxHeader = (props: LightBoxHeaderProps) => {
                         alignItems: "center",
                         justifyContent: "center",
                         position: "absolute",
-                        right: "calc(var(--grid-gap) * 2)"
+                        left: 0,
+                        top: "var(--grid-gap)"
                     }}
                 >
                     <span
@@ -91,6 +87,7 @@ export const LightBox: FC<LightBoxProps> = (props) => {
 
     const refParent = useRef<HTMLDivElement>(null);
     const refContent = useRef<HTMLDivElement>(null);
+    useOnClickOutside(refContent, onRequestClose);
 
     useEffect(() => {
         if (!state) return;
@@ -165,10 +162,10 @@ export const LightBox: FC<LightBoxProps> = (props) => {
                             <div
                                 ref={refContent}
                                 className={styles.content_box}
-                                data-layout="fluid"
+                                // data-layout="fluid"
                                 style={{ ...style }}
                             >
-                                <div style={{ height: "100%" }}>{children}</div>
+                                {children}
                             </div>
                         </div>
                     </motion.div>

@@ -25,17 +25,38 @@ export default function Page(props: PageProps) {
     return (
         <LayoutMain>
             <LayoutPost slug={post.slug} user={{ userName, fullName: name }}>
-                <div style={{ minHeight: "150vh" }}>
+                <div
+                    style={{
+                        minHeight:
+                            "calc(100vh - calc(var(--header-height) * 2) - calc(var(--header-height) / 2))"
+                    }}
+                >
                     <div>
-                        <span
-                            style={{
-                                textTransform: "capitalize",
-                                fontSize: "2em",
-                                fontWeight: "bold"
-                            }}
-                        >
-                            {tab.replace(/-/g, " ").trim()}
-                        </span>
+                        {!tab || tab === "overview" ? (
+                            <p
+                                style={{
+                                    fontSize: "10em",
+                                    fontWeight: "bold",
+                                    marginBlock: "calc(var(--grid-gap) / 2)",
+                                    margin: 0,
+                                    lineHeight: 1
+                                }}
+                            >
+                                Type Height <br />
+                                in Point &amp; <br />
+                                Millimeter
+                            </p>
+                        ) : (
+                            <span
+                                style={{
+                                    textTransform: "capitalize",
+                                    fontSize: "2em",
+                                    fontWeight: "bold"
+                                }}
+                            >
+                                {tab.replace(/-/g, " ").trim()}
+                            </span>
+                        )}
                     </div>
                 </div>
             </LayoutPost>
@@ -45,9 +66,7 @@ export default function Page(props: PageProps) {
 
 type ServerProps = {
     user: ResponseUser;
-    post: BaseResponse & {
-        data: any;
-    };
+    post: BaseResponse & { data: any };
     tab: string;
 };
 

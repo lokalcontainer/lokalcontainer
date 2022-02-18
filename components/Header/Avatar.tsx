@@ -24,7 +24,7 @@ export const HeaderAvatar = () => {
             events.off("routeChangeComplete", handler);
             events.off("routeChangeError", handler);
         };
-    }, [events, asPath]);
+    }, [events, asPath, modal]);
 
     return (
         <li
@@ -34,8 +34,8 @@ export const HeaderAvatar = () => {
                 position: "relative",
                 border: "1px solid",
                 borderRadius: "calc(var(--grid-gap) / 3)",
-                height: session ? "1.4em" : "1.4em",
-                width: session ? "1.4em" : "auto",
+                height: session ? "1.5em" : "1.5em",
+                width: session ? "1.5em" : "auto",
                 color: "var(--accents-8)"
             }}
         >
@@ -50,7 +50,8 @@ export const HeaderAvatar = () => {
                         <a
                             style={{
                                 position: "relative",
-                                display: "block"
+                                display: "block",
+                                overflow: "hidden"
                             }}
                         >
                             <span

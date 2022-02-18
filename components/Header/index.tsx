@@ -47,6 +47,18 @@ export const Header = () => {
                             </NextLink>
                         </li>
 
+                        <li style={listStyle}>
+                            <span style={textStyle}>/</span>
+                        </li>
+
+                        <li style={listStyle}>
+                            <NextLink href="/">
+                                <a style={linkStyle}>
+                                    <span style={textStyle}>L - C</span>
+                                </a>
+                            </NextLink>
+                        </li>
+
                         {breadcrumbs.length !== 0 &&
                             breadcrumbs.map((item, i) => {
                                 return (
@@ -85,7 +97,7 @@ export const Header = () => {
                                 color: "var(--accents-8)",
                                 border: "1px solid var(--accents-8)",
                                 borderRadius: "calc(var(--grid-gap) / 3)",
-                                width: "1.3em",
+                                width: "1.5em",
                                 padding: 0,
                                 aspectRatio: "1/1"
                             }}
@@ -111,7 +123,7 @@ export const Header = () => {
 
                 <li
                     style={{
-                        height: "1.4em",
+                        height: "1.55em",
                         border: "1px solid var(--accents-8)",
                         color: "var(--accents-8)",
                         borderRadius: "calc(var(--grid-gap) * 4)",

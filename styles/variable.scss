@@ -32,8 +32,9 @@
 
     --accents-pink: #ffe6ec;
 
-    --alpha-1: rgb(245 245 245 / 90%);
+    --alpha-1: rgb(245 245 245 / 80%);
     --alpha-2: rgb(245 245 245 / 60%);
+    --alpha-3: rgb(245 245 245 / 40%);
 }
 
 [data-theme="light"] {
@@ -51,8 +52,9 @@
     --accents-12: #101010;
 
     --accents-pink: #ffe6ec;
-    --alpha-1: rgb(245 245 245 / 90%);
+    --alpha-1: rgb(245 245 245 / 80%);
     --alpha-2: rgb(245 245 245 / 60%);
+    --alpha-3: rgb(245 245 245 / 40%);
 }
 
 [data-theme="dark"] {
@@ -70,8 +72,9 @@
     --accents-12: #efefef;
 
     --accents-pink: #c49ba5;
-    --alpha-1: rgb(10 10 10 / 90%);
+    --alpha-1: rgb(10 10 10 / 80%);
     --alpha-2: rgb(10 10 10 / 60%);
+    --alpha-3: rgb(10 10 10 / 40%);
 
     img {
         filter: brightness(80%);
