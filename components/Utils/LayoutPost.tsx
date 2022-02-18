@@ -2,6 +2,7 @@ import styles from "styles/layout.module.scss";
 import type { FC } from "react";
 import NextLink, { LinkProps } from "next/link";
 import { useRouter } from "next/router";
+import { useSession } from "components/Context/ContextSession";
 
 type LayoutPostProps = {
     user: {
@@ -18,6 +19,7 @@ type StaticLink = {
 };
 
 export const LayoutPost: FC<LayoutPostProps> = (props) => {
+    const { session } = useSession();
     const { children, user, slug } = props;
     const { fullName, userName } = user;
     const { query } = useRouter();
@@ -35,6 +37,28 @@ export const LayoutPost: FC<LayoutPostProps> = (props) => {
             }
         },
         {
+            label: "Typetools",
+            slug: "typetools",
+            link: {
+                shallow: true,
+                href: {
+                    pathname: "/[user]/[post]",
+                    query: { user: userName, post: slug, tab: "typetools" }
+                }
+            }
+        },
+        {
+            label: "Case Study",
+            slug: "case-study",
+            link: {
+                shallow: true,
+                href: {
+                    pathname: "/[user]/[post]",
+                    query: { user: userName, post: slug, tab: "case-study" }
+                }
+            }
+        },
+        {
             label: "Glyph",
             slug: "glyph",
             link: {
@@ -42,17 +66,6 @@ export const LayoutPost: FC<LayoutPostProps> = (props) => {
                 href: {
                     pathname: "/[user]/[post]",
                     query: { user: userName, post: slug, tab: "glyph" }
-                }
-            }
-        },
-        {
-            label: "Character Set",
-            slug: "character-set",
-            link: {
-                shallow: true,
-                href: {
-                    pathname: "/[user]/[post]",
-                    query: { user: userName, post: slug, tab: "character-set" }
                 }
             }
         }
@@ -67,7 +80,6 @@ export const LayoutPost: FC<LayoutPostProps> = (props) => {
                             <li key={i}>
                                 <NextLink {...item.link} scroll>
                                     <a
-                                        style={{ backgroundColor: `var(--accents-${i + 3})` }}
                                         data-active={
                                             (!query.tab && item.slug === "overview") ||
                                             query.tab === item.slug
@@ -86,19 +98,29 @@ export const LayoutPost: FC<LayoutPostProps> = (props) => {
                     <ul>
                         <li
                             style={{
-                                fontWeight: "bold",
-                                height: "var(--header-height)",
                                 display: "flex",
-                                alignItems: "center"
+                                alignItems: "center",
+                                justifyContent: "space-between"
                             }}
                         >
-                            About
+                            <span style={{ fontSize: "1.5em", fontWeight: "bold" }}>About</span>
+                            {session && session.userName === user.userName && (
+                                <span style={{ fontSize: "0.85em", color: "var(--accents-6)" }}>
+                                    Edit
+                                </span>
+                            )}
                         </li>
                         <li>
-                            <p style={{ fontWeight: 300, marginBottom: "2em" }}>
-                                Opensource font publishing platform, made by people across the globe
+                            <p style={{ fontWeight: 300, lineHeight: 1.5 }}>
+                                {/* Opensource font publishing platform, made by people across the globe */}
+                                There are many variations of passages of Lorem Ipsum available, but
+                                the majority have suffered alteration in some form, by injected
+                                humour, or randomised words which don&apos;t look even slightly
+                                believable.
                             </p>
                         </li>
+
+                        <li>License</li>
                     </ul>
                 </aside>
             </div>
