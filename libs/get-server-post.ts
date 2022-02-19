@@ -1,10 +1,6 @@
 import type { GetServerSidePropsContext } from "next";
-import type { BaseResponse } from "types/response";
 import fetchJson from "./lib.fetch";
-
-type ResponsePost = BaseResponse & {
-    data: any;
-};
+import type { ResponsePost } from "types/post";
 
 export default async function getServerPost(ctx: GetServerSidePropsContext): Promise<ResponsePost> {
     const { params, req } = ctx;
@@ -13,6 +9,6 @@ export default async function getServerPost(ctx: GetServerSidePropsContext): Pro
     const url = req?.headers.host;
     const host = `${protocol}://${url}/api`;
 
-    const post = await fetchJson<ResponsePost>(`${host}/v1/fonts/${slug}`);
+    const post = await fetchJson<ResponsePost>(`${host}/v1/posts/${slug}`, { method: "GET" });
     return post;
 }
