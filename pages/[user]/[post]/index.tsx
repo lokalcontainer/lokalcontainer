@@ -1,12 +1,13 @@
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import type { ResponseUser } from "types/user";
-import type { BaseResponse } from "types/response";
+import type { ResponsePost } from "types/post";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import getServerUser from "libs/get-server-account";
 import getServerPost from "libs/get-server-post";
 import { LayoutMain } from "components/LayoutMain";
 import { LayoutPost } from "components/Utils/LayoutPost";
+import PreviewPost from "components/Preview/PreviewPost";
 
 type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 
@@ -33,29 +34,32 @@ export default function Page(props: PageProps) {
                 >
                     <div>
                         {!tab || tab === "overview" ? (
-                            <p
-                                style={{
-                                    fontSize: "10em",
-                                    fontWeight: "bold",
-                                    marginBlock: "calc(var(--grid-gap) / 2)",
-                                    margin: 0,
-                                    lineHeight: 1
-                                }}
-                            >
-                                Type Height <br />
-                                in Point &amp; <br />
-                                Millimeter
-                            </p>
+                            <PreviewPost post={post} />
                         ) : (
-                            <span
-                                style={{
-                                    textTransform: "capitalize",
-                                    fontSize: "2em",
-                                    fontWeight: "bold"
-                                }}
-                            >
-                                {tab.replace(/-/g, " ").trim()}
-                            </span>
+                            <>
+                                <span
+                                    style={{
+                                        textTransform: "capitalize",
+                                        fontSize: "2em",
+                                        fontWeight: "bold"
+                                    }}
+                                >
+                                    {tab.replace(/-/g, " ").trim()}
+                                </span>
+                                <p
+                                    style={{
+                                        fontSize: "10em",
+                                        fontWeight: "bold",
+                                        marginBlock: "calc(var(--grid-gap) / 2)",
+                                        margin: 0,
+                                        lineHeight: 1
+                                    }}
+                                >
+                                    Type Height <br />
+                                    in Point &amp; <br />
+                                    Millimeter
+                                </p>
+                            </>
                         )}
                     </div>
                 </div>
@@ -66,7 +70,7 @@ export default function Page(props: PageProps) {
 
 type ServerProps = {
     user: ResponseUser;
-    post: BaseResponse & { data: any };
+    post: ResponsePost;
     tab: string;
 };
 
@@ -77,11 +81,15 @@ export const getServerSideProps: GetServerSideProps<ServerProps> = async (ctx) =
 
     if (!user || !user.success) return { notFound: true };
     if (!post || !post.success) return { notFound: true };
+    if (!queries.tab)
+        return {
+            redirect: {
+                destination: `/${user.data.userName}/${post.data.slug}?tab=overview`,
+                permanent: false
+            },
+            props: { user, post, tab: "overview" }
+        };
     return {
-        props: {
-            user,
-            post,
-            tab: queries.tab ? (queries.tab as string) : "overview"
-        }
+        props: { user, post, tab: queries.tab as string }
     };
 };

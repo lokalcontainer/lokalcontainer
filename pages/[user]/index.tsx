@@ -1,33 +1,41 @@
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
-import type { FontType } from "libs/fonts.dummy";
-import type { BaseResponse } from "types/response";
 import type { ResponseUser } from "types/user";
+import type { BasePost, ResponsePosts } from "types/post";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 import fetchJson from "libs/lib.fetch";
 import getServerUser from "libs/get-server-account";
 import { LayoutMain } from "components/LayoutMain";
-import { LayoutUser } from "components/Utils/LayoutUser";
-import { PostCard } from "components/Utils/PostCard";
 import Masonry from "components/Masonry";
 import LightBox from "components/LightBox";
-
-type ResponseFonts = BaseResponse & { data: FontType[] };
+import { LayoutUser } from "components/Utils/LayoutUser";
+import { PostCard } from "components/Utils/PostCard";
+import PreviewPost from "components/Preview/PreviewPost";
 
 type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 
 export default function Page(props: PageProps) {
-    const { profile } = props;
+    const { profile, posts } = props;
     const {
         data: { userName }
     } = profile;
 
-    const { push } = useRouter();
+    const { push, query } = useRouter();
+    const serverPosts = posts.data;
+    // const newPosts = serverPosts.concat(serverPosts, serverPosts, serverPosts, serverPosts);
+    const newPosts = serverPosts;
+
+    const [selectedPost, setSelectedPost] = useState<BasePost | undefined>(undefined);
+
+    useEffect(() => {
+        setSelectedPost(() => serverPosts.find((item) => item.slug === query.post));
+    }, [query, serverPosts]);
     return (
         <>
             <LayoutMain title={`${profile.data.name} on L / C`}>
                 <LayoutUser user={profile}>
-                    {props.fonts.data.length !== 0 && (
+                    {newPosts.length !== 0 && (
                         <Masonry
                             breakpointCols={{
                                 default: 6,
@@ -40,32 +48,38 @@ export default function Page(props: PageProps) {
                                 520: 2
                             }}
                         >
-                            {props.fonts.data.concat(props.fonts.data).map((item, i) => (
+                            {newPosts.map((item, i) => (
                                 <PostCard
                                     key={i}
                                     index={i}
-                                    label={item.subFamily ? item.subFamily : item.family}
+                                    label={item.title}
+                                    type={item.type}
+                                    author={{
+                                        name: item.author.name,
+                                        userName: item.author.userName
+                                    }}
                                     link={{
                                         href: {
                                             pathname: "/[user]",
                                             query: {
-                                                user: userName,
-                                                font: item.slug,
                                                 lightBox: true,
-                                                slug: item.slug
+                                                post: item.slug,
+                                                index: i,
+                                                user: item.slug
                                             }
                                         },
-                                        as: `/${userName}/${item.slug}`,
+                                        as: `/${item.author.userName}/${item.slug}`,
                                         scroll: false,
-                                        shallow: true
+                                        shallow: true,
+                                        passHref: true
                                     }}
                                     image={{
-                                        url: item.meta.heroImage.url,
-                                        width: item.meta.heroImage.width,
-                                        height: item.meta.heroImage.height
+                                        url: item.images[0].small.url,
+                                        width: item.images[0].small.width,
+                                        height: item.images[0].small.height
                                     }}
                                     style={{
-                                        backgroundColor: `rgb(${item.meta.heroImage.colors[0]}, ${item.meta.heroImage.colors[1]}, ${item.meta.heroImage.colors[2]})`
+                                        backgroundColor: `rgb(${item.images[0].dominant.r}, ${item.images[0].dominant.g}, ${item.images[0].dominant.b})`
                                     }}
                                 />
                             ))}
@@ -79,7 +93,7 @@ export default function Page(props: PageProps) {
                     push("/[user]", `/${userName}`, { shallow: true, scroll: false })
                 }
             >
-                Lightbox
+                <PreviewPost post={selectedPost} />
             </LightBox>
         </>
     );
@@ -88,7 +102,7 @@ export default function Page(props: PageProps) {
 type ServerProps = {
     profile: ResponseUser;
     slug: string;
-    fonts: ResponseFonts;
+    posts: ResponsePosts;
 };
 
 export const getServerSideProps: GetServerSideProps<ServerProps> = async (ctx) => {
@@ -98,10 +112,11 @@ export const getServerSideProps: GetServerSideProps<ServerProps> = async (ctx) =
     const url = req?.headers.host;
     const host = `${protocol}://${url}/api`;
     const reqProfile = await getServerUser(ctx);
-    const reqFonts = await fetchJson<ResponseFonts>(`${host}/v1/fonts/owner/${slug}`);
+
+    const posts = await fetchJson<ResponsePosts>(`${host}/v1/posts/owner/${slug}`);
 
     if (!reqProfile || !reqProfile.success) return { notFound: true };
     return {
-        props: { profile: reqProfile, slug: slug as string, fonts: reqFonts }
+        props: { profile: reqProfile, slug: slug as string, posts }
     };
 };
