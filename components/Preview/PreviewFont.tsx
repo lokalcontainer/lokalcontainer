@@ -121,12 +121,12 @@ const PreviewFontContent = () => {
                     <div
                         style={{
                             position: "relative",
-                            border: "1px solid",
+                            // border: "1px solid",
                             verticalAlign: "middle",
                             maxHeight: "calc(100% + 1px - var(--header-height))",
                             overflow: "hidden",
-                            backgroundColor: `rgba(${image1.colors[0]}, ${image1.colors[1]}, ${image1.colors[2]}, 100%)`,
-                            padding: "var(--grid-gap)"
+                            backgroundColor: `rgba(${image1.colors[0]}, ${image1.colors[1]}, ${image1.colors[2]}, 100%)`
+                            // padding: "var(--grid-gap)"
                             // transform: "translateY(-50%)",
                             // top: "50%",
                         }}
@@ -196,6 +196,19 @@ const PreviewFontContent = () => {
                         >
                             <a style={{ textDecoration: "underline" }}>
                                 <span>Case Study</span>
+                            </a>
+                        </NextLink>
+                        <NextLink
+                            href={{
+                                pathname: "/[user]/[post]",
+                                query: {
+                                    user: info.designerSlug,
+                                    post: slug
+                                }
+                            }}
+                        >
+                            <a style={{ textDecoration: "underline" }}>
+                                <span>Detail</span>
                             </a>
                         </NextLink>
                     </div>
