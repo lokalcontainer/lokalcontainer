@@ -1,7 +1,8 @@
 import styles from "styles/layout.module.scss";
-import type { FC } from "react";
+import { FC, useState } from "react";
 import NextLink, { LinkProps } from "next/link";
 import { useRouter } from "next/router";
+import useScrollPosition from "hooks/use-scroll-position";
 import { useSession } from "components/Context/ContextSession";
 
 type LayoutPostProps = {
@@ -21,8 +22,18 @@ type StaticLink = {
 export const LayoutPost: FC<LayoutPostProps> = (props) => {
     const { session } = useSession();
     const { children, user, slug } = props;
-    const { fullName, userName } = user;
+    const { userName } = user;
     const { query } = useRouter();
+
+    const [isScroll, setIsScroll] = useState(false);
+
+    useScrollPosition(
+        ({ prevPos, currPos }) => {
+            const isShow = currPos.y < prevPos.y;
+            if (isShow !== isScroll) setIsScroll(isShow);
+        },
+        [isScroll]
+    );
 
     const staticLinks: StaticLink[] = [
         {
@@ -73,9 +84,9 @@ export const LayoutPost: FC<LayoutPostProps> = (props) => {
 
     return (
         <div className={styles.post}>
-            <div className={styles.post_content}>
+            <div className={styles.post_content} data-layout="fluids">
                 <div>
-                    <ul className={styles.sub_header}>
+                    <ul className={styles.sub_header} data-scroll={isScroll}>
                         {staticLinks.map((item, i) => (
                             <li key={i}>
                                 <NextLink {...item.link} scroll>
@@ -97,6 +108,7 @@ export const LayoutPost: FC<LayoutPostProps> = (props) => {
                 <aside className={styles.aside}>
                     <ul>
                         <li
+                            data-scroll={isScroll}
                             style={{
                                 display: "flex",
                                 alignItems: "center",
@@ -120,7 +132,9 @@ export const LayoutPost: FC<LayoutPostProps> = (props) => {
                             </p>
                         </li>
 
-                        <li>License</li>
+                        <li>
+                            <div>License</div>
+                        </li>
                     </ul>
                 </aside>
             </div>
