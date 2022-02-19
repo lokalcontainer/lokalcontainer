@@ -13,6 +13,7 @@ type PostCardProps = {
     };
     style?: CSSProperties;
     isActive?: boolean;
+    type?: "font" | "blog" | "article" | "goods";
     image?: {
         url: string;
         width: number;
@@ -21,11 +22,11 @@ type PostCardProps = {
 };
 
 export const PostCard = (props: PostCardProps) => {
-    const { label, link, image, index, isActive, style, author } = props;
+    const { label, link, image, index, isActive, style, author, type } = props;
 
     const [hover, setHover] = useState(false);
     return (
-        <li style={{ marginBottom: "calc(var(--grid-gap) * 3)" }}>
+        <li style={{ marginBottom: "calc(var(--grid-gap) * 4)" }}>
             <NextLink {...link}>
                 <a
                     title={label}
@@ -104,29 +105,79 @@ export const PostCard = (props: PostCardProps) => {
                             )}
                         </AnimatePresence>
                     </div>
-
-                    <div style={{ marginTop: "var(--grid-gap)" }}>
-                        <span
-                            style={{
-                                fontSize: "0.75em",
-                                fontFeatureSettings: `"case"`,
-                                textTransform: "uppercase",
-                                fontWeight: 300,
-                                display: "block"
-                                // overflow: "hidden",
-                                // textOverflow: "ellipsis"
-                                // whiteSpace: "nowrap",
-                                // width: "100%"
-                            }}
-                        >
-                            {label}
-                        </span>
-                    </div>
                 </a>
             </NextLink>
 
+            {type && (
+                <div
+                    style={{
+                        color:
+                            type === "font"
+                                ? "turquoise"
+                                : type === "blog" || type === "article"
+                                ? "magenta"
+                                : "red",
+                        textTransform: "capitalize",
+                        marginBlock: "calc(var(--grid-gap) / 4)",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "calc(var(--grid-gap) / 2)",
+                        fontWeight: 600
+                    }}
+                >
+                    <span>&#8627;</span>
+                    <span
+                        style={{
+                            fontSize: "0.65em",
+                            border: "1px solid",
+                            display: "inline-block",
+                            borderRadius: "calc(var(--grid-gap) * 2)",
+                            paddingInline: "var(--grid-gap)",
+                            paddingBlock: "calc(var(--grid-gap) / 6)"
+                        }}
+                    >
+                        {type}
+                    </span>
+                </div>
+            )}
+
+            <div
+                style={{
+                    // marginTop: "var(--grid-gap)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    marginInline: "calc(var(--grid-gap) * 2)"
+                }}
+            >
+                <span
+                    style={{
+                        fontSize: "1em",
+                        fontFeatureSettings: `"case"`,
+                        textTransform: "uppercase",
+                        fontWeight: 500,
+                        display: "block",
+                        maxWidth: "100%",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                        width: "100%"
+                    }}
+                >
+                    {label}
+                </span>
+            </div>
+
             {author && (
-                <div style={{ color: "var(--accents-5)", fontWeight: 700, fontSize: "0.75em" }}>
+                <div
+                    style={{
+                        color: "var(--accents-5)",
+                        fontWeight: 600,
+                        fontSize: "0.65em",
+                        marginBottom: "var(--grid-gap)",
+                        marginInline: "calc(var(--grid-gap) * 3)"
+                    }}
+                >
                     <span>By</span>{" "}
                     <NextLink
                         href={{

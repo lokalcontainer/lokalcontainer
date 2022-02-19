@@ -148,7 +148,8 @@ pre {
     display: block;
     position: fixed;
     z-index: 2002;
-    top: 50%;
+    top: calc(var(--header-height) / 2);
+    // top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 
@@ -164,11 +165,11 @@ pre {
 }
 
 #nprogress .spinner-icon {
-    width: calc(var(--grid-gap) * 10);
-    height: calc(var(--grid-gap) * 10);
+    width: calc(var(--grid-gap) * 3);
+    height: calc(var(--grid-gap) * 3);
     box-sizing: border-box;
 
-    border: solid calc(var(--grid-gap) / 2.5) transparent;
+    border: solid calc(var(--grid-gap) / 2.65) transparent;
     border-top-color: var(--accents-12);
     border-left-color: var(--accents-12);
     border-radius: 50%;

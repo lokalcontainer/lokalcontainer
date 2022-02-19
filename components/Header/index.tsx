@@ -126,7 +126,7 @@ export const Header = () => {
                         height: "1.55em",
                         border: "1px solid var(--accents-8)",
                         color: "var(--accents-8)",
-                        borderRadius: "calc(var(--grid-gap) * 4)",
+                        borderRadius: "calc(var(--grid-gap) *2)",
                         display: "inline-flex",
                         alignItems: "center"
                     }}

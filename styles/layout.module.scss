@@ -129,6 +129,7 @@
             display: flex;
             align-items: center;
             gap: calc(var(--grid-gap) / 2);
+            z-index: 100;
 
             @include borderShadow();
 
@@ -140,10 +141,10 @@
                     border: 1px solid transparent !important;
                     border-radius: 1em;
                     color: var(--accents-10);
-                    font-weight: 700;
+                    font-weight: 500;
                     background-color: var(--accents-2);
 
-                    transition: border-color 300ms ease, border-radius 300ms ease 50ms;
+                    transition: border-color 300ms ease, border-radius 300ms ease 20ms;
 
                     &[data-active="false"] {
                         &:hover {
