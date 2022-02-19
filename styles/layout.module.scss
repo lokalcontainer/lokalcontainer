@@ -131,7 +131,11 @@
             gap: calc(var(--grid-gap) / 2);
             z-index: 100;
 
-            @include borderShadow();
+            transition: box-shadow 300ms ease;
+
+            &[data-scroll="true"] {
+                @include borderShadowShow();
+            }
 
             > li {
                 a {
@@ -179,8 +183,18 @@
 
                 li {
                     &:first-child {
-                        @include borderShadow();
                         height: var(--header-height);
+
+                        // @include media("screen", ">sMonitor") {
+                        //     transition: box-shadow 300ms ease;
+
+                        //     // &[data-scroll="false"] {
+                        //     //     @include borderShadowHide();
+                        //     // }
+                        //     &[data-scroll="true"] {
+                        //         @include borderShadowShow();
+                        //     }
+                        // }
                     }
                     a {
                         &[data-active="true"] {

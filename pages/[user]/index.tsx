@@ -54,10 +54,6 @@ export default function Page(props: PageProps) {
                                     index={i}
                                     label={item.title}
                                     type={item.type}
-                                    author={{
-                                        name: item.author.name,
-                                        userName: item.author.userName
-                                    }}
                                     link={{
                                         href: {
                                             pathname: "/[user]",
@@ -65,7 +61,8 @@ export default function Page(props: PageProps) {
                                                 lightBox: true,
                                                 post: item.slug,
                                                 index: i,
-                                                user: item.slug
+                                                user: item.slug,
+                                                type: item.type
                                             }
                                         },
                                         as: `/${item.author.userName}/${item.slug}`,

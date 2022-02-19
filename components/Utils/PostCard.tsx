@@ -26,7 +26,7 @@ export const PostCard = (props: PostCardProps) => {
 
     const [hover, setHover] = useState(false);
     return (
-        <li style={{ marginBottom: "calc(var(--grid-gap) * 4)" }}>
+        <li style={{ marginBottom: "calc(var(--grid-gap) * 4)", userSelect: "none" }}>
             <NextLink {...link}>
                 <a
                     title={label}
@@ -111,29 +111,46 @@ export const PostCard = (props: PostCardProps) => {
             {type && (
                 <div
                     style={{
-                        color:
-                            type === "font"
-                                ? "turquoise"
-                                : type === "blog" || type === "article"
-                                ? "magenta"
-                                : "red",
                         textTransform: "capitalize",
-                        marginBlock: "calc(var(--grid-gap) / 4)",
+                        // marginBlock: "calc(var(--grid-gap) / 4)",
                         display: "flex",
                         alignItems: "center",
                         gap: "calc(var(--grid-gap) / 2)",
-                        fontWeight: 600
+                        fontWeight: 600,
+                        userSelect: "none",
+                        paddingBlock: "calc(var(--grid-gap) / 2)"
+                        // backgroundColor: "var(--accents-3)"
                     }}
                 >
-                    <span>&#8627;</span>
+                    <span
+                        style={{
+                            color:
+                                type === "font"
+                                    ? "turquoise"
+                                    : type === "blog" || type === "article"
+                                    ? "magenta"
+                                    : "red"
+                        }}
+                    >
+                        &#8627;
+                    </span>
                     <span
                         style={{
                             fontSize: "0.65em",
                             border: "1px solid",
-                            display: "inline-block",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            justifyContent: "center",
                             borderRadius: "calc(var(--grid-gap) * 2)",
                             paddingInline: "var(--grid-gap)",
-                            paddingBlock: "calc(var(--grid-gap) / 6)"
+                            paddingBlock: "calc(var(--grid-gap) / 2.5)",
+                            color: "var(--accents-1)",
+                            backgroundColor:
+                                type === "font"
+                                    ? "turquoise"
+                                    : type === "blog" || type === "article"
+                                    ? "magenta"
+                                    : "red"
                         }}
                     >
                         {type}
@@ -147,7 +164,7 @@ export const PostCard = (props: PostCardProps) => {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "space-between",
-                    marginInline: "calc(var(--grid-gap) * 2)"
+                    marginInline: "calc(var(--grid-gap) * 2.25)"
                 }}
             >
                 <span
@@ -175,7 +192,7 @@ export const PostCard = (props: PostCardProps) => {
                         fontWeight: 600,
                         fontSize: "0.65em",
                         marginBottom: "var(--grid-gap)",
-                        marginInline: "calc(var(--grid-gap) * 3)"
+                        marginInline: "calc(var(--grid-gap) * 3.5)"
                     }}
                 >
                     <span>By</span>{" "}

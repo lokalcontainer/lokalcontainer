@@ -1,3 +1,5 @@
+@import "mixin.scss";
+
 .app_header {
     position: sticky;
     top: 0;
@@ -20,6 +22,12 @@
 
     background-color: var(--accents-1);
     text-transform: uppercase;
+
+    transition: box-shadow 300ms ease;
+
+    &[data-scroll="true"] {
+        @include borderShadowShow();
+    }
 
     > ul {
         padding: 0;

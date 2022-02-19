@@ -51,7 +51,7 @@ pre {
 [data-layout="fluid"] {
     width: 100%;
     margin: 0 auto;
-    // padding-inline: calc(var(--grid-gap) * 6) !important;
+    padding-inline: calc(var(--grid-gap) * 6) !important;
 
     @include media("screen", ">xlMonitor") {
         max-width: 2186px;

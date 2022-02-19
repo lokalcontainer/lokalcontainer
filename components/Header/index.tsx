@@ -38,7 +38,7 @@ export const Header = () => {
                     <>
                         <li style={listStyle}>
                             <NextLink href="/">
-                                <a style={linkStyle}>
+                                <a style={linkStyle} title="Globe">
                                     <span style={{ ...textStyle, fontSize: "1.75em" }}>
                                         &#127760;
                                     </span>
@@ -53,7 +53,7 @@ export const Header = () => {
 
                         <li style={listStyle}>
                             <NextLink href="/">
-                                <a style={linkStyle}>
+                                <a style={linkStyle} title="Index">
                                     <span style={textStyle}>L - C</span>
                                 </a>
                             </NextLink>

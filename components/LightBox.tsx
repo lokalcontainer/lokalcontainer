@@ -153,7 +153,8 @@ export const LightBox: FC<LightBoxProps> = (props) => {
                             style={{
                                 pointerEvents: "none",
                                 position: "relative",
-                                padding: "0 0 calc(var(--grid-gap) * 3) 0",
+                                // padding: "0 0 calc(var(--grid-gap) * 3) 0",
+                                padding: 0,
                                 paddingInline: "calc(var(--grid-gap) * 3)"
                             }}
                         >
