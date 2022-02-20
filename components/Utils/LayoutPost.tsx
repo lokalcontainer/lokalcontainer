@@ -1,4 +1,5 @@
 import styles from "styles/layout.module.scss";
+import type { PostType } from "types/post";
 import { FC, useState } from "react";
 import NextLink, { LinkProps } from "next/link";
 import { useRouter } from "next/router";
@@ -11,6 +12,7 @@ type LayoutPostProps = {
         fullName: string;
     };
     slug: string;
+    postType: PostType;
 };
 
 type StaticLink = {
@@ -21,7 +23,7 @@ type StaticLink = {
 
 export const LayoutPost: FC<LayoutPostProps> = (props) => {
     const { session } = useSession();
-    const { children, user, slug } = props;
+    const { children, user, slug, postType } = props;
     const { userName } = user;
     const { query } = useRouter();
 
@@ -35,73 +37,49 @@ export const LayoutPost: FC<LayoutPostProps> = (props) => {
         [isScroll]
     );
 
-    const staticLinks: StaticLink[] = [
-        {
-            label: "Overview",
-            slug: "overview",
+    function buildLink(label: string, tabslug: string): StaticLink {
+        return {
+            label,
+            slug: tabslug,
             link: {
                 shallow: true,
                 href: {
                     pathname: "/[user]/[post]",
-                    query: { user: userName, post: slug, tab: "overview" }
+                    query: { user: userName, post: slug, tab: tabslug }
                 }
             }
-        },
-        {
-            label: "Typetools",
-            slug: "typetools",
-            link: {
-                shallow: true,
-                href: {
-                    pathname: "/[user]/[post]",
-                    query: { user: userName, post: slug, tab: "typetools" }
-                }
-            }
-        },
-        {
-            label: "Case Study",
-            slug: "case-study",
-            link: {
-                shallow: true,
-                href: {
-                    pathname: "/[user]/[post]",
-                    query: { user: userName, post: slug, tab: "case-study" }
-                }
-            }
-        },
-        {
-            label: "Glyph",
-            slug: "glyph",
-            link: {
-                shallow: true,
-                href: {
-                    pathname: "/[user]/[post]",
-                    query: { user: userName, post: slug, tab: "glyph" }
-                }
-            }
-        }
+        };
+    }
+
+    const fontLinks: StaticLink[] = [
+        buildLink("Overview", "overview"),
+        buildLink("Typetools", "typetools"),
+        buildLink("Case Study", "case-study"),
+        buildLink("Glyph", "glyph")
     ];
 
     return (
         <div className={styles.post}>
             <div className={styles.post_content} data-layout="fluids">
                 <div>
-                    <ul className={styles.sub_header} data-scroll={isScroll}>
-                        {staticLinks.map((item, i) => (
-                            <li key={i}>
-                                <NextLink {...item.link} scroll>
-                                    <a
-                                        data-active={
-                                            (!query.tab && item.slug === "overview") ||
-                                            query.tab === item.slug
-                                        }
-                                    >
-                                        <span style={{ fontSize: "0.9em" }}>{item.label}</span>
-                                    </a>
-                                </NextLink>
-                            </li>
-                        ))}
-                    </ul>
+                    {postType === "font" && (
+                        <ul className={styles.sub_header} data-scroll={isScroll}>
+                            {fontLinks.map((item, i) => (
+                                <li key={i}>
+                                    <NextLink {...item.link} scroll>
+                                        <a
+                                            data-active={
+                                                (!query.tab && item.slug === "overview") ||
+                                                query.tab === item.slug
+                                            }
+                                        >
+                                            <span style={{ fontSize: "0.9em" }}>{item.label}</span>
+                                        </a>
+                                    </NextLink>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
                     <div>{children}</div>
                 </div>
 

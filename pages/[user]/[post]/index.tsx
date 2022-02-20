@@ -15,7 +15,7 @@ export default function Page(props: PageProps) {
     const { tab: serverTab } = props;
     const { name, userName } = props.user.data;
     const post = props.post.data;
-    const [tab, setTab] = useState(serverTab);
+    const [tab, setTab] = useState<string | null | undefined>(serverTab);
 
     const { query } = useRouter();
     useEffect(() => {
@@ -25,7 +25,7 @@ export default function Page(props: PageProps) {
 
     return (
         <LayoutMain>
-            <LayoutPost slug={post.slug} user={{ userName, fullName: name }}>
+            <LayoutPost slug={post.slug} postType={post.type} user={{ userName, fullName: name }}>
                 <div
                     style={{
                         minHeight:
@@ -71,7 +71,7 @@ export default function Page(props: PageProps) {
 type ServerProps = {
     user: ResponseUser;
     post: ResponsePost;
-    tab: string;
+    tab?: string | null;
 };
 
 export const getServerSideProps: GetServerSideProps<ServerProps> = async (ctx) => {
@@ -81,7 +81,8 @@ export const getServerSideProps: GetServerSideProps<ServerProps> = async (ctx) =
 
     if (!user || !user.success) return { notFound: true };
     if (!post || !post.success) return { notFound: true };
-    if (!queries.tab)
+    const isFont = post.data.type === "font";
+    if (!queries.tab && isFont)
         return {
             redirect: {
                 destination: `/${user.data.userName}/${post.data.slug}?tab=overview`,
@@ -90,6 +91,6 @@ export const getServerSideProps: GetServerSideProps<ServerProps> = async (ctx) =
             props: { user, post, tab: "overview" }
         };
     return {
-        props: { user, post, tab: queries.tab as string }
+        props: { user, post, tab: isFont ? (queries.tab as string) : null }
     };
 };

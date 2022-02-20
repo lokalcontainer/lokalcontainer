@@ -1,3 +1,4 @@
+import type { PostType } from "types/post";
 import NextImage from "next/image";
 import NextLink, { LinkProps } from "next/link";
 import { CSSProperties, useState } from "react";
@@ -13,7 +14,7 @@ type PostCardProps = {
     };
     style?: CSSProperties;
     isActive?: boolean;
-    type?: "font" | "blog" | "article" | "goods";
+    type?: PostType;
     image: {
         url: string;
         width: number;
@@ -72,7 +73,6 @@ export const PostCard = (props: PostCardProps) => {
                                 position: "relative",
                                 overflow: "hidden",
                                 width: "100%",
-                                // height: "100%",
                                 display: "block",
                                 aspectRatio: isPortrait ? "4/5" : isLandscape ? "4/3" : "1/1"
                             }}
@@ -80,11 +80,11 @@ export const PostCard = (props: PostCardProps) => {
                             <NextImage
                                 alt={`image-${label.toLowerCase().trim()}`}
                                 src={image.url}
-                                width={image.width}
-                                height={image.height}
+                                width={isSquare ? image.width : undefined}
+                                height={isSquare ? image.height : undefined}
                                 layout={isSquare ? "responsive" : "fill"}
-                                objectFit="cover"
-                                objectPosition="center"
+                                objectFit={isSquare ? undefined : "cover"}
+                                objectPosition={isSquare ? undefined : "center"}
                                 quality={100}
                                 loading="lazy"
                                 // priority={index <= 16}
