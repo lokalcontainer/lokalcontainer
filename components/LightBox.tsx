@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import NextHead from "next/head";
 import useLightBox from "hooks/use-light-box";
 import useOnClickOutside from "hooks/use-on-click-outside";
+import useOnEscape from "hooks/use-on-escape";
 
 type BaseProps = {
     onRequestClose: () => void;
@@ -88,42 +89,7 @@ export const LightBox: FC<LightBoxProps> = (props) => {
     const refParent = useRef<HTMLDivElement>(null);
     const refContent = useRef<HTMLDivElement>(null);
     useOnClickOutside(refContent, onRequestClose);
-
-    useEffect(() => {
-        if (!state) return;
-        if (!refParent.current) return;
-
-        const keyboardHandler = (e: globalThis.KeyboardEvent) => {
-            const key = e.key;
-            if (key === "Escape") return onRequestClose();
-        };
-
-        const html = document.documentElement;
-        const body = document.body;
-        const bodyAttr = "data-scroll-hide";
-
-        const cssProps = "--no-scroll-padding";
-
-        const scrollBarWidth = window.innerWidth - html.clientWidth;
-        const bodyPaddingRight =
-            parseInt(window.getComputedStyle(body).getPropertyValue("padding-right")) || 0;
-
-        const parentCurrent = refParent.current;
-        const parentStyle = parentCurrent.style.getPropertyValue("right");
-
-        html.addEventListener("keydown", keyboardHandler);
-
-        html.style.setProperty(cssProps, `${bodyPaddingRight + scrollBarWidth}px`);
-        body.setAttribute(bodyAttr, "true");
-        parentCurrent.style.setProperty("right", parentStyle);
-
-        return () => {
-            html.removeEventListener("keydown", keyboardHandler);
-            html.style.setProperty(cssProps, "0px");
-            body.removeAttribute(bodyAttr);
-            parentCurrent.style.setProperty("right", `-${bodyPaddingRight + scrollBarWidth}px`);
-        };
-    }, [state]);
+    useOnEscape(refParent, state, onRequestClose);
 
     return (
         <AnimatePresence initial={true} exitBeforeEnter>
@@ -136,8 +102,14 @@ export const LightBox: FC<LightBoxProps> = (props) => {
                     <motion.div
                         ref={refParent}
                         initial={{ opacity: 0 }}
-                        animate={{ opacity: 1, transition: { type: "just" } }}
-                        exit={{ opacity: 0, transition: { type: "just" } }}
+                        animate={{
+                            opacity: 1,
+                            transition: { type: "spring", mass: 0.5, damping: 200, stiffness: 2000 }
+                        }}
+                        exit={{
+                            opacity: 0,
+                            transition: { type: "spring", mass: 0.5, damping: 200, stiffness: 2000 }
+                        }}
                         className={styles.container}
                     >
                         <div
