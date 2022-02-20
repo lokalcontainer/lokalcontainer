@@ -14,12 +14,14 @@ export type BaseImage = {
     small: ImageAttr;
 };
 
+export type PostType = "font" | "blog" | "article" | "goods";
+
 export type BasePost = {
     id: string;
     author: BaseUser;
     slug: string;
     title: string;
-    type: "font" | "blog" | "article" | "goods";
+    type: PostType;
     createdAt: string;
     updatedAt: string;
     images: BaseImage[];
