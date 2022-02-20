@@ -14,7 +14,7 @@ type PostCardProps = {
     style?: CSSProperties;
     isActive?: boolean;
     type?: "font" | "blog" | "article" | "goods";
-    image?: {
+    image: {
         url: string;
         width: number;
         height: number;
@@ -22,7 +22,24 @@ type PostCardProps = {
 };
 
 export const PostCard = (props: PostCardProps) => {
-    const { label, link, image, index, isActive, style, author, type } = props;
+    const {
+        label,
+        link,
+        image = {
+            url: "/images/avatars/avatar-frown.png",
+            width: 128,
+            height: 128
+        },
+        index,
+        isActive,
+        style,
+        author,
+        type
+    } = props;
+
+    const isPortrait = image.height > image.width;
+    const isLandscape = image.width > image.height;
+    const isSquare = image.width === image.height;
 
     const [hover, setHover] = useState(false);
     return (
@@ -55,16 +72,19 @@ export const PostCard = (props: PostCardProps) => {
                                 position: "relative",
                                 overflow: "hidden",
                                 width: "100%",
-                                height: "100%",
-                                display: "block"
+                                // height: "100%",
+                                display: "block",
+                                aspectRatio: isPortrait ? "4/5" : isLandscape ? "4/3" : "1/1"
                             }}
                         >
                             <NextImage
                                 alt={`image-${label.toLowerCase().trim()}`}
-                                src={image ? image.url : "/images/avatars/avatar-frown.png"}
-                                width={image ? image.width : 128}
-                                height={image ? image.height : 128}
-                                layout="responsive"
+                                src={image.url}
+                                width={image.width}
+                                height={image.height}
+                                layout={isSquare ? "responsive" : "fill"}
+                                objectFit="cover"
+                                objectPosition="center"
                                 quality={100}
                                 loading="lazy"
                                 // priority={index <= 16}
@@ -78,6 +98,24 @@ export const PostCard = (props: PostCardProps) => {
                                 //     item.meta.heroImage.colors[2]
                                 // )}
                             />
+                            <div
+                                style={{
+                                    position: "absolute",
+                                    left: "1em",
+                                    bottom: "1em",
+                                    backgroundColor: "var(--accents-pink)",
+                                    paddingInline: "var(--grid-gap)",
+                                    paddingBlock: "calc(var(--grid-gap) / 4)",
+                                    borderRadius: "1em",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center"
+                                }}
+                            >
+                                <span style={{ fontSize: "0.75em", display: "inline-flex" }}>
+                                    {image.width} &times; {image.height}
+                                </span>
+                            </div>
                         </div>
 
                         <AnimatePresence>
@@ -136,14 +174,13 @@ export const PostCard = (props: PostCardProps) => {
                     </span>
                     <span
                         style={{
-                            fontSize: "0.65em",
                             border: "1px solid",
                             display: "inline-flex",
                             alignItems: "center",
                             justifyContent: "center",
                             borderRadius: "calc(var(--grid-gap) * 2)",
                             paddingInline: "var(--grid-gap)",
-                            paddingBlock: "calc(var(--grid-gap) / 2.5)",
+                            paddingBlock: "calc(var(--grid-gap) / 4)",
                             color: "var(--accents-1)",
                             backgroundColor:
                                 type === "font"
@@ -153,7 +190,14 @@ export const PostCard = (props: PostCardProps) => {
                                     : "red"
                         }}
                     >
-                        {type}
+                        <span
+                            style={{
+                                fontSize: "0.75em",
+                                display: "inline-block"
+                            }}
+                        >
+                            {type}
+                        </span>
                     </span>
                 </div>
             )}
