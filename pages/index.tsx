@@ -22,8 +22,8 @@ type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 export default function Page(props: PageProps) {
     const { query, push } = useRouter();
     const serverPosts = props.posts.data;
-    // const newPosts = serverPosts.concat(serverPosts, serverPosts, serverPosts, serverPosts);
-    const newPosts = serverPosts;
+    const newPosts = serverPosts.concat(serverPosts, serverPosts, serverPosts, serverPosts);
+    // const newPosts = serverPosts;
     const posts = useMemo(() => newPosts, [newPosts]);
 
     const [selectedPost, setSelectedPost] = useState<BasePost | undefined>(undefined);
@@ -37,13 +37,14 @@ export default function Page(props: PageProps) {
             <LayoutMain>
                 <MasonryNew
                     breakpointCols={{
-                        default: 8,
+                        default: 6,
+                        2560: 8,
                         2200: 7,
                         1920: 6,
-                        1680: 5,
-                        1440: 4,
+                        1536: 5,
+                        1366: 4,
                         1280: 3,
-                        960: 2
+                        810: 2
                     }}
                 >
                     {props.posts.success &&

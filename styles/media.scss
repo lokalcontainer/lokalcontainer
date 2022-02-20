@@ -1,8 +1,36 @@
-$phone: 520px;
-$tablet: 960px;
+/**
+1. 1920 x 1080
+2. 1536 x 864
+3. 1366 x 768
+4. 1280 x 800
+5. 810 x 1080
+6. 768 x 1024
+7. 601 x 962
+8. 414 x 896
+9. 369 x 800
+*/
+
+$breakpoints: (
+    "phone": 414px,
+    "tablet": 768px,
+    "sMonitor": 1366,
+    "mMonitor": 1536,
+    "lMonitor": 1920,
+    "xlMonitor": 2560
+) !default;
+
+// $phone: 520px;
+// $tablet: 960px;
+// $sMonitor: 1280px;
+// $mMonitor: 1440px;
+// $lgMonitor: 1680px;
+// $xlMonitor: 1920px;
+// $xxlMonitor: 2200px;
+$phone: 414px;
+$tablet: 768px;
 $sMonitor: 1280px;
-$mMonitor: 1440px;
-$lgMonitor: 1680px;
+$mMonitor: 1366px;
+$lMonitor: 1536px;
 $xlMonitor: 1920px;
 $xxlMonitor: 2200px;
 
@@ -20,8 +48,8 @@ $xxlMonitor: 2200px;
         "<sMonitor": "(max-width: #{$sMonitor})",
         ">mMonitor": "(min-width: #{$mMonitor + 1})",
         "<mMonitor": "(max-width: #{$mMonitor})",
-        ">lgMonitor": "(min-width: #{$lgMonitor + 1})",
-        "<lgMonitor": "(max-width: #{$lgMonitor})",
+        ">lMonitor": "(min-width: #{$lMonitor + 1})",
+        "<lMonitor": "(max-width: #{$lMonitor})",
         ">xlMonitor": "(min-width: #{$xlMonitor + 1})",
         "<xlMonitor": "(max-width: #{$xlMonitor})",
         ">xxlMonitor": "(min-width: #{$xxlMonitor + 1})",

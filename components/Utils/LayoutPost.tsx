@@ -28,8 +28,8 @@ export const LayoutPost: FC<LayoutPostProps> = (props) => {
     const [isScroll, setIsScroll] = useState(false);
 
     useScrollPosition(
-        ({ prevPos, currPos }) => {
-            const isShow = currPos.y < prevPos.y;
+        ({ currPos }) => {
+            const isShow = currPos.y < 0;
             if (isShow !== isScroll) setIsScroll(isShow);
         },
         [isScroll]
@@ -102,7 +102,7 @@ export const LayoutPost: FC<LayoutPostProps> = (props) => {
                             </li>
                         ))}
                     </ul>
-                    {children}
+                    <div>{children}</div>
                 </div>
 
                 <aside className={styles.aside}>

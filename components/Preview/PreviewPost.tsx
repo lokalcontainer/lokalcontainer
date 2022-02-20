@@ -64,7 +64,9 @@ export const PreviewPost = (props: PreviewPostProps) => {
                                     position: "relative",
                                     width:
                                         image1.large.width < image1.large.height
-                                            ? "33.33%"
+                                            ? "40%"
+                                            : image1.large.width === image1.large.height
+                                            ? "50%"
                                             : "66.66%"
                                 }}
                             >

@@ -1,7 +1,7 @@
 import useWindowSize from "hooks/use-window-size";
 
 export default function Measurment() {
-    const { width } = useWindowSize();
+    const { width, height } = useWindowSize();
     return (
         <span
             style={{
@@ -11,7 +11,7 @@ export default function Measurment() {
                 userSelect: "none"
             }}
         >
-            W / {width}
+            W / {width} - H / {height}
         </span>
     );
 }
