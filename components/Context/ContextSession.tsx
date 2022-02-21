@@ -11,6 +11,7 @@ type ProviderSessionProps = {
 type ContextSessionProps = {
     session?: BaseUser;
     mutateSession: KeyedMutator<ResponseSession>;
+    handleLogout: () => void;
 };
 
 const ContextSession = createContext<ContextSessionProps>(undefined!);
@@ -27,11 +28,17 @@ export const ProviderSession: FC<ProviderSessionProps> = (props) => {
         }
     );
 
+    const handleLogout = () =>
+        fetchJson("/api/v1/logout", {
+            method: "POST"
+        }).then(() => window.location.reload());
+
     return (
         <ContextSession.Provider
             value={{
                 session: clientSession?.success ? clientSession.data : undefined,
-                mutateSession: mutate
+                mutateSession: mutate,
+                handleLogout
             }}
         >
             {children}
