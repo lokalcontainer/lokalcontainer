@@ -169,7 +169,7 @@ export const Header = () => {
                                 )}
 
                                 <li style={{ height: "1.5em" }}>
-                                    <button style={buttonStyle}>
+                                    <button name="Search" title="Search" style={buttonStyle}>
                                         <span style={buttonSpanStyle}>
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
