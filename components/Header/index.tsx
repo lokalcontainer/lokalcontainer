@@ -1,13 +1,34 @@
 import styles from "styles/header.module.scss";
 import { CSSProperties, Fragment } from "react";
-import { useTheme } from "next-themes";
 import { motion } from "framer-motion";
 import NextLink from "next/link";
+import NextDynamic from "next/dynamic";
+import { ConsumerMenu, ProviderMenu, useMenu } from "components/Context/ContextMenu";
 import useBreadCrumb from "hooks/use-breadcrumb";
 import { useSession } from "components/Context/ContextSession";
-// import { HeaderAvatar } from "./Avatar";
-import { ProviderMenu, useMenu } from "components/Context/ContextMenu";
-import Drawer from "./Drawer";
+
+const Drawer = NextDynamic(() => import("./Drawer"), { ssr: false });
+
+const buttonStyle: CSSProperties = {
+    appearance: "none",
+    background: "none",
+    border: "1px solid",
+    borderRadius: "100%",
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    alignItems: "center",
+    padding: 0,
+    margin: 0,
+    aspectRatio: "1/1"
+};
+
+const buttonSpanStyle: CSSProperties = {
+    display: "inline-flex",
+    aspectRatio: "1/1",
+    alignItems: "center",
+    justifyContent: "center"
+};
 
 const listStyle: CSSProperties = {
     display: "inline-flex",
@@ -32,171 +53,148 @@ const textStyle: CSSProperties = {
 const ToggleMenu = () => {
     const { menu, toggleMenu } = useMenu();
     return (
-        <motion.button
-            name="Menu"
-            title="Menu"
-            onClick={toggleMenu}
-            initial={{ rotate: 0 }}
-            animate={{ rotate: menu ? 180 : 0 }}
-            style={{
-                width: "100%",
-                height: "100%",
-                display: "flex",
-                alignItems: "center",
-                padding: 0,
-                margin: 0,
-                aspectRatio: "1/1"
-            }}
-        >
-            <span
-                style={{
-                    display: "block",
-                    fontFeatureSettings: `"dlig"`,
-                    fontSize: "1.7em",
-                    fontWeight: 300,
-                    lineHeight: 1
-                }}
+        <button name="Menu" title="Menu" onClick={toggleMenu} style={buttonStyle}>
+            <motion.span
+                initial={{ scale: 1 }}
+                animate={{ scale: menu ? 1.2 : 1 }}
+                whileHover={{ scale: 1.2 }}
+                style={buttonSpanStyle}
             >
-                {/* &#9632; */}
-                {"(<<-)"}
-            </span>
-        </motion.button>
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="1.5em"
+                    viewBox="0 0 24 24"
+                    width="1.5em"
+                    fill="currentColor"
+                >
+                    <path d="M0 0h24v24H0V0z" fill="none" />
+                    <path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
+                </svg>
+            </motion.span>
+        </button>
     );
 };
 
 export const Header = () => {
-    const { theme, themes, setTheme } = useTheme();
     const { session } = useSession();
     const { breadcrumbs, convertBreadcrumb } = useBreadCrumb();
 
     return (
         <ProviderMenu>
-            <header className={styles.app_header}>
-                <ul>
-                    {breadcrumbs.length >= 1 && (
-                        <>
-                            <li style={listStyle}>
-                                <NextLink href="/">
-                                    <a style={linkStyle} title="Globe">
-                                        <span style={{ ...textStyle, fontSize: "1.75em" }}>
-                                            &#127760;
-                                        </span>
-                                        {/* <span style={textStyle}>&#8627;</span> */}
-                                    </a>
-                                </NextLink>
-                            </li>
+            <ConsumerMenu>
+                {({ menu }) => (
+                    <>
+                        <header className={styles.app_header} data-menu={menu}>
+                            <ul>
+                                {breadcrumbs.length >= 1 && (
+                                    <>
+                                        <li style={listStyle}>
+                                            <NextLink href="/">
+                                                <a style={linkStyle} title="Globe">
+                                                    <span
+                                                        style={{ ...textStyle, fontSize: "1.75em" }}
+                                                    >
+                                                        &#127760;
+                                                    </span>
+                                                </a>
+                                            </NextLink>
+                                        </li>
 
-                            <li style={listStyle}>
-                                <span style={textStyle}>/</span>
-                            </li>
+                                        <li style={listStyle}>
+                                            <span style={textStyle}>/</span>
+                                        </li>
 
-                            <li style={listStyle}>
-                                <NextLink href="/">
-                                    <a style={linkStyle} title="Index">
-                                        <span style={textStyle}>L - C</span>
-                                    </a>
-                                </NextLink>
-                            </li>
+                                        <li style={listStyle}>
+                                            <NextLink href="/">
+                                                <a style={linkStyle} title="Index">
+                                                    <span style={textStyle}>L - C</span>
+                                                </a>
+                                            </NextLink>
+                                        </li>
 
-                            {breadcrumbs.length !== 0 &&
-                                breadcrumbs.map((item, i) => {
-                                    return (
-                                        <Fragment key={i}>
-                                            {item.href !== "/" && (
-                                                <li style={listStyle}>
-                                                    <span style={textStyle}>/</span>
-                                                </li>
-                                            )}
+                                        {breadcrumbs.length !== 0 &&
+                                            breadcrumbs.map((item, i) => {
+                                                return (
+                                                    <Fragment key={i}>
+                                                        {item.href !== "/" && (
+                                                            <li style={listStyle}>
+                                                                <span style={textStyle}>/</span>
+                                                            </li>
+                                                        )}
 
-                                            <li style={listStyle}>
-                                                <NextLink href={item.href}>
-                                                    <a style={linkStyle}>
-                                                        <span style={textStyle}>
-                                                            {convertBreadcrumb(
-                                                                item.breadcrumb.replace(/-/g, " ")
-                                                            )}
-                                                        </span>
-                                                    </a>
-                                                </NextLink>
-                                            </li>
-                                        </Fragment>
-                                    );
-                                })}
-                        </>
-                    )}
-                </ul>
+                                                        <li style={listStyle}>
+                                                            <NextLink href={item.href}>
+                                                                <a style={linkStyle}>
+                                                                    <span style={textStyle}>
+                                                                        {convertBreadcrumb(
+                                                                            item.breadcrumb.replace(
+                                                                                /-/g,
+                                                                                " "
+                                                                            )
+                                                                        )}
+                                                                    </span>
+                                                                </a>
+                                                            </NextLink>
+                                                        </li>
+                                                    </Fragment>
+                                                );
+                                            })}
+                                    </>
+                                )}
+                            </ul>
 
-                <ul style={{ justifyContent: "end" }}>
-                    {/* <HeaderAvatar /> */}
+                            <ul style={{ justifyContent: "end" }}>
+                                {session && (
+                                    <>
+                                        <li style={{ width: "1.5em" }}>
+                                            <NextLink href="/post/new?type=font">
+                                                <a title="New Post" style={buttonStyle}>
+                                                    <span style={buttonSpanStyle}>
+                                                        <svg
+                                                            name="New Post"
+                                                            xmlns="http://www.w3.org/2000/svg"
+                                                            height="1.4em"
+                                                            viewBox="0 0 24 24"
+                                                            width="1.4em"
+                                                            fill="currentColor"
+                                                        >
+                                                            <path d="M0 0h24v24H0V0z" fill="none" />
+                                                            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+                                                        </svg>
+                                                    </span>
+                                                </a>
+                                            </NextLink>
+                                        </li>
+                                    </>
+                                )}
 
-                    {session && (
-                        <>
-                            <li
-                                style={{
-                                    color: "var(--accents-8)",
-                                    border: "1px solid var(--accents-8)",
-                                    borderRadius: "calc(var(--grid-gap) / 3)",
-                                    width: "1.5em",
-                                    padding: 0,
-                                    aspectRatio: "1/1"
-                                }}
-                            >
-                                <NextLink href="/post/new?type=font">
-                                    <a>
-                                        <span>
+                                <li style={{ height: "1.5em" }}>
+                                    <button style={buttonStyle}>
+                                        <span style={buttonSpanStyle}>
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
-                                                height="1.5em"
-                                                width="1.5em"
+                                                height="1.3em"
                                                 viewBox="0 0 24 24"
+                                                width="1.3em"
                                                 fill="currentColor"
                                             >
-                                                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+                                                <path d="M0 0h24v24H0V0z" fill="none" />
+                                                <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
                                             </svg>
                                         </span>
-                                    </a>
-                                </NextLink>
-                            </li>
-                        </>
-                    )}
+                                    </button>
+                                </li>
 
-                    {/* <li
-                    style={{
-                        height: "1.55em",
-                        border: "1px solid var(--accents-8)",
-                        color: "var(--accents-8)",
-                        borderRadius: "calc(var(--grid-gap) *2)",
-                        display: "inline-flex",
-                        alignItems: "center"
-                    }}
-                >
-                    <select
-                        value={theme}
-                        onChange={(e) => setTheme(e.target.value)}
-                        style={{
-                            margin: 0,
-                            textTransform: "capitalize",
-                            height: "100%",
-                            paddingInline: "calc(var(--grid-gap) / 4)",
-                            outline: "none",
-                            color: "var(--accents-8)"
-                        }}
-                    >
-                        {themes.map((item, i) => (
-                            <option key={i} value={item}>
-                                {item}
-                            </option>
-                        ))}
-                    </select>
-                </li> */}
+                                <li style={{ height: "1.5em" }}>
+                                    <ToggleMenu />
+                                </li>
+                            </ul>
+                        </header>
 
-                    <li style={{ height: "1.5em" }}>
-                        <ToggleMenu />
-                    </li>
-                </ul>
-            </header>
-
-            <Drawer />
+                        <Drawer />
+                    </>
+                )}
+            </ConsumerMenu>
         </ProviderMenu>
     );
 };
