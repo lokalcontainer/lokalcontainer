@@ -15,6 +15,7 @@ const init: ContextMenuProps = {
 
 const ContextMenu = createContext<ContextMenuProps>(init);
 export const useMenu = () => useContext(ContextMenu);
+export const ConsumerMenu = ContextMenu.Consumer;
 export const ProviderMenu: FC = (props) => {
     const { children } = props;
     const { events } = useRouter();
