@@ -11,6 +11,7 @@ import { mutate } from "swr";
 import fetchJson from "libs/lib.fetch";
 import { getServerSession } from "libs/get-server-session";
 import { LayoutMain } from "components/LayoutMain";
+import { FormSignIn } from "components/Utils/Forms";
 
 type CustomInputProps = {
     label: string;
@@ -53,68 +54,6 @@ const CustomInput = (props: CustomInputProps) => {
                 style={{ ...inputStyle }}
             />
         </label>
-    );
-};
-
-const FormSignIn = () => {
-    const { replace, query } = useRouter();
-    return (
-        <div
-            style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "var(--grid-gap)"
-            }}
-        >
-            <div>Sign In</div>
-            <Formik
-                initialValues={{ email: "", password: "" }}
-                onSubmit={(v, a) => {
-                    fetchJson<ResponseSession>("/api/v1/login", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify(v)
-                    })
-                        .then((res) => {
-                            if (!res.success) {
-                                // @ts-ignore
-                                a.setErrors({ [res.data[0].field]: res.data[0].message });
-                            } else {
-                                mutate("/api/v1/sessions/me").then(() =>
-                                    replace(query.callback_url as string)
-                                );
-                            }
-                        })
-                        .catch((err) => console.log(err));
-                }}
-            >
-                {({ values, handleSubmit, handleChange, errors }) => {
-                    return (
-                        <form onSubmit={handleSubmit}>
-                            <CustomInput
-                                type="email"
-                                label="email"
-                                value={values.email}
-                                onChange={handleChange}
-                                placeholder="john.doe@mail.com"
-                                error={errors.email}
-                            />
-                            <CustomInput
-                                type="password"
-                                label="password"
-                                value={values.password}
-                                onChange={handleChange}
-                                placeholder="••••••"
-                                error={errors.password}
-                            />
-                            <div>
-                                <button type="submit">Sign In</button>
-                            </div>
-                        </form>
-                    );
-                }}
-            </Formik>
-        </div>
     );
 };
 
