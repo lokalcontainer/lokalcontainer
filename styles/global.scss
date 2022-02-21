@@ -94,10 +94,6 @@ pre {
     padding: 0;
     margin: 0;
     list-style: none;
-
-    // > * {
-    //     margin-bottom: calc(var(--grid-gap) / 1);
-    // }
 }
 
 #nprogress {
@@ -149,19 +145,12 @@ pre {
     position: fixed;
     z-index: 2002;
     top: calc(var(--header-height) / 2);
-    // top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 
-    // width: 6em;
-    // height: 6em;
-    // border: 1px solid;
-    // border-radius: var(--grid-gap);
     display: flex;
     align-items: center;
     justify-content: center;
-
-    // background-color: var(--alpha-1);
 }
 
 #nprogress .spinner-icon {
@@ -169,11 +158,10 @@ pre {
     height: calc(var(--grid-gap) * 3);
     box-sizing: border-box;
 
-    border: solid calc(var(--grid-gap) / 2.65) transparent;
+    border: solid 2px transparent;
     border-top-color: var(--accents-12);
     border-left-color: var(--accents-12);
     border-radius: 50%;
-    // filter: drop-shadow(0 0 2px #0000ff);
 
     animation: nprogress-spinner 350ms linear infinite;
 }

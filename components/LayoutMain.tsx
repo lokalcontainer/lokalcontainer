@@ -1,3 +1,4 @@
+import styles from "styles/layout.module.scss";
 import type { FC, CSSProperties } from "react";
 import { useRouter } from "next/router";
 import NextHead from "next/head";
@@ -41,17 +42,8 @@ export const LayoutMain: FC<LayoutMainProps> = (props) => {
                 <meta property="twitter:description" content={description} />
                 <meta property="twitter:image" content={image} />
             </NextHead>
-            <main
-                style={{
-                    position: "relative",
-                    minHeight: "calc(100vh - var(--header-height))",
-                    paddingInline: "calc(var(--grid-gap) * 3)",
-                    paddingBottom: "calc(var(--grid-gap) * 3)",
-                    backgroundColor: "var(--accents-1)",
-                    zIndex: 10,
-                    ...style
-                }}
-            >
+
+            <main className={styles.main} style={{ ...style }}>
                 {children}
             </main>
         </>
