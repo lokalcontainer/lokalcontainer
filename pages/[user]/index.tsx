@@ -23,8 +23,8 @@ export default function Page(props: PageProps) {
 
     const { push, query } = useRouter();
     const serverPosts = posts.data;
-    const newPosts = serverPosts.concat(serverPosts, serverPosts, serverPosts, serverPosts);
-    // const newPosts = serverPosts;
+    // const newPosts = serverPosts.concat(serverPosts, serverPosts, serverPosts, serverPosts);
+    const newPosts = serverPosts;
 
     const [selectedPost, setSelectedPost] = useState<BasePost | undefined>(undefined);
 

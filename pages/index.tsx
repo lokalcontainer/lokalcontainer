@@ -22,8 +22,8 @@ type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 export default function Page(props: PageProps) {
     const { query, push } = useRouter();
     const serverPosts = props.posts.data;
-    const newPosts = serverPosts.concat(serverPosts, serverPosts, serverPosts, serverPosts);
-    // const newPosts = serverPosts;
+    // const newPosts = serverPosts.concat(serverPosts, serverPosts, serverPosts, serverPosts);
+    const newPosts = serverPosts;
     const posts = useMemo(() => newPosts, [newPosts]);
 
     const [selectedPost, setSelectedPost] = useState<BasePost | undefined>(undefined);
@@ -47,8 +47,7 @@ export default function Page(props: PageProps) {
                         810: 2
                     }}
                 >
-                    {props.posts.success &&
-                        posts.length !== 0 &&
+                    {posts.length !== 0 &&
                         posts.map((item, i) => (
                             <PostCard
                                 key={i}
