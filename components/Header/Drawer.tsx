@@ -5,6 +5,7 @@ import { useTheme } from "next-themes";
 import NextLink from "next/link";
 import { STATIC_MENU } from "libs/menu.constants";
 import useOnEscape from "hooks/use-on-escape";
+import useOnClickOutside from "hooks/use-on-click-outside";
 import { useSession } from "components/Context/ContextSession";
 import { useMenu } from "components/Context/ContextMenu";
 import { FormSignIn } from "components/Utils/Forms";
@@ -13,8 +14,9 @@ export default function Drawer() {
     const { session, handleLogout } = useSession();
     const { themes, theme, setTheme } = useTheme();
     const { menu, hideMenu } = useMenu();
-    const refParent = useRef<HTMLElement>(null);
+    const refParent = useRef<HTMLDivElement>(null);
     useOnEscape(refParent, menu, hideMenu);
+    useOnClickOutside(refParent, hideMenu);
 
     const arrayColors = Array(9).fill("");
 
@@ -40,7 +42,8 @@ export default function Drawer() {
                             padding: 0,
                             margin: 0,
                             display: "flex",
-                            justifyContent: "stretch"
+                            justifyContent: "stretch",
+                            flexDirection: "row-reverse"
                         }}
                     >
                         <li
@@ -90,33 +93,45 @@ export default function Drawer() {
                         ))}
                     </ul>
 
-                    <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)" }}>
+                    <div
+                        style={{
+                            display: "grid",
+                            gridTemplateColumns: "repeat(2, 1fr)",
+                            gap: "calc(var(--grid-gap) * 4)"
+                        }}
+                    >
                         <ul>
+                            {session ? (
+                                <li>
+                                    <button onClick={handleLogout}>Sign Out</button>
+                                </li>
+                            ) : (
+                                <li>
+                                    <FormSignIn />
+                                </li>
+                            )}
+                        </ul>
+
+                        <ul
+                            style={{
+                                listStyle: "none",
+                                padding: "2em 0",
+                                margin: 0,
+                                alignSelf: "flex-end"
+                            }}
+                        >
                             {STATIC_MENU.map((item, i) => (
                                 <li key={i}>
                                     <NextLink {...item.link}>
                                         <a>
-                                            <span>{item.label}</span>
+                                            <span style={{ fontSize: "4em", fontWeight: "bold" }}>
+                                                {item.label}
+                                            </span>
                                         </a>
                                     </NextLink>
                                 </li>
                             ))}
                         </ul>
-                        <div>
-                            <ul>
-                                {session ? (
-                                    <li>
-                                        <button onClick={handleLogout}>Sign Out</button>
-                                    </li>
-                                ) : (
-                                    <>
-                                        <li>
-                                            <FormSignIn />
-                                        </li>
-                                    </>
-                                )}
-                            </ul>
-                        </div>
                     </div>
                 </motion.nav>
             )}
