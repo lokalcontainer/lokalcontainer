@@ -18,9 +18,9 @@ jobs:
           username: ${{ secrets.SSH_USER_NAME }}
           password: ${{ secrets.SSH_PASSWORD }}
           port: 22
-          scripts: |
+          script: |
             cd ~/lc-website
-            pm2 stop pm2-acosystem.config.js
+            pm2 stop pm2-ecosystem.config.js
             git pull origin main
             git status
             yarn install
