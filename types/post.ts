@@ -1,5 +1,5 @@
 import { BaseResponse } from "./response";
-import { BaseUser } from "./user";
+import { Author } from "./user";
 
 type ImageAttr = {
     url: string;
@@ -18,7 +18,7 @@ export type PostType = "font" | "blog" | "article" | "goods";
 
 export type BasePost = {
     id: string;
-    author: BaseUser;
+    author: Author;
     slug: string;
     title: string;
     type: PostType;

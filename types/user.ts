@@ -8,6 +8,10 @@ export type BaseUser = {
     userName: string;
 };
 
+export type Author = BaseUser & {
+    image?: string | null;
+};
+
 export type ResponseUser = BaseResponse & {
     data: BaseUser & {
         image: string | null;
