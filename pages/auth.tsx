@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { Formik } from "formik";
-import { mutate } from "swr";
 
 import fetchJson from "libs/lib.fetch";
 import { getServerSession } from "libs/get-server-session";
@@ -196,7 +195,9 @@ export const getServerSideProps: GetServerSideProps<{
     const q = ctx.query.form as string;
     let tab: number = 0;
 
-    if (q === "sign-in") {
+    if (!q) {
+        tab = 0;
+    } else if (q === "sign-in") {
         tab = 0;
     } else {
         tab = 1;
