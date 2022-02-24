@@ -7,13 +7,18 @@
     overflow-y: scroll;
     background-color: var(--alpha-1);
     backdrop-filter: blur(3px);
+
+    &[data-active="true"] {
+        cursor: zoom-out;
+    }
 }
 
 .content_box {
-    pointer-events: initial;
     position: relative;
+    height: 100%;
+    cursor: initial;
 
-    > div {
-        min-height: calc(100vh - var(--header-height) - calc(var(--grid-gap) * 3));
+    > * {
+        pointer-events: initial;
     }
 }

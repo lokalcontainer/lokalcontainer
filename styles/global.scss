@@ -8,6 +8,11 @@
     -webkit-tap-highlight-color: transparent;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
+
+    &::selection {
+        background-color: var(--accents-12);
+        color: var(--accents-1);
+    }
 }
 
 body {
@@ -42,6 +47,16 @@ a {
 
 pre {
     margin: 0;
+}
+
+code {
+    background-color: var(--accents-2);
+    padding-inline: calc(var(--grid-gap) / 2);
+    border-radius: calc(var(--grid-gap) / 2);
+}
+
+p {
+    font-family: inherit;
 }
 
 #__next {
