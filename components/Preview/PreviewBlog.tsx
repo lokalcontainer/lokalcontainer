@@ -123,8 +123,8 @@ const SocialButton = ({ item }: SocialButtonProps) => {
             <a
                 title={`Share to ${type}`}
                 href={href}
-                rel="noopener noreferer"
                 target="_blank"
+                rel="noopener noreferrer"
                 style={{
                     width: "100%",
                     height: "100%",
