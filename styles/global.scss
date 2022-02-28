@@ -59,6 +59,13 @@ p {
     font-family: inherit;
 }
 
+blockquote {
+    font-family: var(--font-serif);
+    font-style: italic;
+    text-align: initial;
+    font-weight: 400;
+}
+
 #__next {
     position: relative;
 }
