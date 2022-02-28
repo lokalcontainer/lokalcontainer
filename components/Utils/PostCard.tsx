@@ -98,24 +98,6 @@ export const PostCard = (props: PostCardProps) => {
                                 //     item.meta.heroImage.colors[2]
                                 // )}
                             />
-                            <div
-                                style={{
-                                    position: "absolute",
-                                    left: "1em",
-                                    bottom: "1em",
-                                    backgroundColor: "var(--accents-pink)",
-                                    paddingInline: "var(--grid-gap)",
-                                    paddingBlock: "calc(var(--grid-gap) / 4)",
-                                    borderRadius: "1em",
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center"
-                                }}
-                            >
-                                <span style={{ fontSize: "0.75em", display: "inline-flex" }}>
-                                    {image.width} &times; {image.height}
-                                </span>
-                            </div>
                         </div>
 
                         <AnimatePresence>
@@ -128,7 +110,8 @@ export const PostCard = (props: PostCardProps) => {
                                         position: "absolute",
                                         inset: 0,
                                         backgroundColor: "var(--alpha-2)",
-                                        padding: "var(--grid-gap)"
+                                        padding: "var(--grid-gap)",
+                                        backdropFilter: "blur(3px)"
                                     }}
                                 >
                                     <div

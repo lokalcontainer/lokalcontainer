@@ -100,7 +100,7 @@ export default function Drawer() {
                             gap: "calc(var(--grid-gap) * 4)"
                         }}
                     >
-                        <ul>
+                        <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
                             {session ? (
                                 <li>
                                     <button onClick={handleLogout}>Sign Out</button>
@@ -115,15 +115,17 @@ export default function Drawer() {
                         <ul
                             style={{
                                 listStyle: "none",
-                                padding: "2em 0",
+                                padding: "0em 0",
                                 margin: 0,
-                                alignSelf: "flex-end"
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "flex-end"
                             }}
                         >
                             {STATIC_MENU.map((item, i) => (
                                 <li key={i}>
                                     <NextLink {...item.link}>
-                                        <a>
+                                        <a datatype="text">
                                             <span style={{ fontSize: "4em", fontWeight: "bold" }}>
                                                 {item.label}
                                             </span>

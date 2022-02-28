@@ -59,10 +59,11 @@ export const FormSignIn = () => {
             style={{
                 display: "flex",
                 flexDirection: "column",
-                gap: "var(--grid-gap)"
+                gap: "var(--grid-gap)",
+                maxWidth: 320
             }}
         >
-            <div>Sign In</div>
+            <div style={{ fontSize: "2em", fontWeight: "bold" }}>Sign In</div>
             <Formik
                 initialValues={{ email: "", password: "" }}
                 onSubmit={(v, a) => {
@@ -81,9 +82,10 @@ export const FormSignIn = () => {
                                         replace(query.callback_url as string)
                                     );
                                 } else {
-                                    mutateSession().then(() =>
-                                        replace("/[user]", `/${res.data?.userName}`)
-                                    );
+                                    mutateSession();
+                                    // mutateSession().then(() =>
+                                    //     replace("/[user]", `/${res.data?.userName}`)
+                                    // );
                                 }
                             }
                         })
@@ -93,7 +95,7 @@ export const FormSignIn = () => {
                 {({ values, handleSubmit, handleChange, errors }) => {
                     return (
                         <form onSubmit={handleSubmit}>
-                            <ul>
+                            <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
                                 <CustomInput
                                     type="email"
                                     label="email"

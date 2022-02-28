@@ -108,12 +108,12 @@ export const getServerSideProps: GetServerSideProps<ServerProps> = async (ctx) =
     const protocol = "http";
     const url = req?.headers.host;
     const host = `${protocol}://${url}/api`;
-    const reqProfile = await getServerUser(ctx);
+    const profile = await getServerUser(ctx);
 
     const posts = await fetchJson<ResponsePosts>(`${host}/v1/posts/owner/${slug}`);
 
-    if (!reqProfile || !reqProfile.success) return { notFound: true };
+    if (!profile || !profile.success || !profile.data) return { notFound: true };
     return {
-        props: { profile: reqProfile, slug: slug as string, posts }
+        props: { profile, slug: slug as string, posts }
     };
 };

@@ -32,36 +32,34 @@ export default function Page(props: PageProps) {
                             "calc(100vh - calc(var(--header-height) * 2) - calc(var(--header-height) / 2))"
                     }}
                 >
-                    <div>
-                        {!tab || tab === "overview" ? (
-                            <PreviewPost post={post} />
-                        ) : (
-                            <>
-                                <span
-                                    style={{
-                                        textTransform: "capitalize",
-                                        fontSize: "2em",
-                                        fontWeight: "bold"
-                                    }}
-                                >
-                                    {tab.replace(/-/g, " ").trim()}
-                                </span>
-                                <p
-                                    style={{
-                                        fontSize: "10em",
-                                        fontWeight: "bold",
-                                        marginBlock: "calc(var(--grid-gap) / 2)",
-                                        margin: 0,
-                                        lineHeight: 1
-                                    }}
-                                >
-                                    Type Height <br />
-                                    in Point &amp; <br />
-                                    Millimeter
-                                </p>
-                            </>
-                        )}
-                    </div>
+                    {!tab || tab === "overview" ? (
+                        <PreviewPost post={post} />
+                    ) : (
+                        <>
+                            <span
+                                style={{
+                                    textTransform: "capitalize",
+                                    fontSize: "2em",
+                                    fontWeight: "bold"
+                                }}
+                            >
+                                {tab.replace(/-/g, " ").trim()}
+                            </span>
+                            <p
+                                style={{
+                                    fontSize: "8em",
+                                    fontWeight: "bold",
+                                    marginBlock: "calc(var(--grid-gap) / 2)",
+                                    margin: 0,
+                                    lineHeight: 1
+                                }}
+                            >
+                                Type Height <br />
+                                in Point &amp; <br />
+                                Millimeter
+                            </p>
+                        </>
+                    )}
                 </div>
             </LayoutPost>
         </LayoutMain>
@@ -79,8 +77,9 @@ export const getServerSideProps: GetServerSideProps<ServerProps> = async (ctx) =
     const user = await getServerUser(ctx);
     const post = await getServerPost(ctx);
 
-    if (!user || !user.success) return { notFound: true };
-    if (!post || !post.success) return { notFound: true };
+    if (!user || !user.success || !user.data) return { notFound: true };
+    if (!post || !post.success || !post.data) return { notFound: true };
+
     const isFont = post.data.type === "font";
     if (!queries.tab && isFont)
         return {

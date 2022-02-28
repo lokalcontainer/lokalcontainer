@@ -80,7 +80,7 @@ export const LayoutPost: FC<LayoutPostProps> = (props) => {
                             ))}
                         </ul>
                     )}
-                    <div>{children}</div>
+                    {children}
                 </div>
 
                 <aside className={styles.aside}>
@@ -102,11 +102,11 @@ export const LayoutPost: FC<LayoutPostProps> = (props) => {
                         </li>
                         <li>
                             <p style={{ fontWeight: 300, lineHeight: 1.5 }}>
-                                {/* Opensource font publishing platform, made by people across the globe */}
-                                There are many variations of passages of Lorem Ipsum available, but
-                                the majority have suffered alteration in some form, by injected
-                                humour, or randomised words which don&apos;t look even slightly
-                                believable.
+                                Opensource font publishing platform, made by people across the
+                                globe. There are many variations of passages of Lorem Ipsum
+                                available, but the majority have suffered alteration in some form,
+                                by injected humour, or randomised words which don&apos;t look even
+                                slightly believable.
                             </p>
                         </li>
 

@@ -1,10 +1,10 @@
 import type { CSSProperties } from "react";
+import type { BasePost } from "types/post";
 
 import NextLink from "next/link";
 import NextImage from "next/image";
-import { BasePost } from "types/post";
-import { DUMMY_PARAGRAPH } from "libs/util.contants";
 import { useRouter } from "next/router";
+import { DUMMY_PARAGRAPH } from "libs/util.contants";
 
 type PreviewFontProps = {
     post: BasePost;
@@ -23,16 +23,18 @@ export default function PreviewFont(props: PreviewFontProps) {
         <div
             style={{
                 pointerEvents: "initial",
-                overflow: "hidden",
-                height: "calc(100vh - var(--header-height) - calc(var(--grid-gap) * 3))"
+                overflow: isPage ? "initial" : "hidden",
+                height: isPage
+                    ? "auto"
+                    : "calc(100vh - var(--header-height) - calc(var(--grid-gap) * 3))"
             }}
         >
             <div
                 style={{
-                    display: "grid",
+                    display: isPage ? "block" : "grid",
                     gridTemplateColumns: "repeat(2, 1fr)",
                     gap: "calc(var(--grid-gap) * 4)",
-                    height: "calc(100% + 1px - var(--header-height))"
+                    height: isPage ? "100%" : "calc(100% + 1px - var(--header-height))"
                 }}
             >
                 <div
@@ -42,29 +44,33 @@ export default function PreviewFont(props: PreviewFontProps) {
                         flexDirection: "column",
                         alignItems: "center",
                         justifyContent: "center",
-                        padding: "1em",
                         overflow: "hidden",
-                        height: "calc(100vh - calc(var(--header-height) * 2) - calc(var(--grid-gap) * 3))",
+                        padding: isPage ? 0 : "1em",
+                        height: isPage
+                            ? "auto"
+                            : "calc(100vh - calc(var(--header-height) * 2) - calc(var(--grid-gap) * 3))",
                         backgroundColor: `rgba(${image1.dominant.r}, ${image1.dominant.g}, ${image1.dominant.b}, 100%)`
                     }}
                 >
                     <div
                         style={{
                             position: "relative",
-                            width:
-                                image1.large.width < image1.large.height
-                                    ? "40%"
-                                    : image1.large.width === image1.large.height
-                                    ? "50%"
-                                    : "66.66%"
+                            overflow: "hidden",
+                            width: isPage
+                                ? "100%"
+                                : image1.large.width < image1.large.height
+                                ? "60%"
+                                : image1.large.width === image1.large.height
+                                ? "100%"
+                                : "100%"
                         }}
                     >
                         <div
                             style={{
                                 position: "relative",
                                 width: "100%",
-                                border: "1px solid",
-                                borderRadius: "calc(var(--grid-gap) / 2)",
+                                border: isPage ? "none" : "1px solid",
+                                // borderRadius: "calc(var(--grid-gap) / 2)",
                                 overflow: "hidden",
                                 backgroundColor: `rgb(${image1.dominant.r}, ${image1.dominant.g}, ${image1.dominant.b})`
                             }}
@@ -79,26 +85,28 @@ export default function PreviewFont(props: PreviewFontProps) {
                             />
                         </div>
 
-                        <div
-                            style={{
-                                fontFeatureSettings: `"case", "tnum"`,
-                                display: "inline-flex",
-                                alignItems: "center",
-                                alignSelf: "start",
-                                backgroundColor: "var(--accents-12)",
-                                color: "var(--accents-1)",
-                                borderRadius: "calc(var(--grid-gap) * 2)",
-                                padding: "calc(var(--grid-gap) / 4) var(--grid-gap)",
-                                marginBlock: "var(--grid-gap)",
-                                position: "absolute",
-                                bottom: "-1em",
-                                transform: "translateY(100%)"
-                            }}
-                        >
-                            <span style={{ fontSize: "0.75em" }}>
-                                {image1.large.width} &times; {image1.large.height}
-                            </span>
-                        </div>
+                        {!isPage && (
+                            <div
+                                style={{
+                                    fontFeatureSettings: `"case", "tnum"`,
+                                    display: "inline-flex",
+                                    alignItems: "center",
+                                    alignSelf: "start",
+                                    backgroundColor: "var(--accents-12)",
+                                    color: "var(--accents-1)",
+                                    borderRadius: "calc(var(--grid-gap) * 2)",
+                                    padding: "calc(var(--grid-gap) / 4) var(--grid-gap)",
+                                    marginBlock: "var(--grid-gap)",
+                                    position: "absolute",
+                                    bottom: "-1em",
+                                    transform: "translateY(100%)"
+                                }}
+                            >
+                                <span style={{ fontSize: "0.75em" }}>
+                                    {image1.large.width} &times; {image1.large.height}
+                                </span>
+                            </div>
+                        )}
                     </div>
                 </div>
                 <div>

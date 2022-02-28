@@ -55,7 +55,8 @@ export const LightBox: FC<LightBoxProps> = (props) => {
                                 position: "sticky",
                                 top: 0,
                                 height: "var(--header-height)",
-                                paddingInline: "1.5em"
+                                paddingInline: "1.5em",
+                                zIndex: 10
                             }}
                         >
                             <button
