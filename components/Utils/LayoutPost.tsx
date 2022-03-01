@@ -101,7 +101,7 @@ export const LayoutPost: FC<LayoutPostProps> = (props) => {
                             )}
                         </li>
                         <li>
-                            <p style={{ fontWeight: 300, lineHeight: 1.5 }}>
+                            <p style={{ lineHeight: 1.5 }}>
                                 Opensource font publishing platform, made by people across the
                                 globe. There are many variations of passages of Lorem Ipsum
                                 available, but the majority have suffered alteration in some form,
