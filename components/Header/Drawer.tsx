@@ -72,7 +72,7 @@ export default function Drawer() {
                                     color: "var(--accents-1)"
                                 }}
                             >
-                                {themes.map((item, i) => (
+                                {themes.map((item: string, i: number) => (
                                     <option key={i} value={item}>
                                         {item}
                                     </option>
