@@ -81,6 +81,7 @@ export default function ProfileCard() {
                     <a
                         href={`mailto:${user.email}`}
                         target="_blank"
+                        rel="noopener noreferrer"
                         style={{
                             color: "var(--accents-6)",
                             border: "1px solid",
