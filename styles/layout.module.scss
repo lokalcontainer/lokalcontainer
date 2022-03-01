@@ -15,7 +15,7 @@
 
     @include media("screen", ">sMonitor") {
         display: grid;
-        gap: calc(var(--grid-gap) * 1);
+        gap: calc(var(--grid-gap) * 4);
     }
     @include media("screen", ">xxlMonitor") {
         // 8 Rows
