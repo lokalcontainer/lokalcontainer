@@ -107,7 +107,7 @@ export const Header = () => {
                                         <li style={listStyle}>
                                             <NextLink href="/">
                                                 <a style={linkStyle} title="Index">
-                                                    <span style={textStyle}>L - C</span>
+                                                    <span style={textStyle}>L - C Canary</span>
                                                 </a>
                                             </NextLink>
                                         </li>
