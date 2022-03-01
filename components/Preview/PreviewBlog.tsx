@@ -314,6 +314,7 @@ export default function PreviewBlog(props: PreviewBlogProps) {
                                 width={image1.large.width}
                                 height={image1.large.height}
                                 layout="responsive"
+                                quality={100}
                                 priority
                             />
                         </div>
