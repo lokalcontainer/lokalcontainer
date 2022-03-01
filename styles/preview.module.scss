@@ -1,0 +1,89 @@
+@import "media.scss";
+
+.font {
+    pointer-events: initial;
+
+    &[data-modal="true"] {
+        min-height: calc(100vh - var(--header-height) - calc(var(--grid-gap) * 3));
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        @include media("screen", ">sMonitor") {
+            overflow: hidden;
+        }
+        @include media("screen", "<sMonitor") {
+            width: 100%;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+    }
+    &[data-modal="false"] {
+        overflow: initial;
+    }
+}
+
+.font_content {
+    &[data-modal="true"] {
+        @include media("screen", ">sMonitor") {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: calc(var(--grid-gap) * 4);
+            height: calc(100% + 1px - var(--header-height));
+        }
+    }
+    &[data-modal="false"] {
+        height: 100%;
+    }
+}
+
+.font_image_container {
+    position: relative;
+    overflow: hidden;
+
+    &[data-modal="true"] {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        @include media("screen", ">sMonitor") {
+            padding: 1em;
+            height: calc(100vh - calc(var(--header-height) * 2) - calc(var(--grid-gap) * 3));
+        }
+    }
+    &[data-modal="false"] {
+        padding: 0px;
+    }
+}
+
+.footer {
+    height: var(--header-height);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    > button {
+        appearance: none;
+        background: none;
+        border: 1px solid;
+        border-radius: 100%;
+        width: 2em;
+        aspect-ratio: 1/1;
+        padding: 0;
+        margin: 0;
+        background-color: var(--accents-1);
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: inherit;
+
+        > span {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+}

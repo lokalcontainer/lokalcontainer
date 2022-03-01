@@ -1,3 +1,4 @@
+import styles from "styles/preview.module.scss";
 import type { CSSProperties } from "react";
 import type { BasePost } from "types/post";
 
@@ -20,49 +21,27 @@ export default function PreviewFont(props: PreviewFontProps) {
     const image1 = images[0];
 
     return (
-        <div
-            style={{
-                pointerEvents: "initial",
-                overflow: isPage ? "initial" : "hidden",
-                height: isPage
-                    ? "auto"
-                    : "calc(100vh - var(--header-height) - calc(var(--grid-gap) * 3))"
-            }}
-        >
-            <div
-                style={{
-                    display: isPage ? "block" : "grid",
-                    gridTemplateColumns: "repeat(2, 1fr)",
-                    gap: "calc(var(--grid-gap) * 4)",
-                    height: isPage ? "100%" : "calc(100% + 1px - var(--header-height))"
-                }}
-            >
+        <div data-modal={!isPage} className={styles.font}>
+            <div data-modal={!isPage} className={styles.font_content}>
                 <div
+                    data-modal={!isPage}
+                    className={styles.font_image_container}
                     style={{
-                        position: "relative",
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        overflow: "hidden",
-                        padding: isPage ? 0 : "1em",
-                        height: isPage
-                            ? "auto"
-                            : "calc(100vh - calc(var(--header-height) * 2) - calc(var(--grid-gap) * 3))",
                         backgroundColor: `rgba(${image1.dominant.r}, ${image1.dominant.g}, ${image1.dominant.b}, 100%)`
                     }}
                 >
                     <div
                         style={{
                             position: "relative",
-                            overflow: "hidden",
-                            width: isPage
-                                ? "100%"
-                                : image1.large.width < image1.large.height
-                                ? "60%"
-                                : image1.large.width === image1.large.height
-                                ? "100%"
-                                : "100%"
+                            width: "100%"
+                            // overflow: "hidden",
+                            // width: isPage
+                            //     ? "100%"
+                            //     : image1.large.width < image1.large.height
+                            //     ? "60%"
+                            //     : image1.large.width === image1.large.height
+                            //     ? "100%"
+                            //     : "100%"
                         }}
                     >
                         <div
@@ -70,7 +49,6 @@ export default function PreviewFont(props: PreviewFontProps) {
                                 position: "relative",
                                 width: "100%",
                                 border: isPage ? "none" : "1px solid",
-                                // borderRadius: "calc(var(--grid-gap) / 2)",
                                 overflow: "hidden",
                                 backgroundColor: `rgb(${image1.dominant.r}, ${image1.dominant.g}, ${image1.dominant.b})`
                             }}
@@ -194,22 +172,36 @@ export default function PreviewFont(props: PreviewFontProps) {
             </div>
 
             {!isPage && (
-                <div
-                    style={{
-                        height: "calc(var(--header-height) * 1)",
-                        position: "absolute",
-                        bottom: 0,
-                        left: 0,
-                        width: "100%",
-                        display: "flex",
-                        alignItems: "center",
-                        paddingInline: "var(--grid-gap)"
-                        // backgroundColor: "var(--accents-3)",
-                        // border: "1px solid"
-                    }}
-                >
-                    Footer
-                </div>
+                <footer className={styles.footer}>
+                    <button>
+                        <span>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                height="1.5em"
+                                width="1.5em"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                            >
+                                <path d="M0 0h24v24H0V0z" fill="none" />
+                                <path d="M15.61 7.41L14.2 6l-6 6 6 6 1.41-1.41L11.03 12l4.58-4.59z" />
+                            </svg>
+                        </span>
+                    </button>
+                    <button>
+                        <span>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                height="1.5em"
+                                width="1.5em"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                            >
+                                <path d="M0 0h24v24H0V0z" fill="none" />
+                                <path d="M10.02 6L8.61 7.41 13.19 12l-4.58 4.59L10.02 18l6-6-6-6z" />
+                            </svg>
+                        </span>
+                    </button>
+                </footer>
             )}
         </div>
     );
