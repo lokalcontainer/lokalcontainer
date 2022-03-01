@@ -3,6 +3,7 @@ import type { FC } from "react";
 import type { ResponseUser } from "types/user";
 import NextImage from "next/image";
 import NextLink from "next/link";
+import moment from "moment";
 
 type LayoutUserProps = {
     user: ResponseUser;
@@ -10,11 +11,22 @@ type LayoutUserProps = {
 
 const Aside = (props: LayoutUserProps) => {
     const {
-        data: { name, userName, image, email }
+        data: { name, userName, image, email, createdAt }
     } = props.user;
     return (
         <aside className={styles.aside}>
-            <ul>
+            <ul
+                style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    padding: "1em",
+                    backgroundColor: "var(--accents-2)",
+                    // border: "1px solid var(--accents-1)",
+                    borderRadius: "0.5em",
+                    boxShadow:
+                        "0 0 0.5em -0.15em var(--accents-4), inset 0 0 2px 0 var(--accents-5)"
+                }}
+            >
                 <li
                     style={{
                         flexShrink: 0,
@@ -28,25 +40,28 @@ const Aside = (props: LayoutUserProps) => {
                             backgroundColor: "var(--accents-pink)",
                             overflow: "hidden",
                             position: "relative",
-                            width: 64,
-                            height: 64,
-                            display: "block"
+                            width: 128,
+                            height: 128,
+                            display: "block",
+                            borderRadius: "100%"
                         }}
                     >
                         {image ? (
                             <NextImage
                                 src={image}
-                                width="64"
-                                height="64"
+                                width="128"
+                                height="128"
                                 alt={`avatar-${userName}`}
+                                quality={100}
                                 priority
                             />
                         ) : (
                             <NextImage
                                 src="/images/avatars/avatar-frown.png"
-                                width="64"
-                                height="64"
+                                width="128"
+                                height="128"
                                 alt={`avatar-${userName}`}
+                                quality={100}
                                 priority
                             />
                         )}
@@ -56,7 +71,7 @@ const Aside = (props: LayoutUserProps) => {
                 <li>
                     <span
                         style={{
-                            fontSize: "1.3em",
+                            fontSize: "2em",
                             display: "inline-block",
                             width: "100%",
                             overflow: "hidden",
@@ -76,10 +91,24 @@ const Aside = (props: LayoutUserProps) => {
                             width: "100%",
                             overflow: "hidden",
                             textOverflow: "ellipsis",
-                            whiteSpace: "nowrap"
+                            whiteSpace: "nowrap",
+                            fontSize: "1em",
+                            color: "var(--accents-6)"
                         }}
                     >
                         {email}
+                    </span>
+                </li>
+
+                <li>
+                    <span
+                        style={{
+                            fontSize: "0.75em",
+                            color: "var(--accents-6)",
+                            textTransform: "uppercase"
+                        }}
+                    >
+                        Member Since: {moment(createdAt).format("MMMM D, YYYY")}
                     </span>
                 </li>
             </ul>
