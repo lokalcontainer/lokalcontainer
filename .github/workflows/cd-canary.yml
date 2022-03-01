@@ -1,4 +1,4 @@
-name: CD
+name: deploy-canary
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - canary
 
 jobs:
-  CD:
+  deploy-canary:
     runs-on: ubuntu-latest
 
     steps:

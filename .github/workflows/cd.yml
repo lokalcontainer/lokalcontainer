@@ -1,4 +1,4 @@
-name: CD
+name: deploy-prod
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  CD:
+  deploy-prod:
     runs-on: ubuntu-latest
 
     steps:
