@@ -1,0 +1,29 @@
+name: CD
+
+on:
+  push:
+    branches:
+      - canary
+
+jobs:
+  CD:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Deploy Service
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER_NAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: 22
+          script: |
+            cd ~/lc-website-canary
+            pm2 stop pm2-canary.config.js
+            git pull origin canary
+            git status
+            rm -rf .next
+            yarn install
+            yarn build
+            pm2 restart pm2-canary.config.js
