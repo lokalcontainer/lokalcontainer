@@ -23,6 +23,7 @@ jobs:
             pm2 stop pm2-ecosystem.config.js
             git pull origin main
             git status
+            rm -rf .next
             yarn install
             yarn build
             pm2 restart pm2-ecosystem.config.js
