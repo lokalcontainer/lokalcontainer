@@ -7,9 +7,9 @@
     "license": "Apache-2.0",
     "private": true,
     "scripts": {
-        "dev": "next dev -p 7001",
+        "dev": "next dev",
         "build": "next build",
-        "start": "next start -p 7001",
+        "start": "next start",
         "lint": "next lint",
         "analyze": "cross-env ANALYZE=true yarn build"
     },
