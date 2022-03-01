@@ -8,6 +8,13 @@ export type BaseUser = {
     userName: string;
 };
 
+export type Profile = BaseUser & {
+    image: string | null;
+    access: boolean;
+    createdAt: string;
+    updatedAt: string;
+};
+
 export type Author = BaseUser & {
     image?: string | null;
 };

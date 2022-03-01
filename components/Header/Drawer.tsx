@@ -3,12 +3,18 @@ import { useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTheme } from "next-themes";
 import NextLink from "next/link";
+import NextDynamic from "next/dynamic";
 import { STATIC_MENU } from "libs/menu.constants";
 import useOnEscape from "hooks/use-on-escape";
 import useOnClickOutside from "hooks/use-on-click-outside";
 import { useSession } from "components/Context/ContextSession";
 import { useMenu } from "components/Context/ContextMenu";
 import { FormSignIn } from "components/Utils/Forms";
+
+const ProfileCard = NextDynamic(() => import("components/Utils/ProfileCard"), {
+    ssr: false,
+    loading: () => <div>Loading...</div>
+});
 
 export default function Drawer() {
     const { session, handleLogout } = useSession();
@@ -100,17 +106,34 @@ export default function Drawer() {
                             gap: "calc(var(--grid-gap) * 4)"
                         }}
                     >
-                        <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-                            {session ? (
-                                <li>
-                                    <button onClick={handleLogout}>Sign Out</button>
-                                </li>
-                            ) : (
-                                <li>
-                                    <FormSignIn />
-                                </li>
-                            )}
-                        </ul>
+                        <div>
+                            <ul
+                                style={{
+                                    listStyle: "none",
+                                    margin: 0,
+                                    padding: 0
+                                    // marginTop: "1em",
+                                    // minWidth: 320,
+                                    // display: "inline-flex",
+                                    // flexDirection: "column",
+                                    // padding: "1em",
+                                    // backgroundColor: "var(--accents-2)",
+                                    // gap: "var(--grid-gap)",
+                                    // // border: "1px solid var(--accents-1)",
+                                    // borderRadius: "0.5em",
+                                    // boxShadow:
+                                    //     "0 0 0.5em -0.15em var(--accents-4), inset 0 0 2px 0 var(--accents-5)"
+                                }}
+                            >
+                                {session ? (
+                                    <ProfileCard />
+                                ) : (
+                                    <li>
+                                        <FormSignIn />
+                                    </li>
+                                )}
+                            </ul>
+                        </div>
 
                         <ul
                             style={{
