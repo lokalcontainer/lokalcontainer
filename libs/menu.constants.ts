@@ -26,6 +26,10 @@ export const STATIC_MENU: Menu[] = [
     {
         label: "Goods",
         link: { href: "/goods" }
+    },
+    {
+        label: "Archive",
+        link: { href: "/archive" }
     }
 ];
 
