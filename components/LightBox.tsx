@@ -1,14 +1,14 @@
 import styles from "styles/modal.module.scss";
-import type { CSSProperties, FC } from "react";
+import { CSSProperties, FC, useEffect, useState } from "react";
 import { useRef } from "react";
+import { useRouter } from "next/router";
 import { AnimatePresence, motion } from "framer-motion";
 import NextHead from "next/head";
-import useLightBox from "hooks/use-light-box";
 import useOnClickOutside from "hooks/use-on-click-outside";
 import useOnEscape from "hooks/use-on-escape";
 
 type BaseProps = {
-    onRequestClose: () => void;
+    onRequestClose?: () => void;
     title?: string | JSX.Element;
 };
 
@@ -17,9 +17,22 @@ type LightBoxProps = BaseProps & {
 };
 
 export const LightBox: FC<LightBoxProps> = (props) => {
-    const { children, style, onRequestClose, title = "Light Box" } = props;
+    const { query, back } = useRouter();
+    const { children, style, onRequestClose = back, title = "Light Box" } = props;
 
-    const { lightBox: state } = useLightBox();
+    const [state, setState] = useState(() => query.light_box?.includes("true") || false);
+
+    useEffect(() => {
+        if (!query.light_box) {
+            setState(false);
+        } else if (query.light_box?.includes("true")) {
+            setState(true);
+        } else {
+            setState(false);
+        }
+
+        return () => setState(false);
+    }, [query.light_box]);
 
     const refParent = useRef<HTMLDivElement>(null);
     const refContent = useRef<HTMLDivElement>(null);
