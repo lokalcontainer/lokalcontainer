@@ -3,30 +3,71 @@ import type { ResponseSession } from "types/session";
 import NextLink from "next/link";
 import { getServerSession } from "libs/get-server-session";
 import { LayoutMain } from "components/LayoutMain";
+import EditorFont from "components/Editor/EditorFont";
 
 type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 
+function EditorBlog() {
+    return <div>Create Post Blog</div>;
+}
+function EditorGoods() {
+    return <div>Create Post Goods</div>;
+}
+
+type EditorProps = {
+    type: string;
+};
+function Editor({ type }: EditorProps) {
+    switch (type) {
+        case "font":
+            return <EditorFont />;
+        case "article":
+            return <EditorBlog />;
+        case "blog":
+            return <EditorBlog />;
+        case "goods":
+            return <EditorGoods />;
+        default:
+            return <div>No layout found</div>;
+    }
+}
+
 export default function Page(props: PageProps) {
     return (
-        <LayoutMain
-            title={`Post New ${
-                props.type.substring(0, 1).toUpperCase() +
-                props.type.substring(1, props.type.length)
-            }`}
-        >
-            <div>
-                <NextLink href="/new?type=font">
-                    <a>Font</a>
-                </NextLink>
-                <NextLink href="/new?type=article">
-                    <a>Article</a>
-                </NextLink>
-                <NextLink href="/new?type=goods">
-                    <a>Goods</a>
-                </NextLink>
-            </div>
-
-            <pre>{JSON.stringify(props, null, 2)}</pre>
+        <LayoutMain>
+            <ul
+                style={{
+                    listStyle: "none",
+                    padding: 0,
+                    margin: 0,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between"
+                }}
+            >
+                <li>
+                    <NextLink href="/new?type=font">
+                        <a>
+                            <span>Font</span>
+                        </a>
+                    </NextLink>
+                </li>
+                <li>
+                    <NextLink href="/new?type=article">
+                        <a>
+                            <span>Article</span>
+                        </a>
+                    </NextLink>
+                </li>
+                <li>
+                    <NextLink href="/new?type=goods">
+                        <a>
+                            <span>Goods</span>
+                        </a>
+                    </NextLink>
+                </li>
+            </ul>
+            <Editor type={props.type} />
         </LayoutMain>
     );
 }
