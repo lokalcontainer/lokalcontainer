@@ -161,10 +161,7 @@ const SocialButtons = () => {
                 padding: 0,
                 width: "calc(var(--header-height) / 1.25)",
                 position: "sticky",
-                // top: "calc(var(--header-height) * 4.25)",
                 top: "calc(var(--header-height) + 1em)"
-                // paddingBlock: "calc(var(--grid-gap) / 1.25)",
-                // backgroundColor: "magenta"
             }}
         >
             {socialButtons.map((item, i) => (
@@ -185,9 +182,6 @@ export default function PreviewBlog(props: PreviewBlogProps) {
                 width: "100%",
                 maxWidth: 800,
                 margin: "0 auto"
-                // display: "grid",
-                // gridTemplateColumns: "max-content 1fr",
-                // gap: "calc(var(--grid-gap) * 2)"
             }}
         >
             <div style={{ position: "absolute", top: 0, left: 0, bottom: 0 }}>
@@ -197,7 +191,6 @@ export default function PreviewBlog(props: PreviewBlogProps) {
             <div
                 style={{
                     padding: "calc(var(--grid-gap) * 2)",
-                    // paddingInline: 0,
                     paddingInline: "calc(var(--header-height) + 1em)"
                 }}
             >
@@ -296,7 +289,7 @@ export default function PreviewBlog(props: PreviewBlogProps) {
                         </li>
                     </ul>
 
-                    <figure style={{ marginInline: 0 }}>
+                    <figure style={{ marginInline: "var(--header-height)", marginBlock: "3em" }}>
                         <figcaption>
                             You can check on the sidebearings and the width of any glyph by taking a
                             look at the grey info panel:
@@ -305,8 +298,7 @@ export default function PreviewBlog(props: PreviewBlogProps) {
                         <div
                             style={{
                                 position: "relative",
-                                border: "1px solid",
-                                marginBlock: "var(--grid-gap)"
+                                marginBlock: "1em"
                             }}
                         >
                             <NextImage

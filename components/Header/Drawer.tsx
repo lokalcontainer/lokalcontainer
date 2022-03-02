@@ -17,7 +17,7 @@ const ProfileCard = NextDynamic(() => import("components/Utils/ProfileCard"), {
 });
 
 const listStyle: CSSProperties = {
-    width: "2em",
+    width: "1.5em",
     aspectRatio: "1/1",
     borderRadius: "100%",
     display: "inline-flex",

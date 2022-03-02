@@ -84,36 +84,42 @@ export const LayoutPost: FC<LayoutPostProps> = (props) => {
                 </div>
 
                 <aside className={styles.aside}>
-                    <ul>
-                        <li
-                            data-scroll={isScroll}
-                            style={{
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "space-between"
-                            }}
-                        >
-                            <span style={{ fontSize: "1.5em", fontWeight: "bold" }}>About</span>
-                            {session && session.userName === user.userName && (
-                                <span style={{ fontSize: "0.85em", color: "var(--accents-6)" }}>
-                                    Edit
-                                </span>
-                            )}
-                        </li>
-                        <li>
-                            <p style={{ lineHeight: 1.5 }}>
-                                Opensource font publishing platform, made by people across the
-                                globe. There are many variations of passages of Lorem Ipsum
-                                available, but the majority have suffered alteration in some form,
-                                by injected humour, or randomised words which don&apos;t look even
-                                slightly believable.
-                            </p>
-                        </li>
+                    {postType !== "article" && postType !== "blog" ? (
+                        <ul>
+                            <li
+                                data-scroll={isScroll}
+                                style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "space-between"
+                                }}
+                            >
+                                <span style={{ fontSize: "1.5em", fontWeight: "bold" }}>About</span>
+                                {session && session.userName === user.userName && (
+                                    <span style={{ fontSize: "0.85em", color: "var(--accents-6)" }}>
+                                        Edit
+                                    </span>
+                                )}
+                            </li>
+                            <li>
+                                <p style={{ lineHeight: 1.5 }}>
+                                    Opensource font publishing platform, made by people across the
+                                    globe. There are many variations of passages of Lorem Ipsum
+                                    available, but the majority have suffered alteration in some
+                                    form, by injected humour, or randomised words which don&apos;t
+                                    look even slightly believable.
+                                </p>
+                            </li>
 
-                        <li>
-                            <div>License</div>
-                        </li>
-                    </ul>
+                            <li>
+                                <div>License</div>
+                            </li>
+                        </ul>
+                    ) : (
+                        <div style={{ position: "sticky", top: "var(--header-height)" }}>
+                            Section
+                        </div>
+                    )}
                 </aside>
             </div>
         </div>

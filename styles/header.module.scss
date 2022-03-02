@@ -4,7 +4,6 @@
     position: sticky;
     top: 0;
     padding-inline: calc(var(--grid-gap) * 3);
-    // padding-block: calc(var(--grid-gap) / 2);
     z-index: 1000;
 
     display: grid;
@@ -12,13 +11,7 @@
     align-items: center;
     gap: var(--grid-gap);
 
-    // color: #fff;
-    // mix-blend-mode: difference;
     height: var(--header-height);
-    // box-shadow: 0 0 1em -0.5em var(--accents-12);
-    // box-shadow: 0 1px 0.25em -0.2em var(--accents-8), 0 0 0.05em 0 var(--accents-8);
-
-    // border-bottom: 1px solid;
 
     background-color: var(--accents-1);
     text-transform: uppercase;
@@ -32,39 +25,27 @@
 
     > ul {
         padding: 0;
-        // padding-inline: calc(var(--grid-gap) * 1);
         margin: 0;
         list-style: none;
 
         display: flex;
         align-items: center;
         gap: calc(var(--grid-gap) / 2);
-        // height: 100%;
 
         > li {
-            // background-color: var(--accents-6);
-            // color: var(--accents-12);
-            // border-radius: calc(var(--grid-gap) / 3);
-            // border: 1px solid;
-            // min-height: calc(var(--grid-gap) * 3);
             position: relative;
             height: 100%;
-            // border: 1px solid;
 
             display: inline-flex;
             align-items: center;
             justify-content: center;
 
-            // font-weight: 300;
-
             &[data-menu="text"] {
-                // padding: 0 calc(var(--grid-gap) / 2);
                 padding: 0;
             }
 
             > a {
                 &:hover {
-                    // text-decoration: underline;
                     color: var(--accents-6) !important;
                 }
             }
@@ -74,30 +55,19 @@
             > input[type="text"],
             > select,
             > span {
-                // min-width: 2em;
-                // margin: 0;
-                // padding: calc(var(--grid-gap) / 3) var(--grid-gap);
-                // border-radius: calc(var(--grid-gap) * 2);
-                // background-color: var(--accents-12) !important;
-                // color: var(--accents-1) !important;
-                // display: inline-flex;
-                // align-items: center;
-                // justify-content: center;
                 border-radius: 0;
+                border: none;
 
                 background-color: inherit;
-                // color: var(--accents-8);
 
-                border: none;
-                // padding: 0 var(--grid-gap);
                 margin: 0;
                 cursor: pointer;
 
                 font-family: inherit;
                 font-size: inherit;
                 font-weight: inherit;
-                font-size: 0.85em;
-                font-weight: 500;
+                font-size: 0.75em;
+                font-weight: 400;
 
                 display: flex;
                 align-items: center;
@@ -106,26 +76,12 @@
                 width: 100%;
 
                 > span {
-                    // display: inline-flex;
-                    // align-items: center;
-                    // justify-content: center;
+                    max-width: 100px;
                     overflow: hidden;
                     display: block;
                     white-space: nowrap;
                     text-overflow: ellipsis;
                 }
-
-                // &:hover {
-                //     color: var(--accents-12);
-                // }
-
-                // position: relative;
-
-                // span {
-                //     height: 100%;
-                //     display: flex;
-                //     align-items: center;
-                // }
             }
         }
     }
@@ -140,7 +96,6 @@
     background-color: var(--accents-1);
     backdrop-filter: blur(3px);
 
-    // min-height: 50vh;
     z-index: 999;
 
     padding: calc(var(--header-height) + calc(var(--grid-gap) * 1.75)) calc(var(--grid-gap) * 3)

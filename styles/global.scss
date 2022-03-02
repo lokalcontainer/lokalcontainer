@@ -3,7 +3,6 @@
 
 * {
     box-sizing: border-box;
-    // border-color: var(--accents-3) !important;
 
     -webkit-tap-highlight-color: transparent;
     -moz-osx-font-smoothing: grayscale;
@@ -25,9 +24,9 @@ body {
     background-color: var(--accents-1);
     color: var(--accents-12);
 
-    // @include media("screen", ">xlMonitor") {
-    //     font-size: 18px;
-    // }
+    @include media("screen", ">xlMonitor") {
+        font-size: 18px;
+    }
 
     &[data-scroll-hide] {
         overflow: hidden;
@@ -60,10 +59,20 @@ p {
 }
 
 blockquote {
+    font-size: 1.05em;
     font-family: var(--font-serif);
     font-style: italic;
     text-align: initial;
     font-weight: 400;
+    margin-block: 2em;
+}
+
+article {
+    p,
+    ul,
+    blockquote {
+        letter-spacing: 0.025em;
+    }
 }
 
 #__next {
