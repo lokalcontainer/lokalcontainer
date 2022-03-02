@@ -139,7 +139,8 @@ export default function ProfileCard() {
                             style={{
                                 ...buttonStyle,
                                 // border: "1px solid",
-                                padding: "calc(var(--grid-gap) / 6) calc(var(--grid-gap) * 1.5)",
+                                padding: "calc(var(--grid-gap) / 4) calc(var(--grid-gap) * 1.5)",
+                                fontFamily: "inherit",
                                 borderRadius: "3em",
                                 backgroundColor: "var(--accents-12)",
                                 color: "var(--accents-1)"

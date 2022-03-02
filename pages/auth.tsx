@@ -141,39 +141,81 @@ export default function Page(props: PageProps) {
         }
     }, [query.form]);
 
+    const isSignUp = selectedTab.label === "sign-up";
+
     return (
         <LayoutMain>
-            <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
-                {tabs
-                    .filter((item) => item.label !== query.form)
-                    .map((item, i) => (
-                        <li key={i}>
-                            <button
-                                onClick={() => {
-                                    replace(
-                                        `/auth?form=${item.label}&callback_url=${
-                                            query.callback_url ?? "/"
-                                        }`
-                                    );
-                                }}
-                            >
-                                {item.label}
-                            </button>
-                        </li>
-                    ))}
-            </ul>
-
-            <AnimatePresence exitBeforeEnter initial={false}>
-                <motion.div
-                    key={selectedTab ? selectedTab.label : "empty"}
-                    animate={{ opacity: 1 }}
-                    initial={{ opacity: 0 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.15 }}
+            <div
+                style={{
+                    height: 320,
+                    width: "100%",
+                    maxWidth: 320,
+                    position: "absolute",
+                    top: "calc(50% - var(--header-height))",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                    borderRadius: "var(--grid-gap)",
+                    padding: "1em",
+                    backgroundColor: "var(--accents-1)",
+                    overflow: "hidden",
+                    boxShadow:
+                        "0 0 1em -0.5em var(--accents-1), inset 0 0 0.75em -0.25em var(--accents-6)"
+                }}
+            >
+                <ul
+                    style={{
+                        listStyle: "none",
+                        margin: 0,
+                        padding: 0,
+                        marginBottom: "1em",
+                        borderBottom: "1px solid",
+                        paddingBottom: "var(--grid-gap)"
+                    }}
                 >
-                    {selectedTab && <>{selectedTab.component}</>}
-                </motion.div>
-            </AnimatePresence>
+                    {tabs
+                        .filter((item) => item.label !== query.form)
+                        .map((item, i) => (
+                            <li key={i}>
+                                <button
+                                    style={{
+                                        appearance: "none",
+                                        background: "none",
+                                        border: "none",
+                                        borderRadius: 0,
+                                        textTransform: "capitalize",
+                                        fontSize: "inherit",
+                                        fontFamily: "inherit",
+                                        padding: 0,
+                                        cursor: "pointer"
+                                    }}
+                                    onClick={() => {
+                                        replace(
+                                            `/auth?form=${item.label}&callback_url=${
+                                                query.callback_url ?? "/"
+                                            }`
+                                        );
+                                    }}
+                                >
+                                    {item.label === "sign-in" && <>&larr;</>}{" "}
+                                    {item.label.replace(/-/g, " ").trim()}{" "}
+                                    {item.label === "sign-up" && <>&rarr;</>}
+                                </button>
+                            </li>
+                        ))}
+                </ul>
+
+                <AnimatePresence exitBeforeEnter initial={false}>
+                    <motion.div
+                        key={selectedTab ? selectedTab.label : "empty"}
+                        animate={{ x: "0%" }}
+                        initial={{ x: isSignUp ? "110%" : "-110%" }}
+                        exit={{ x: isSignUp ? "110%" : "-110%" }}
+                        transition={{ duration: 0.15 }}
+                    >
+                        {selectedTab && <>{selectedTab.component}</>}
+                    </motion.div>
+                </AnimatePresence>
+            </div>
         </LayoutMain>
     );
 }

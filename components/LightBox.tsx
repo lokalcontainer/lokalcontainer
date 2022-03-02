@@ -39,13 +39,14 @@ export const LightBox: FC<LightBoxProps> = (props) => {
                         className={styles.container}
                         data-active={state}
                         initial={{ opacity: 0 }}
-                        animate={{
-                            opacity: 1,
-                            transition: { type: "spring", mass: 0.5, damping: 200, stiffness: 2000 }
-                        }}
-                        exit={{
-                            opacity: 0,
-                            transition: { type: "spring", mass: 0.5, damping: 200, stiffness: 2000 }
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{
+                            type: "spring",
+                            mass: 0.5,
+                            damping: 200,
+                            stiffness: 2000,
+                            delay: 0.25
                         }}
                     >
                         <div
@@ -124,24 +125,3 @@ export const LightBox: FC<LightBoxProps> = (props) => {
 };
 
 export default LightBox;
-
-// useEffect(() => {
-//     if (!state) return;
-//     const newBodyAttr = "data-scroll-hide";
-//     const html = document.documentElement;
-//     const body = document.body;
-
-//     const cssProps = "--no-scroll-padding";
-
-//     const scrollBarWidth = window.innerWidth - html.clientWidth;
-//     const bodyPaddingRight =
-//         parseInt(window.getComputedStyle(body).getPropertyValue("padding-right")) || 0;
-
-//     html.style.setProperty(cssProps, `${bodyPaddingRight + scrollBarWidth}px`);
-//     body.setAttribute(newBodyAttr, "true");
-
-//     return () => {
-//         html.style.setProperty(cssProps, "0px");
-//         body.removeAttribute(newBodyAttr);
-//     };
-// }, [state]);
