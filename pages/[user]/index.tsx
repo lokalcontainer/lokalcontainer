@@ -58,7 +58,7 @@ export default function Page(props: PageProps) {
                                         href: {
                                             pathname: "/[user]",
                                             query: {
-                                                lightBox: true,
+                                                light_box: true,
                                                 post: item.slug,
                                                 index: i,
                                                 user: item.slug,
@@ -86,6 +86,11 @@ export default function Page(props: PageProps) {
             </LayoutMain>
 
             <LightBox
+                title={`${selectedPost?.type
+                    .substring(0, 1)
+                    .toUpperCase()}${selectedPost?.type.substring(1, selectedPost.type.length)} / ${
+                    selectedPost?.title
+                }`}
                 onRequestClose={() =>
                     push("/[user]", `/${userName}`, { shallow: true, scroll: false })
                 }
