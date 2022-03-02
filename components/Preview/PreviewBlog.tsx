@@ -245,8 +245,7 @@ export default function PreviewBlog(props: PreviewBlogProps) {
                 <article
                     style={{
                         lineHeight: 1.5,
-                        fontFamily: "inherit",
-                        textAlign: "justify"
+                        fontFamily: "inherit"
                     }}
                 >
                     <h1>{title}</h1>
