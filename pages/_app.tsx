@@ -10,6 +10,7 @@ import nProgress from "nprogress";
 import { ProviderSession } from "components/Context/ContextSession";
 import { Header } from "components/Header";
 import { Footer } from "components/Footer";
+import Logo from "components/Logo";
 
 interface MyAppProps extends AppProps {
     session?: ResponseSession;
@@ -50,6 +51,23 @@ export default function MyApp(props: MyAppProps) {
                     defaultTheme="system"
                     themes={["dark", "light"]}
                 >
+                    <div
+                        style={{
+                            width: "6em",
+                            aspectRatio: "1/1",
+                            position: "fixed",
+                            right: "2em",
+                            bottom: "2em",
+                            zIndex: 2000,
+                            color: "#fff",
+                            mixBlendMode: "exclusion",
+                            pointerEvents: "none",
+                            touchAction: "none",
+                            borderRadius: "100%"
+                        }}
+                    >
+                        <Logo />
+                    </div>
                     <Header />
                     <Component {...pageProps} />
                     <Footer />
