@@ -8,6 +8,7 @@ import useBreadCrumb from "hooks/use-breadcrumb";
 import { useSession } from "components/Context/ContextSession";
 
 const Drawer = NextDynamic(() => import("./Drawer"), { ssr: false });
+const CreatePostButton = NextDynamic(() => import("components/CreatePostButton"), { ssr: false });
 
 const buttonStyle: CSSProperties = {
     appearance: "none",
@@ -53,7 +54,13 @@ const textStyle: CSSProperties = {
 const ToggleMenu = () => {
     const { menu, toggleMenu } = useMenu();
     return (
-        <button name="Menu" title="Menu" onClick={toggleMenu} style={buttonStyle}>
+        <button
+            name="Menu"
+            title="Menu"
+            data-tooltip="Open Menu"
+            onClick={toggleMenu}
+            style={buttonStyle}
+        >
             <motion.span
                 initial={{ scale: 1 }}
                 animate={{ scale: menu ? 1.2 : 1 }}
@@ -145,31 +152,18 @@ export const Header = () => {
 
                             <ul style={{ justifyContent: "end" }}>
                                 {session && (
-                                    <>
-                                        <li style={{ width: "1.5em" }}>
-                                            <NextLink href="/post/new?type=font">
-                                                <a title="New Post" style={buttonStyle}>
-                                                    <span style={buttonSpanStyle}>
-                                                        <svg
-                                                            name="New Post"
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                            height="1.4em"
-                                                            viewBox="0 0 24 24"
-                                                            width="1.4em"
-                                                            fill="currentColor"
-                                                        >
-                                                            <path d="M0 0h24v24H0V0z" fill="none" />
-                                                            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
-                                                        </svg>
-                                                    </span>
-                                                </a>
-                                            </NextLink>
-                                        </li>
-                                    </>
+                                    <li style={{ width: "1.5em", position: "relative" }}>
+                                        <CreatePostButton />
+                                    </li>
                                 )}
 
                                 <li style={{ height: "1.5em" }}>
-                                    <button name="Search" title="Search" style={buttonStyle}>
+                                    <button
+                                        name="Search"
+                                        title="Search"
+                                        data-tooltip="Search something on L - C"
+                                        style={buttonStyle}
+                                    >
                                         <span style={buttonSpanStyle}>
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
