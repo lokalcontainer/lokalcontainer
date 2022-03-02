@@ -1,4 +1,4 @@
-import styles from "styles/header.module.scss";
+import styles from "styles/nav.module.scss";
 import { CSSProperties, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTheme } from "next-themes";
@@ -118,7 +118,7 @@ export default function Drawer() {
             {menu && (
                 <motion.nav
                     ref={refParent}
-                    className={styles.app_drawer}
+                    className={styles.container}
                     initial={{ opacity: 0 }}
                     animate={{
                         opacity: 1,
@@ -129,16 +129,7 @@ export default function Drawer() {
                         transition: { type: "spring", mass: 0.5, damping: 100, stiffness: 2000 }
                     }}
                 >
-                    <ul
-                        style={{
-                            listStyle: "none",
-                            padding: 0,
-                            margin: 0,
-                            display: "flex",
-                            justifyContent: "stretch",
-                            flexDirection: "row-reverse"
-                        }}
-                    >
+                    <ul className={styles.gradient}>
                         <li
                             style={{
                                 height: "calc(var(--header-height) / 1.5)",
@@ -185,49 +176,51 @@ export default function Drawer() {
                         ))}
                     </ul>
 
-                    <div
-                        style={{
-                            display: "grid",
-                            gridTemplateColumns: "repeat(2, 1fr)",
-                            gap: "calc(var(--grid-gap) * 4)"
-                        }}
-                    >
-                        <div
+                    <div className={styles.content}>
+                        {/* <div
                             style={{
-                                display: "flex",
-                                flexDirection: "column",
-                                justifyContent: "space-between"
+                                width: "8em",
+                                aspectRatio: "1/1",
+                                padding: "var(--grid-gap)",
+                                // backgroundColor: "var(--accents-12)",
+                                // border: "4px solid",
+                                borderRadius: "100%",
+                                color: "var(--accents-12)",
+                                marginBlock: "1em",
+                                position: "absolute",
+                                top: "50%",
+                                left: "50%",
+                                transform: "translate(-50%, -50%)"
                             }}
                         >
-                            <ul
-                                style={{
-                                    listStyle: "none",
-                                    margin: 0,
-                                    padding: 0
-                                }}
-                            >
-                                {session ? (
-                                    <ProfileCard />
-                                ) : (
-                                    <li>
-                                        <FormSignIn />
-                                    </li>
-                                )}
-                            </ul>
-
-                            <SocialMedia />
-                        </div>
+                            <Logo />
+                        </div> */}
 
                         <ul
                             style={{
                                 listStyle: "none",
-                                padding: "0em 0",
                                 margin: 0,
+                                padding: 0,
+                                height: "100%",
                                 display: "flex",
-                                flexDirection: "column",
-                                alignItems: "flex-end"
+                                flexDirection: "column"
+                                // justifyContent: "space-between"
                             }}
                         >
+                            {session ? (
+                                <ProfileCard />
+                            ) : (
+                                <li>
+                                    <FormSignIn />
+                                </li>
+                            )}
+
+                            <li style={{ justifySelf: "flex-end", marginTop: "auto" }}>
+                                <SocialMedia />
+                            </li>
+                        </ul>
+
+                        <ul className={styles.menu}>
                             {STATIC_MENU.map((item, i) => (
                                 <li key={i}>
                                     <NextLink {...item.link}>

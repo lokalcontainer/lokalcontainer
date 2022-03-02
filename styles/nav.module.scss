@@ -1,0 +1,59 @@
+@import "mixin.scss";
+@import "media.scss";
+
+.container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+
+    background-color: var(--accents-1);
+    backdrop-filter: blur(3px);
+
+    z-index: 999;
+
+    padding: calc(var(--header-height) + calc(var(--grid-gap) * 1.75)) calc(var(--grid-gap) * 3)
+        calc(var(--grid-gap) * 3);
+
+    @include borderShadowShow();
+}
+
+.gradient {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: stretch;
+    flex-direction: row-reverse;
+}
+
+.content {
+    position: relative;
+
+    @include media("screen", ">tablet") {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-area: calc(var(--grid-gap) * 4);
+    }
+
+    @include media("screen", "<tablet") {
+        display: flex;
+        flex-direction: column-reverse;
+        gap: 4em;
+    }
+}
+
+.menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+
+    @include media("screen", ">tablet") {
+        align-items: flex-end;
+    }
+    @include media("screen", "<tablet") {
+        align-items: flex-start;
+    }
+}

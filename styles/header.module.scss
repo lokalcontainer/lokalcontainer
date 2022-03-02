@@ -86,20 +86,3 @@
         }
     }
 }
-
-.app_drawer {
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-
-    background-color: var(--accents-1);
-    backdrop-filter: blur(3px);
-
-    z-index: 999;
-
-    padding: calc(var(--header-height) + calc(var(--grid-gap) * 1.75)) calc(var(--grid-gap) * 3)
-        calc(var(--grid-gap) * 3);
-
-    @include borderShadowShow();
-}
