@@ -44,6 +44,30 @@ a {
     text-decoration: none;
 }
 
+a,
+button {
+    &[data-tooltip] {
+        &:hover {
+            &::after {
+                content: attr(data-tooltip);
+                position: absolute;
+                bottom: -1em;
+                left: 50%;
+                transform: translate(-50%, 100%);
+                background-color: var(--accents-1);
+                text-transform: initial;
+                padding: var(--grid-gap);
+                border-radius: calc(var(--grid-gap) / 1.5);
+                box-shadow: 0 0 1em 0 var(--accents-6);
+                font-size: 0.85em;
+                min-width: 6em;
+                max-width: 8em;
+                text-align: center;
+            }
+        }
+    }
+}
+
 pre {
     margin: 0;
 }
