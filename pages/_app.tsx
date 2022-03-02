@@ -53,7 +53,7 @@ export default function MyApp(props: MyAppProps) {
                 >
                     <div
                         style={{
-                            width: "6em",
+                            width: "4em",
                             aspectRatio: "1/1",
                             position: "fixed",
                             right: "2em",
