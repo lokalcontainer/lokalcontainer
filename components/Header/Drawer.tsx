@@ -1,7 +1,6 @@
 import styles from "styles/nav.module.scss";
 import { CSSProperties, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useTheme } from "next-themes";
 import NextLink from "next/link";
 import NextDynamic from "next/dynamic";
 import { STATIC_MENU } from "libs/menu.constants";
@@ -10,6 +9,7 @@ import useOnClickOutside from "hooks/use-on-click-outside";
 import { useSession } from "components/Context/ContextSession";
 import { useMenu } from "components/Context/ContextMenu";
 import { FormSignIn } from "components/Utils/Forms";
+import Gradient from "./Gradient";
 
 const ProfileCard = NextDynamic(() => import("components/Utils/ProfileCard"), {
     ssr: false,
@@ -105,13 +105,10 @@ const SocialMedia = () => {
 
 export default function Drawer() {
     const { session } = useSession();
-    const { themes, theme, setTheme } = useTheme();
     const { menu, hideMenu } = useMenu();
     const refParent = useRef<HTMLDivElement>(null);
     useOnEscape(refParent, menu, hideMenu);
     useOnClickOutside(refParent, hideMenu);
-
-    const arrayColors = Array(9).fill("");
 
     return (
         <AnimatePresence exitBeforeEnter initial={false}>
@@ -129,73 +126,9 @@ export default function Drawer() {
                         transition: { type: "spring", mass: 0.5, damping: 100, stiffness: 2000 }
                     }}
                 >
-                    <ul className={styles.gradient}>
-                        <li
-                            style={{
-                                height: "calc(var(--header-height) / 1.5)",
-                                width: `100%`,
-                                flexShrink: 4
-                            }}
-                        >
-                            <select
-                                value={theme}
-                                onChange={(e) => setTheme(e.target.value)}
-                                style={{
-                                    margin: 0,
-                                    textTransform: "capitalize",
-                                    height: "100%",
-                                    paddingInline: "calc(var(--grid-gap) / 1.5)",
-                                    outline: "none",
-                                    width: "100%",
-                                    border: "none",
-                                    cursor: "pointer",
-                                    fontSize: "inherit",
-                                    fontFamily: "inherit",
-                                    fontWeight: "inherit",
-                                    backgroundColor: "var(--accents-12)",
-                                    color: "var(--accents-1)"
-                                }}
-                            >
-                                {themes.map((item: string, i: number) => (
-                                    <option key={i} value={item}>
-                                        {item}
-                                    </option>
-                                ))}
-                            </select>
-                        </li>
-
-                        {arrayColors.map((_i, i) => (
-                            <li
-                                key={i}
-                                style={{
-                                    height: "calc(var(--header-height) / 1.5)",
-                                    width: `${100 / arrayColors.length}%`,
-                                    backgroundColor: `var(--accents${i - arrayColors.length - 1})`
-                                }}
-                            />
-                        ))}
-                    </ul>
+                    <Gradient />
 
                     <div className={styles.content}>
-                        {/* <div
-                            style={{
-                                width: "8em",
-                                aspectRatio: "1/1",
-                                padding: "var(--grid-gap)",
-                                // backgroundColor: "var(--accents-12)",
-                                // border: "4px solid",
-                                borderRadius: "100%",
-                                color: "var(--accents-12)",
-                                marginBlock: "1em",
-                                position: "absolute",
-                                top: "50%",
-                                left: "50%",
-                                transform: "translate(-50%, -50%)"
-                            }}
-                        >
-                            <Logo />
-                        </div> */}
-
                         <ul
                             style={{
                                 listStyle: "none",
@@ -204,7 +137,6 @@ export default function Drawer() {
                                 height: "100%",
                                 display: "flex",
                                 flexDirection: "column"
-                                // justifyContent: "space-between"
                             }}
                         >
                             {session ? (
@@ -225,7 +157,7 @@ export default function Drawer() {
                                 <li key={i}>
                                     <NextLink {...item.link}>
                                         <a datatype="text">
-                                            <span style={{ fontSize: "4em", fontWeight: "bold" }}>
+                                            <span style={{ fontSize: "3em", fontWeight: "bold" }}>
                                                 {item.label}
                                             </span>
                                         </a>
