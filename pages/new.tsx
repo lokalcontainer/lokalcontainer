@@ -32,6 +32,12 @@ function Editor({ type }: EditorProps) {
     }
 }
 
+const links: { label: string; type: string }[] = [
+    { label: "Font", type: "font" },
+    { label: "Article", type: "article" },
+    { label: "Goods", type: "goods" }
+];
+
 export default function Page(props: PageProps) {
     return (
         <LayoutMain>
@@ -42,31 +48,30 @@ export default function Page(props: PageProps) {
                     margin: 0,
                     display: "flex",
                     alignItems: "center",
-                    justifyContent: "space-between"
+                    gap: "1em",
+                    position: "sticky",
+                    top: "var(--header-height)",
+                    backgroundColor: "var(--accents-1)",
+                    zIndex: 10,
+                    height: "var(--header-height)"
                 }}
             >
-                <li>
-                    <NextLink href="/new?type=font">
-                        <a>
-                            <span>Font</span>
-                        </a>
-                    </NextLink>
-                </li>
-                <li>
-                    <NextLink href="/new?type=article">
-                        <a>
-                            <span>Article</span>
-                        </a>
-                    </NextLink>
-                </li>
-                <li>
-                    <NextLink href="/new?type=goods">
-                        <a>
-                            <span>Goods</span>
-                        </a>
-                    </NextLink>
-                </li>
+                {links.map((item, i) => (
+                    <li key={i}>
+                        <NextLink
+                            href={{
+                                pathname: "/new",
+                                query: { type: item.type }
+                            }}
+                        >
+                            <a>
+                                <span>{item.label}</span>
+                            </a>
+                        </NextLink>
+                    </li>
+                ))}
             </ul>
+
             <Editor type={props.type} />
         </LayoutMain>
     );
