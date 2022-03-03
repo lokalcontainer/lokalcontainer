@@ -53,7 +53,7 @@ export default function ProfileCard() {
                     display: "flex",
                     alignItems: "flex-start",
                     gap: "1em",
-                    paddingBlock: "1em"
+                    paddingBottom: "1em"
                 }}
             >
                 <NextLink href={{ pathname: "/[user]", query: { user: user.userName } }}>
