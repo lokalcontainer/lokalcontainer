@@ -2,6 +2,7 @@ import type { ChangeEvent, CSSProperties } from "react";
 import type { ResponseSession } from "types/session";
 import { useRouter } from "next/router";
 import { Formik } from "formik";
+import toast from "react-hot-toast";
 import fetchJson from "libs/lib.fetch";
 import { useSession } from "components/Context/ContextSession";
 
@@ -76,6 +77,8 @@ export const FormSignIn = () => {
                             if (!res.success) {
                                 // @ts-ignore
                                 a.setErrors({ [res.data[0].field]: res.data[0].message });
+                                // @ts-ignore
+                                toast.error(res.data[0].message);
                             } else {
                                 if (query.callback_url as string) {
                                     mutateSession().then(() =>
