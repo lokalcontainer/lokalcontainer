@@ -48,7 +48,7 @@ const ProviderEditorFont: FC = (props) => {
         })
             .then((res) => console.log(res))
             .catch((err) => console.log(err));
-    }, [typefaces, files]);
+    }, [typefaces]);
 
     return (
         <ContextEditorFont.Provider
