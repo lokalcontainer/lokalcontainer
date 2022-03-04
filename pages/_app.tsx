@@ -6,6 +6,7 @@ import type { ResponseSession } from "types/session";
 import { ThemeProvider as ProviderTheme } from "next-themes";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+import { Toaster } from "react-hot-toast";
 import nProgress from "nprogress";
 import { ProviderSession } from "components/Context/ContextSession";
 import { Header } from "components/Header";
@@ -71,6 +72,29 @@ export default function MyApp(props: MyAppProps) {
                     <Header />
                     <Component {...pageProps} />
                     <Footer />
+                    <Toaster
+                        position="top-center"
+                        gutter={4}
+                        containerStyle={{
+                            top: "2.5em",
+                            right: "1em",
+                            bottom: "1em",
+                            left: "1em"
+                        }}
+                        toastOptions={{
+                            style: {
+                                zIndex: 2002,
+                                padding: "calc(var(--grid-gap) * 0.75) calc(var(--grid-gap) * 1)",
+                                borderRadius: "calc(var(--grid-gap) / 1.5)",
+                                boxShadow:
+                                    "0 0 1em 0 var(--accents-4), inset 0 0 0.2em 0 var(--accents-6)",
+                                fontSize: "0.85em",
+                                fontFamily: "inherit",
+                                backgroundColor: "var(--accents-4)",
+                                color: "var(--accents-1)"
+                            }
+                        }}
+                    />
                 </ProviderTheme>
             </ProviderSession>
         </>
