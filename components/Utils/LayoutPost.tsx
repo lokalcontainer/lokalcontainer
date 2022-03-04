@@ -60,7 +60,7 @@ export const LayoutPost: FC<LayoutPostProps> = (props) => {
 
     return (
         <div className={styles.post}>
-            <div className={styles.post_content} data-layout="fluids">
+            <div className={styles.post_content} data-post-type={postType}>
                 <div>
                     {postType === "font" && (
                         <ul className={styles.sub_header} data-scroll={isScroll}>
@@ -83,8 +83,8 @@ export const LayoutPost: FC<LayoutPostProps> = (props) => {
                     {children}
                 </div>
 
-                <aside className={styles.aside}>
-                    {postType !== "article" && postType !== "blog" ? (
+                {postType === "font" && (
+                    <aside className={styles.aside} data-post-type={postType}>
                         <ul>
                             <li
                                 data-scroll={isScroll}
@@ -115,12 +115,8 @@ export const LayoutPost: FC<LayoutPostProps> = (props) => {
                                 <div>License</div>
                             </li>
                         </ul>
-                    ) : (
-                        <div style={{ position: "sticky", top: "var(--header-height)" }}>
-                            Section
-                        </div>
-                    )}
-                </aside>
+                    </aside>
+                )}
             </div>
         </div>
     );

@@ -91,6 +91,17 @@ blockquote {
     margin-block: 2em;
 }
 
+figure {
+    figcaption {
+        // font-size: 0.85em;
+        // font-style: italic;
+        font-family: var(--font-serif);
+        padding-inline: 1em;
+        color: var(--accents-8);
+        text-align: center;
+    }
+}
+
 article {
     p,
     ul,
@@ -106,18 +117,24 @@ article {
 [data-layout="fluid"] {
     width: 100%;
     margin: 0 auto;
-    padding-inline: calc(var(--grid-gap) * 6) !important;
+    // padding-inline: calc(var(--grid-gap) * 6) !important;
 
-    @include media("screen", ">xlMonitor") {
-        max-width: 2186px;
-    }
-    @include media("screen", "<xlMonitor") {
-        max-width: 1440px;
-    }
-    @include media("screen", "<mMonitor") {
-        max-width: 1024px;
-        padding-inline: 0 !important;
-    }
+    // max-width: 800px;
+    // max-width: 60em;
+    max-width: 50em;
+
+    // @include media("screen", ">xlMonitor") {
+    //     max-width: 2186px;
+    // }
+    // @include media("screen", "<xlMonitor") {
+    //     max-width: 1440px;
+    // }
+    // @include media("screen", "<mMonitor") {
+    //     max-width: 1024px;
+    //     // max-width: 80em;
+    //     padding-inline: 0 !important;
+    //     background-color: magenta !important;
+    // }
 }
 
 .my-masonry-grid {

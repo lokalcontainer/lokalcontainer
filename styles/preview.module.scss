@@ -87,3 +87,34 @@
         }
     }
 }
+
+.blog {
+    width: 100%;
+    max-width: 80em;
+    margin: 0 auto;
+
+    @include media("screen", ">sMonitor") {
+        display: grid;
+        grid-template-columns: 12em 1fr 12em;
+    }
+
+    .left {
+        > div {
+            position: sticky;
+            top: var(--header-height);
+            padding-block: 1em;
+        }
+        @include media("screen", "<sMonitor") {
+            display: none;
+        }
+    }
+
+    .center {
+        // border-inline: 1px solid var(--accents-3);
+        @include media("screen", ">sMonitor") {
+            padding-inline: calc(var(--header-height) * 3);
+        }
+    }
+    // .right {
+    // }
+}

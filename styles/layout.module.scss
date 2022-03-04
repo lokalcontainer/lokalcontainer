@@ -59,8 +59,6 @@
     .header {
         z-index: 10;
         margin: 0;
-        // margin-bottom: 1em;
-        // margin-block: 0 1em;
         position: sticky;
         top: var(--header-height);
         background-color: var(--accents-1);
@@ -84,49 +82,39 @@
                 color: var(--accents-12);
             }
         }
-
-        // @include media("screen", "<sMonitor") {
-        //     margin-top: 0;
-        // }
     }
 
     .post_content {
-        // padding-inline: 2.5em;
+        &[data-post-type="font"] {
+            @include media("screen", ">sMonitor") {
+                display: grid;
+                gap: calc(var(--grid-gap) * 4);
+            }
+            @include media("screen", "<sMonitor") {
+                display: flex;
+                flex-direction: column-reverse;
+            }
 
-        @include media("screen", ">sMonitor") {
-            display: grid;
-            gap: calc(var(--grid-gap) * 4);
-        }
-        @include media("screen", "<sMonitor") {
-            display: flex;
-            flex-direction: column-reverse;
-        }
-
-        @include media("screen", ">xxlMonitor") {
-            // 8 Rows
-            // grid-template-columns: 6.5fr 1.5fr;
-            // grid-template-columns: 3fr 1fr 1fr;
-            grid-template-columns: repeat(2, 1fr);
-        }
-        @include media("screen", "<xxlMonitor") {
-            // 7 Rows
-            // grid-template-columns: 5.5fr 1.5fr;
-            // grid-template-columns: 3fr 1fr 1fr;
-            grid-template-columns: repeat(2, 1fr);
-        }
-        @include media("screen", "<xlMonitor") {
-            // 6 Rows
-            // grid-template-columns: 4.65fr 1.35fr;
-            // grid-template-columns: 4fr 1fr 1fr;
-            grid-template-columns: repeat(2, 1fr);
-        }
-        @include media("screen", "<lMonitor") {
-            // 5 Rows
-            grid-template-columns: 3.75fr 1.25fr;
-        }
-        @include media("screen", "<mMonitor") {
-            // 4 Rows
-            grid-template-columns: 2.85fr 1.15fr;
+            @include media("screen", ">xxlMonitor") {
+                // 8 Rows
+                grid-template-columns: repeat(2, 1fr);
+            }
+            @include media("screen", "<xxlMonitor") {
+                // 7 Rows
+                grid-template-columns: repeat(2, 1fr);
+            }
+            @include media("screen", "<xlMonitor") {
+                // 6 Rows
+                grid-template-columns: repeat(2, 1fr);
+            }
+            @include media("screen", "<lMonitor") {
+                // 5 Rows
+                grid-template-columns: 3.75fr 1.25fr;
+            }
+            @include media("screen", "<mMonitor") {
+                // 4 Rows
+                grid-template-columns: 2.85fr 1.15fr;
+            }
         }
 
         .sub_header {
