@@ -3,6 +3,7 @@ import { CSSProperties, Fragment } from "react";
 import { motion } from "framer-motion";
 import NextLink from "next/link";
 import NextDynamic from "next/dynamic";
+import toast from "react-hot-toast";
 import { ConsumerMenu, ProviderMenu, useMenu } from "components/Context/ContextMenu";
 import useBreadCrumb from "hooks/use-breadcrumb";
 import { useSession } from "components/Context/ContextSession";
@@ -151,6 +152,14 @@ export const Header = () => {
                             </ul>
 
                             <ul style={{ justifyContent: "end" }}>
+                                <li>
+                                    <div>
+                                        <button onClick={() => toast.error("Error")}>Error</button>
+                                        <button onClick={() => toast.success("Success")}>
+                                            Success
+                                        </button>
+                                    </div>
+                                </li>
                                 {session && (
                                     <li style={{ width: "1.5em", position: "relative" }}>
                                         <CreatePostButton />

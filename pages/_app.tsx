@@ -6,8 +6,10 @@ import type { ResponseSession } from "types/session";
 import { ThemeProvider as ProviderTheme } from "next-themes";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+import { DefaultSeo } from "next-seo";
 import { Toaster } from "react-hot-toast";
 import nProgress from "nprogress";
+import { SITE_DATA } from "libs/site-data.constants";
 import { ProviderSession } from "components/Context/ContextSession";
 import { Header } from "components/Header";
 import { Footer } from "components/Footer";
@@ -46,6 +48,27 @@ export default function MyApp(props: MyAppProps) {
 
     return (
         <>
+            <DefaultSeo
+                defaultTitle={SITE_DATA.title}
+                description={SITE_DATA.description}
+                canonical={SITE_DATA.url}
+                openGraph={{
+                    type: "website",
+                    locale: "en_US",
+                    url: SITE_DATA.url,
+                    site_name: SITE_DATA.name,
+                    description: SITE_DATA.description,
+                    images: [
+                        { url: SITE_DATA.image, width: 800, height: 450, alt: "L - C OG Image" }
+                    ]
+                }}
+                twitter={{
+                    handle: "@lokalcontainer",
+                    site: "@lokalcontainer",
+                    cardType: "summary_large_image"
+                }}
+            />
+
             <ProviderSession>
                 <ProviderTheme
                     disableTransitionOnChange

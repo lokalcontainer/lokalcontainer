@@ -17,7 +17,7 @@ export default function PreviewFont(props: PreviewFontProps) {
     const { pathname } = useRouter();
     const isPage = pathname === "/[user]/[post]";
 
-    const { images, slug, author, title } = post;
+    const { images, slug, author } = post;
     const image1 = images[0];
 
     return (

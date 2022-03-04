@@ -1,7 +1,7 @@
 import styles from "styles/layout.module.scss";
 import type { FC, CSSProperties } from "react";
 import { useRouter } from "next/router";
-import NextHead from "next/head";
+// import NextHead from "next/head";
 
 import { SITE_DATA } from "libs/site-data.constants";
 
@@ -15,17 +15,17 @@ type LayoutMainProps = {
 export const LayoutMain: FC<LayoutMainProps> = (props) => {
     const {
         children,
-        style,
-        title = SITE_DATA.title,
-        description = SITE_DATA.description,
-        image = SITE_DATA.image
+        style
+        // title = SITE_DATA.title,
+        // description = SITE_DATA.description,
+        // image = SITE_DATA.image
     } = props;
     const { asPath } = useRouter();
     const NEW_URL = `${SITE_DATA.url}${asPath}`;
 
     return (
         <>
-            <NextHead>
+            {/* <NextHead>
                 <title>{title}</title>
                 <meta name="title" content={title} />
                 <meta name="description" content={description} />
@@ -41,7 +41,7 @@ export const LayoutMain: FC<LayoutMainProps> = (props) => {
                 <meta property="twitter:title" content={title} />
                 <meta property="twitter:description" content={description} />
                 <meta property="twitter:image" content={image} />
-            </NextHead>
+            </NextHead> */}
 
             <main className={styles.main} style={{ ...style }}>
                 {children}
