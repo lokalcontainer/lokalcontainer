@@ -1,13 +1,16 @@
 import { useEditorFont } from "./EditorFontContext";
 
 export default function EditorFontPreview() {
-    const { typefaces } = useEditorFont();
+    const { typefaces, handleSubmit } = useEditorFont();
     const variables = typefaces.filter((item) => item.variable !== null);
     const romans = typefaces.filter((item) => item.style !== "italic" && item.variable === null);
     const italics = typefaces.filter((item) => item.style === "italic" && item.variable === null);
 
     return (
         <div>
+            <div>
+                <button onClick={handleSubmit}>Submit</button>
+            </div>
             <ul style={{ marginBlock: "2em" }}>
                 {variables.map((item, i) => (
                     <li key={i}>
