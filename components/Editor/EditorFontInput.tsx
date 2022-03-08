@@ -31,7 +31,7 @@ export default function EditorFontInput() {
             readInputFont(arrFiles),
             {
                 loading: "Reading font files...",
-                success: "Read font files succeedeed!",
+                success: (v) => `Successfuly read (${v.length}) font files!`,
                 error: (err) => err
             },
             { duration: 5000 }
