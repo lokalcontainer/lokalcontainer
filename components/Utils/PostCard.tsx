@@ -55,7 +55,6 @@ export const PostCard = (props: PostCardProps) => {
                         position: "relative",
                         display: "block",
                         overflow: "hidden",
-                        boxShadow: "0 0 0em 0 var(--accents-12)",
                         width: "100%"
                     }}
                 >
@@ -133,14 +132,12 @@ export const PostCard = (props: PostCardProps) => {
                 <div
                     style={{
                         textTransform: "capitalize",
-                        // marginBlock: "calc(var(--grid-gap) / 4)",
                         display: "flex",
                         alignItems: "center",
                         gap: "calc(var(--grid-gap) / 2)",
                         fontWeight: 600,
                         userSelect: "none",
                         paddingBlock: "calc(var(--grid-gap) / 2)"
-                        // backgroundColor: "var(--accents-3)"
                     }}
                 >
                     <span
@@ -187,7 +184,6 @@ export const PostCard = (props: PostCardProps) => {
 
             <div
                 style={{
-                    // marginTop: "var(--grid-gap)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "space-between",

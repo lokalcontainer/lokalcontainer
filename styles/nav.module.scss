@@ -35,6 +35,10 @@
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         grid-area: calc(var(--grid-gap) * 4);
+
+        // width: 100%;
+        // max-width: 70em;
+        // margin: 0 auto;
     }
 
     @include media("screen", "<tablet") {
