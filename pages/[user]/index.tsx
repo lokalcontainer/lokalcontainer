@@ -7,10 +7,10 @@ import { NextSeo } from "next-seo";
 
 import fetchJson from "libs/lib.fetch";
 import getServerUser from "libs/get-server-account";
-import { LayoutMain } from "components/LayoutMain";
+import LayoutMain from "components/LayoutMain";
 import Masonry from "components/Masonry";
 import LightBox from "components/LightBox";
-import { LayoutUser } from "components/Utils/LayoutUser";
+import LayoutUser from "components/Utils/LayoutUser";
 import { PostCard } from "components/Utils/PostCard";
 import PreviewPost from "components/Preview/PreviewPost";
 

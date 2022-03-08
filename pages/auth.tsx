@@ -9,7 +9,7 @@ import { Formik } from "formik";
 
 import fetchJson from "libs/lib.fetch";
 import { getServerSession } from "libs/get-server-session";
-import { LayoutMain } from "components/LayoutMain";
+import LayoutMain from "components/LayoutMain";
 import { FormSignIn } from "components/Utils/Forms";
 
 type CustomInputProps = {
@@ -147,7 +147,8 @@ export default function Page(props: PageProps) {
         <LayoutMain>
             <div
                 style={{
-                    height: 320,
+                    // height: 320,
+                    aspectRatio: "4/5",
                     width: "100%",
                     maxWidth: 320,
                     position: "absolute",
@@ -156,10 +157,11 @@ export default function Page(props: PageProps) {
                     transform: "translate(-50%, -50%)",
                     borderRadius: "var(--grid-gap)",
                     padding: "1em",
-                    backgroundColor: "var(--accents-1)",
+                    backgroundColor: "var(--accents-12)",
+                    color: "var(--accents-1)",
                     overflow: "hidden",
                     boxShadow:
-                        "0 0 1em -0.5em var(--accents-1), inset 0 0 0.75em -0.25em var(--accents-6)"
+                        "0 0 0.2em 0em var(--accents-1), inset 0 0 2em -0.75em var(--accents-1)"
                 }}
             >
                 <ul
@@ -186,7 +188,8 @@ export default function Page(props: PageProps) {
                                         fontSize: "inherit",
                                         fontFamily: "inherit",
                                         padding: 0,
-                                        cursor: "pointer"
+                                        cursor: "pointer",
+                                        color: "currentcolor"
                                     }}
                                     onClick={() => {
                                         replace(

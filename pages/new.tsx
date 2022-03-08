@@ -2,7 +2,7 @@ import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import type { ResponseSession } from "types/session";
 import NextLink from "next/link";
 import { getServerSession } from "libs/get-server-session";
-import { LayoutMain } from "components/LayoutMain";
+import LayoutMain from "components/LayoutMain";
 import EditorFont from "components/Editor/EditorFont";
 
 type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>;

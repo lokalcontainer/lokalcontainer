@@ -6,8 +6,8 @@ import { useRouter } from "next/router";
 import { NextSeo, ArticleJsonLd } from "next-seo";
 import getServerUser from "libs/get-server-account";
 import getServerPost from "libs/get-server-post";
-import { LayoutMain } from "components/LayoutMain";
-import { LayoutPost } from "components/Utils/LayoutPost";
+import LayoutMain from "components/LayoutMain";
+import LayoutPost from "components/Utils/LayoutPost";
 import PreviewPost from "components/Preview/PreviewPost";
 
 type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>;

@@ -7,7 +7,7 @@ import NextDynamic from "next/dynamic";
 import type { BasePost, ResponsePosts } from "types/post";
 import fetchJson from "libs/lib.fetch";
 import MasonryNew from "components/Masonry";
-import { LayoutMain } from "components/LayoutMain";
+import LayoutMain from "components/LayoutMain";
 import { PostCard } from "components/Utils/PostCard";
 
 const LightBox = NextDynamic(() => import("components/LightBox"), { ssr: false });

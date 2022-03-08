@@ -1,13 +1,14 @@
 import type { ResponseSession } from "types/session";
 import type { BaseUser } from "types/user";
-import { createContext, FC, useContext, useEffect } from "react";
+import type { PropsWithChildren } from "react";
+import { createContext, useContext, useEffect } from "react";
 import useSWR, { KeyedMutator } from "swr";
 import toast from "react-hot-toast";
 import fetchJson from "libs/lib.fetch";
 
-type ProviderSessionProps = {
+type ProviderSessionProps = PropsWithChildren<{
     session?: ResponseSession;
-};
+}>;
 
 type ContextSessionProps = {
     session?: BaseUser;
@@ -18,7 +19,7 @@ type ContextSessionProps = {
 const ContextSession = createContext<ContextSessionProps>(undefined!);
 export const useSession = () => useContext(ContextSession);
 
-export const ProviderSession: FC<ProviderSessionProps> = (props) => {
+export default function ProviderSession(props: ProviderSessionProps) {
     const { children, session: serverSession } = props;
 
     const { data: clientSession, mutate } = useSWR<ResponseSession>(
@@ -89,4 +90,4 @@ export const ProviderSession: FC<ProviderSessionProps> = (props) => {
             {children}
         </ContextSession.Provider>
     );
-};
+}

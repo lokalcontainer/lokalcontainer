@@ -10,9 +10,9 @@ import { DefaultSeo } from "next-seo";
 import { Toaster } from "react-hot-toast";
 import nProgress from "nprogress";
 import { SITE_DATA } from "libs/site-data.constants";
-import { ProviderSession } from "components/Context/ContextSession";
-import { Header } from "components/Header";
-import { Footer } from "components/Footer";
+import ProviderSession from "components/Context/ContextSession";
+import Header from "components/Header";
+import Footer from "components/Footer";
 import Logo from "components/Logo";
 
 interface MyAppProps extends AppProps {
@@ -75,24 +75,7 @@ export default function MyApp(props: MyAppProps) {
                     defaultTheme="system"
                     themes={["dark", "light"]}
                 >
-                    <div
-                        style={{
-                            width: "4em",
-                            aspectRatio: "1/1",
-                            position: "fixed",
-                            left: "50%",
-                            bottom: "2em",
-                            transform: "translateX(-50%)",
-                            zIndex: 2000,
-                            color: "#fff",
-                            mixBlendMode: "exclusion",
-                            pointerEvents: "none",
-                            touchAction: "none",
-                            borderRadius: "100%"
-                        }}
-                    >
-                        <Logo />
-                    </div>
+                    <Logo />
                     <Header />
                     <Component {...pageProps} />
                     <Footer />
@@ -115,7 +98,7 @@ export default function MyApp(props: MyAppProps) {
                                 fontSize: "0.85em",
                                 fontFamily: "inherit",
                                 backgroundColor: "var(--accents-4)",
-                                color: "var(--accents-1)"
+                                color: "var(--accents-12)"
                             }
                         }}
                     />

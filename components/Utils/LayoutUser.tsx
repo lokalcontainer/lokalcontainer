@@ -1,13 +1,13 @@
 import styles from "styles/layout.module.scss";
-import type { FC } from "react";
+import type { PropsWithChildren } from "react";
 import type { ResponseUser } from "types/user";
 import NextImage from "next/image";
 import NextLink from "next/link";
 import moment from "moment";
 
-type LayoutUserProps = {
+type LayoutUserProps = PropsWithChildren<{
     user: ResponseUser;
-};
+}>;
 
 const Aside = (props: LayoutUserProps) => {
     const {
@@ -17,24 +17,14 @@ const Aside = (props: LayoutUserProps) => {
         <aside className={styles.aside}>
             <ul
                 style={{
-                    display: "flex",
-                    flexDirection: "column",
                     padding: "1em",
                     backgroundColor: "var(--accents-2)",
-                    // border: "1px solid var(--accents-1)",
                     borderRadius: "0.5em",
                     boxShadow:
                         "0 0 0.5em -0.15em var(--accents-4), inset 0 0 2px 0 var(--accents-5)"
                 }}
             >
-                <li
-                    style={{
-                        flexShrink: 0,
-                        overflow: "hidden",
-                        marginBottom: "calc(var(--grid-gap) * 4)",
-                        display: "flex"
-                    }}
-                >
+                <li style={{ marginBottom: "calc(var(--grid-gap) * 4)" }}>
                     <span
                         style={{
                             backgroundColor: "var(--accents-pink)",
@@ -46,25 +36,14 @@ const Aside = (props: LayoutUserProps) => {
                             borderRadius: "100%"
                         }}
                     >
-                        {image ? (
-                            <NextImage
-                                src={image}
-                                width="128"
-                                height="128"
-                                alt={`avatar-${userName}`}
-                                quality={100}
-                                priority
-                            />
-                        ) : (
-                            <NextImage
-                                src="/images/avatars/avatar-frown.png"
-                                width="128"
-                                height="128"
-                                alt={`avatar-${userName}`}
-                                quality={100}
-                                priority
-                            />
-                        )}
+                        <NextImage
+                            src={image ?? "/images/avatars/avatar-frown.png"}
+                            width="128"
+                            height="128"
+                            alt={`avatar-${userName}`}
+                            quality={100}
+                            priority
+                        />
                     </span>
                 </li>
 
@@ -84,7 +63,7 @@ const Aside = (props: LayoutUserProps) => {
                     </span>
                 </li>
 
-                <li>
+                <li style={{ marginBottom: "2em" }}>
                     <span
                         style={{
                             display: "inline-block",
@@ -92,7 +71,6 @@ const Aside = (props: LayoutUserProps) => {
                             overflow: "hidden",
                             textOverflow: "ellipsis",
                             whiteSpace: "nowrap",
-                            fontSize: "1em",
                             color: "var(--accents-6)"
                         }}
                     >
@@ -108,7 +86,7 @@ const Aside = (props: LayoutUserProps) => {
                             textTransform: "uppercase"
                         }}
                     >
-                        Member Since: {moment(createdAt).format("MMMM D, YYYY")}
+                        Since {moment(createdAt).format("MMMM D, YYYY")}
                     </span>
                 </li>
             </ul>
@@ -116,7 +94,7 @@ const Aside = (props: LayoutUserProps) => {
     );
 };
 
-export const LayoutUser: FC<LayoutUserProps> = (props) => {
+export default function LayoutUser(props: LayoutUserProps) {
     const { children, user } = props;
     const { userName } = user.data;
 
@@ -161,4 +139,4 @@ export const LayoutUser: FC<LayoutUserProps> = (props) => {
             </div>
         </>
     );
-};
+}

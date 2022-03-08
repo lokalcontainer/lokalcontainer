@@ -1,5 +1,5 @@
 import styles from "styles/footer.module.scss";
-import NextDynamic from "next/dynamic";
+import NextDynamic, { DynamicOptions } from "next/dynamic";
 import useLightBox from "hooks/use-light-box";
 
 const Measurment = NextDynamic(() => import("components/Utils/Measurement"), {
@@ -7,7 +7,7 @@ const Measurment = NextDynamic(() => import("components/Utils/Measurement"), {
     loading: () => <span>Loading...</span>
 });
 
-export const Footer = () => {
+export default function Footer() {
     const date = new Date();
     const currentYear = date.getFullYear();
 
@@ -18,10 +18,10 @@ export const Footer = () => {
             {!lightBox && (
                 <footer className={styles.app_footer}>
                     <ul>
-                        <li>&copy;{currentYear}</li>
+                        <li>&copy;2018-{currentYear}</li>
                     </ul>
 
-                    <ul>
+                    <ul style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                         <li>
                             <Measurment />
                         </li>
@@ -30,4 +30,4 @@ export const Footer = () => {
             )}
         </>
     );
-};
+}

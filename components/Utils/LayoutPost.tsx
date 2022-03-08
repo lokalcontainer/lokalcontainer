@@ -1,19 +1,19 @@
 import styles from "styles/layout.module.scss";
 import type { PostType } from "types/post";
-import { FC, useState } from "react";
+import { PropsWithChildren, useState } from "react";
 import NextLink, { LinkProps } from "next/link";
 import { useRouter } from "next/router";
 import useScrollPosition from "hooks/use-scroll-position";
 import { useSession } from "components/Context/ContextSession";
 
-type LayoutPostProps = {
+type LayoutPostProps = PropsWithChildren<{
     user: {
         userName: string;
         fullName: string;
     };
     slug: string;
     postType: PostType;
-};
+}>;
 
 type StaticLink = {
     label: string;
@@ -21,7 +21,7 @@ type StaticLink = {
     link: LinkProps;
 };
 
-export const LayoutPost: FC<LayoutPostProps> = (props) => {
+export default function LayoutPost(props: LayoutPostProps) {
     const { session } = useSession();
     const { children, user, slug, postType } = props;
     const { userName } = user;
@@ -120,4 +120,4 @@ export const LayoutPost: FC<LayoutPostProps> = (props) => {
             </div>
         </div>
     );
-};
+}

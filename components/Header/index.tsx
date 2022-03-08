@@ -83,7 +83,7 @@ const ToggleMenu = () => {
     );
 };
 
-export const Header = () => {
+export default function Header() {
     const { session } = useSession();
     const { breadcrumbs, convertBreadcrumb } = useBreadCrumb();
 
@@ -160,11 +160,10 @@ export const Header = () => {
                                         </button>
                                     </div>
                                 </li> */}
-                                {session && (
-                                    <li style={{ width: "1.5em", position: "relative" }}>
-                                        <CreatePostButton />
-                                    </li>
-                                )}
+
+                                <li style={{ width: "1.5em", position: "relative" }}>
+                                    <CreatePostButton />
+                                </li>
 
                                 <li style={{ height: "1.5em" }}>
                                     <button
@@ -200,4 +199,4 @@ export const Header = () => {
             </ConsumerMenu>
         </ProviderMenu>
     );
-};
+}
