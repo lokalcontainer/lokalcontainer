@@ -15,10 +15,10 @@ export const STATIC_MENU: Menu[] = [
         label: "Index",
         link: { href: "/" }
     },
-    {
-        label: "About",
-        link: { href: "/about" }
-    },
+    // {
+    //     label: "About",
+    //     link: { href: "/about" }
+    // },
     {
         label: "Blog",
         link: { href: "/blog" }
