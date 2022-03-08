@@ -153,7 +153,9 @@ export default function Drawer() {
                         </ul>
 
                         <ul className={styles.menu}>
-                            {STATIC_MENU.map((item, i) => (
+                            {STATIC_MENU.sort((a, b) =>
+                                a.label < b.label ? -1 : a.label > b.label ? 1 : 0
+                            ).map((item, i) => (
                                 <li key={i}>
                                     <NextLink {...item.link}>
                                         <a datatype="text">
