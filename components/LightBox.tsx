@@ -1,6 +1,6 @@
 import styles from "styles/modal.module.scss";
-import { CSSProperties, FC, useEffect, useState } from "react";
-import { useRef } from "react";
+import type { CSSProperties, FC } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { AnimatePresence, motion } from "framer-motion";
 import NextHead from "next/head";
