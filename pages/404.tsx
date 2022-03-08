@@ -7,7 +7,14 @@ export default function Page() {
     const style = usePerspective(x, y);
 
     return (
-        <LayoutMain style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <LayoutMain
+            style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                overflow: "hidden"
+            }}
+        >
             <div
                 style={{
                     display: "flex",
