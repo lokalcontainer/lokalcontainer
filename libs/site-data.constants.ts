@@ -6,7 +6,7 @@ export const SITE_DATA = {
     title: "Lokal Container - An Open Source Font Publisher",
     description:
         "Open source typographic platform initiated by young people from Bandung, Indonesia",
-    image: `${API_URL}/images/cards/og_image.jpg`,
+    image: `${API_URL}/static/images/cards/og_image.jpg`,
     type: "website",
     url: SITE_URL
 };
