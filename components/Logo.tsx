@@ -1,59 +1,38 @@
-import { useRef } from "react";
+import { useTheme } from "next-themes";
 import Lottie from "lottie-react";
-import useMousePosition from "hooks/use-mouse-position";
-import usePerspective from "hooks/use-perspective";
 import logo from "../public/logo-white.json";
 
 export default function Logo() {
-    const refSpan = useRef<HTMLSpanElement>(null);
-    const { x, y } = useMousePosition();
-    const style = usePerspective(x, y, refSpan);
-
+    const { resolvedTheme } = useTheme();
     return (
         <>
             <div
                 style={{
-                    width: "10em",
+                    width: "6em",
                     aspectRatio: "1/1",
                     position: "fixed",
                     left: "50%",
-                    bottom: 0,
+                    bottom: "calc(var(--grid-gap) * 3)",
                     transform: "translateX(-50%)",
                     zIndex: 2002,
                     mixBlendMode: "difference",
-                    padding: "calc(var(--grid-gap) * 3)",
+                    color: "#fff",
                     pointerEvents: "none",
                     touchAction: "none",
-                    userSelect: "none",
-                    color: "#fff"
+                    userSelect: "none"
                 }}
             >
-                <span
-                    ref={refSpan}
+                <Lottie
+                    loop
+                    autoplay
+                    animationData={logo}
                     style={{
-                        display: "flex",
-                        width: "100%",
-                        height: "100%",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        position: "relative",
-                        filter: "drop-shadow(0 0 calc(var(--grid-gap) / 4) #fff)",
-                        transition: "transform 0.33s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
-                        ...style
+                        filter:
+                            resolvedTheme === "dark"
+                                ? "drop-shadow(0 0 calc(var(--grid-gap) / 2) currentColor)"
+                                : "drop-shadow(0 0 calc(var(--grid-gap) / 4) currentColor)"
                     }}
-                >
-                    <Lottie loop autoplay animationData={logo} />
-
-                    <span
-                        style={{
-                            position: "absolute",
-                            top: "0.5em",
-                            right: "0.75em"
-                        }}
-                    >
-                        <span style={{ fontSize: "1.1em" }}>&trade;</span>
-                    </span>
-                </span>
+                />
             </div>
         </>
     );
