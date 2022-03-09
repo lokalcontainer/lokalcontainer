@@ -100,6 +100,7 @@ export default function MyApp(props: MyAppProps) {
 
             <ProviderSession>
                 <ProviderTheme
+                    enableSystem
                     disableTransitionOnChange
                     defaultTheme="system"
                     themes={["dark", "light"]}
