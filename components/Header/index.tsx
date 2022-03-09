@@ -98,7 +98,11 @@ export default function Header() {
                                     <>
                                         <li style={listStyle}>
                                             <NextLink href="/">
-                                                <a style={linkStyle} title="Globe">
+                                                <a
+                                                    style={linkStyle}
+                                                    title="Globe"
+                                                    aria-label="Index"
+                                                >
                                                     <span
                                                         style={{ ...textStyle, fontSize: "1.75em" }}
                                                     >
