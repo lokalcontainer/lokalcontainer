@@ -8,12 +8,12 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { DefaultSeo } from "next-seo";
 import { Toaster } from "react-hot-toast";
+import NextDynamic from "next/dynamic";
 import nProgress from "nprogress";
 import { SITE_DATA } from "libs/site-data.constants";
 import ProviderSession from "components/Context/ContextSession";
 import Header from "components/Header";
 import Footer from "components/Footer";
-import Logo from "components/Logo";
 
 interface MyAppProps extends AppProps {
     session?: ResponseSession;
@@ -25,6 +25,35 @@ nProgress.configure({
     speed: 250,
     minimum: 0.01,
     trickleSpeed: 80
+});
+
+const Logo = NextDynamic(() => import("components/Logo"), {
+    ssr: false,
+    loading: () => (
+        <div
+            style={{
+                width: "10em",
+                aspectRatio: "1/1",
+                position: "fixed",
+                left: "50%",
+                bottom: 0,
+                transform: "translateX(-50%)",
+                zIndex: 2002,
+                mixBlendMode: "difference",
+                padding: "calc(var(--grid-gap) * 3)",
+                pointerEvents: "none",
+                touchAction: "none",
+                userSelect: "none",
+                color: "#fff",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                filter: "drop-shadow(0 0 calc(var(--grid-gap) / 4) #fff)"
+            }}
+        >
+            Loading...
+        </div>
+    )
 });
 
 export default function MyApp(props: MyAppProps) {
