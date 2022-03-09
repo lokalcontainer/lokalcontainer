@@ -4,6 +4,7 @@ import logo from "../public/logo-white.json";
 
 export default function Logo() {
     const { resolvedTheme } = useTheme();
+    const isProduction = process.env.NODE_ENV === "production";
     return (
         <>
             <div
@@ -23,8 +24,8 @@ export default function Logo() {
                 }}
             >
                 <Lottie
-                    loop
-                    autoplay
+                    loop={isProduction}
+                    autoplay={isProduction}
                     animationData={logo}
                     style={{
                         filter:
