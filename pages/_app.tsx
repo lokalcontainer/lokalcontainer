@@ -14,6 +14,7 @@ import { SITE_DATA } from "libs/site-data.constants";
 import ProviderSession from "components/Context/ContextSession";
 import Header from "components/Header";
 import Footer from "components/Footer";
+import Marquee from "components/Utils/Marquee";
 
 interface MyAppProps extends AppProps {
     session?: ResponseSession;
@@ -32,23 +33,22 @@ const Logo = NextDynamic(() => import("components/Logo"), {
     loading: () => (
         <div
             style={{
-                width: "10em",
+                width: "6em",
                 aspectRatio: "1/1",
                 position: "fixed",
                 left: "50%",
-                bottom: 0,
+                bottom: "calc(var(--grid-gap) * 3)",
                 transform: "translateX(-50%)",
                 zIndex: 2002,
                 mixBlendMode: "difference",
-                padding: "calc(var(--grid-gap) * 3)",
+                color: "#fff",
                 pointerEvents: "none",
                 touchAction: "none",
                 userSelect: "none",
-                color: "#fff",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                filter: "drop-shadow(0 0 calc(var(--grid-gap) / 4) #fff)"
+                filter: "drop-shadow(0 0 calc(var(--grid-gap) / 2) currentColor)"
             }}
         >
             Loading...
@@ -57,7 +57,7 @@ const Logo = NextDynamic(() => import("components/Logo"), {
 });
 
 export default function MyApp(props: MyAppProps) {
-    const { Component, pageProps } = props;
+    const { Component, pageProps, router } = props;
     const { events } = useRouter();
 
     useEffect(() => {
@@ -107,6 +107,24 @@ export default function MyApp(props: MyAppProps) {
                 >
                     <Logo />
                     <Header />
+                    {router.pathname === "/" && (
+                        <Marquee
+                            pauseOnHover
+                            speed={40}
+                            style={{
+                                backgroundColor: "var(--accents-pink)",
+                                marginBottom: "calc(var(--grid-gap) * 3)"
+                            }}
+                        >
+                            {Array(10)
+                                .fill("Lokal Container Org.")
+                                .map((item, i) => (
+                                    <span key={i} style={{ marginInline: "1em" }}>
+                                        {item}
+                                    </span>
+                                ))}
+                        </Marquee>
+                    )}
                     <Component {...pageProps} />
                     <Footer />
                     <Toaster
