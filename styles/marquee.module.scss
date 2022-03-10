@@ -2,7 +2,7 @@
     position: relative;
     z-index: 10;
 
-    min-height: 2em;
+    min-height: var(--footer-height);
     overflow: hidden;
 
     display: flex;

@@ -1,5 +1,5 @@
 .app_footer {
-    height: calc(var(--grid-gap) * 3);
+    height: var(--footer-height);
     width: 100%;
 
     position: fixed;
@@ -8,17 +8,8 @@
     left: 0;
     z-index: 1999;
 
-    padding: 0 calc(var(--grid-gap) * 3);
-
     background-color: var(--accents-1);
     color: var(--accents-8) !important;
-
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    align-items: center;
-    gap: var(--grid-gap);
-
-    text-transform: uppercase;
 
     ul {
         list-style: none;
