@@ -114,6 +114,14 @@ article {
     position: relative;
 }
 
+[data-lottie="true"] {
+    svg {
+        path {
+            fill: currentColor;
+        }
+    }
+}
+
 [data-layout="fluid"] {
     width: 100%;
     margin: 0 auto;
