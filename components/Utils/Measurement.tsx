@@ -1,6 +1,12 @@
+import type { CSSProperties } from "react";
 import useWindowSize from "hooks/use-window-size";
 
-export default function Measurment() {
+type MeasurementProps = {
+    style?: CSSProperties;
+};
+
+export default function Measurment(props: MeasurementProps) {
+    const { style } = props;
     const { width, height } = useWindowSize();
     return (
         <span
@@ -8,7 +14,8 @@ export default function Measurment() {
                 fontFeatureSettings: `"tnum", "case"`,
                 pointerEvents: "none",
                 touchAction: "none",
-                userSelect: "none"
+                userSelect: "none",
+                ...style
             }}
         >
             W / {width} - H / {height}
