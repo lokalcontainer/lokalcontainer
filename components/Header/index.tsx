@@ -195,9 +195,9 @@ export default function Header() {
                                     <ToggleMenu />
                                 </li>
                             </ul>
-                        </header>
 
-                        <Drawer />
+                            <Drawer />
+                        </header>
                     </>
                 )}
             </ConsumerMenu>
