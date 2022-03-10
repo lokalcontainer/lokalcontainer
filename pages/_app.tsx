@@ -14,7 +14,6 @@ import { SITE_DATA } from "libs/site-data.constants";
 import ProviderSession from "components/Context/ContextSession";
 import Header from "components/Header";
 import Footer from "components/Footer";
-import Marquee from "components/Utils/Marquee";
 
 interface MyAppProps extends AppProps {
     session?: ResponseSession;
@@ -37,7 +36,7 @@ const Logo = NextDynamic(() => import("components/Logo"), {
                 aspectRatio: "1/1",
                 position: "fixed",
                 left: "50%",
-                bottom: "calc(var(--grid-gap) * 3)",
+                bottom: "var(--footer-height)",
                 transform: "translateX(-50%)",
                 zIndex: 2002,
                 mixBlendMode: "difference",
@@ -107,24 +106,6 @@ export default function MyApp(props: MyAppProps) {
                 >
                     <Logo />
                     <Header />
-                    {router.pathname === "/" && (
-                        <Marquee
-                            pauseOnHover
-                            speed={40}
-                            style={{
-                                backgroundColor: "var(--accents-pink)",
-                                marginBottom: "calc(var(--grid-gap) * 3)"
-                            }}
-                        >
-                            {Array(10)
-                                .fill("Lokal Container Org.")
-                                .map((item, i) => (
-                                    <span key={i} style={{ marginInline: "1em" }}>
-                                        {item}
-                                    </span>
-                                ))}
-                        </Marquee>
-                    )}
                     <Component {...pageProps} />
                     <Footer />
                     <Toaster
