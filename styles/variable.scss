@@ -1,3 +1,5 @@
+@import "media.scss";
+
 @font-face {
     font-family: "BDO Grotesk";
     src: url("/fonts/BDO-Grotesk/BDOGrotesk-VF.woff2") format("woff2-variations");
@@ -14,7 +16,7 @@
     --grid-gap: 0.5em;
 
     --header-height: calc(var(--grid-gap) * 5);
-    --footer-height: 16.66vh;
+    --footer-height: calc(var(--grid-gap) * 3.5);
 
     --no-scroll-padding: 0px;
 
@@ -36,6 +38,10 @@
     --alpha-1: rgb(255 255 255 / 95%);
     --alpha-2: rgb(255 255 255 / 60%);
     --alpha-3: rgb(255 255 255 / 40%);
+
+    @include media("screen", "<tablet") {
+        --footer-height: calc(var(--grid-gap) * 8);
+    }
 }
 
 [data-theme="light"] {
