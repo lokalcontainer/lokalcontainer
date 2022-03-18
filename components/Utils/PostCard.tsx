@@ -1,8 +1,9 @@
+import type { CSSProperties } from "react";
 import type { PostType } from "types/post";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import NextImage from "next/image";
 import NextLink, { LinkProps } from "next/link";
-import { CSSProperties, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 
 type PostCardProps = {
     index: number;
@@ -44,7 +45,7 @@ export const PostCard = (props: PostCardProps) => {
 
     const [hover, setHover] = useState(false);
     return (
-        <li style={{ marginBottom: "calc(var(--grid-gap) * 4)", userSelect: "none" }}>
+        <li style={{ userSelect: "none" }}>
             <NextLink {...link}>
                 <a
                     title={label}
@@ -64,6 +65,7 @@ export const PostCard = (props: PostCardProps) => {
                             overflow: "hidden",
                             width: "100%",
                             height: "100%",
+                            borderRadius: "inherit",
                             ...style
                         }}
                     >
@@ -137,7 +139,8 @@ export const PostCard = (props: PostCardProps) => {
                         gap: "calc(var(--grid-gap) / 2)",
                         fontWeight: 600,
                         userSelect: "none",
-                        paddingBlock: "calc(var(--grid-gap) / 2)"
+                        paddingBlock: "calc(var(--grid-gap) / 2)",
+                        paddingInline: "calc(var(--grid-gap) / 2)"
                     }}
                 >
                     <span
@@ -187,7 +190,8 @@ export const PostCard = (props: PostCardProps) => {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "space-between",
-                    marginInline: "calc(var(--grid-gap) * 2.25)"
+                    marginInline: "calc(var(--grid-gap) * 2.25)",
+                    paddingInline: "calc(var(--grid-gap) / 2)"
                 }}
             >
                 <span
@@ -215,7 +219,8 @@ export const PostCard = (props: PostCardProps) => {
                         fontWeight: 600,
                         fontSize: "0.65em",
                         marginBottom: "var(--grid-gap)",
-                        marginInline: "calc(var(--grid-gap) * 3.5)"
+                        marginInline: "calc(var(--grid-gap) * 3.5)",
+                        paddingInline: "calc(var(--grid-gap) / 2)"
                     }}
                 >
                     <span>By</span>{" "}

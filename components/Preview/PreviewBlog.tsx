@@ -173,8 +173,7 @@ const SocialButtons = () => {
                 backdropFilter: "blur(3px)",
                 zIndex: 1,
                 gap: "calc(var(--grid-gap) / 1.5)",
-                top: isPage ? "var(--header-height)" : 0,
-                marginTop: !isPage ? "calc(0px - var(--header-height))" : 0
+                top: isPage ? "var(--header-height)" : 0
             }}
         >
             {socialButtons.map((item, i) => (

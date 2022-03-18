@@ -32,6 +32,10 @@ body {
         overflow: hidden;
         padding-right: var(--no-scroll-padding);
     }
+
+    &[data-page="about"] {
+        background-color: var(--accents-blue);
+    }
 }
 
 .no-scroll {
@@ -148,7 +152,7 @@ article {
 .my-masonry-grid {
     width: 100%;
     display: flex;
-    gap: calc(var(--grid-gap) / 1);
+    gap: calc(var(--grid-gap) * 1);
 }
 .my-masonry-grid_column {
     padding: 0;
@@ -157,31 +161,32 @@ article {
 
     display: flex;
     flex-direction: column;
-    gap: var(--grid-gap);
+    gap: calc(var(--grid-gap) * 1);
 }
 
 // .my-masonry-grid_column > * {
 //     margin-bottom: var(--grid-gap);
 // }
 
-.masonry {
-    width: 100%;
-    display: flex;
-    gap: calc(var(--grid-gap) / 1);
-}
+// .masonry {
+//     width: 100%;
+//     display: flex;
+//     gap: calc(var(--grid-gap) / 1);
+// }
 
-.masonry-column {
-    padding: 0;
-    margin: 0;
-    list-style: none;
-}
+// .masonry-column {
+//     padding: 0;
+//     margin: 0;
+//     list-style: none;
+// }
 
 #nprogress {
     pointer-events: none;
 }
 
 #nprogress .bar {
-    background: var(--accents-12);
+    background: #fff;
+    mix-blend-mode: difference;
 
     position: fixed;
     z-index: 2002;
@@ -189,7 +194,7 @@ article {
     left: 0;
 
     width: 100%;
-    height: 2px;
+    height: calc(var(--grid-gap) / 4);
 }
 
 /* Fancy blur effect */
@@ -224,24 +229,32 @@ article {
     display: block;
     position: fixed;
     z-index: 2002;
-    top: calc(var(--header-height) / 2);
+    top: 0;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
 
     display: flex;
     align-items: center;
     justify-content: center;
+    padding-top: calc(var(--header-height) * 1.25);
+
+    mix-blend-mode: difference;
 }
 
 #nprogress .spinner-icon {
-    width: calc(var(--grid-gap) * 3);
-    height: calc(var(--grid-gap) * 3);
-    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    transform-origin: center bottom;
 
-    border: solid 2px transparent;
-    border-top-color: var(--accents-12);
-    border-left-color: var(--accents-12);
-    border-radius: 50%;
+    width: calc(var(--grid-gap) * 4);
+    height: calc(var(--grid-gap) * 2);
+
+    border-top-right-radius: calc(var(--grid-gap) * 2);
+    border-top-left-radius: calc(var(--grid-gap) * 2);
+    border: calc(var(--grid-gap) / 4) solid;
+    border-bottom: none;
+    border-color: #fff;
 
     animation: nprogress-spinner 350ms linear infinite;
 }
@@ -271,4 +284,12 @@ article {
     100% {
         transform: rotate(360deg);
     }
+}
+
+#__lc_portal {
+    position: relative;
+    z-index: 2000;
+
+    min-height: 100vh;
+    background-color: var(--accents-1);
 }
