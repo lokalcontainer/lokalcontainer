@@ -10,7 +10,7 @@ import MasonryNew from "components/Masonry";
 import LayoutMain from "components/LayoutMain";
 import { PostCard } from "components/Utils/PostCard";
 
-const LightBox = NextDynamic(() => import("components/LightBox"), { ssr: false });
+const Modal = NextDynamic(() => import("components/Modal"), { ssr: false });
 const PreviewPost = NextDynamic(() => import("components/Preview/PreviewPost"), { ssr: false });
 
 type ServerData = {
@@ -22,8 +22,8 @@ type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 export default function Page(props: PageProps) {
     const { query, push } = useRouter();
     const serverPosts = props.posts.data;
-    // const newPosts = serverPosts.concat(serverPosts, serverPosts, serverPosts, serverPosts);
-    const newPosts = serverPosts;
+    const newPosts = serverPosts.concat(serverPosts, serverPosts, serverPosts);
+    // const newPosts = serverPosts;
     const posts = useMemo(() => newPosts, [newPosts]);
 
     const [selectedPost, setSelectedPost] = useState<BasePost | undefined>(undefined);
@@ -78,12 +78,9 @@ export default function Page(props: PageProps) {
                 </MasonryNew>
             </LayoutMain>
 
-            <LightBox
-                title={`${selectedPost?.title} by ${selectedPost?.author.name}`}
-                onRequestClose={() => push("/", "/", { shallow: true, scroll: false })}
-            >
+            <Modal onRequestClose={() => push("/", "/", { shallow: true, scroll: false })}>
                 <PreviewPost post={selectedPost} />
-            </LightBox>
+            </Modal>
         </>
     );
 }

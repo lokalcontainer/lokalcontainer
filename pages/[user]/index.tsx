@@ -4,15 +4,17 @@ import type { BasePost, ResponsePosts } from "types/post";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { NextSeo } from "next-seo";
+import NextDynamic from "next/dynamic";
 
 import fetchJson from "libs/lib.fetch";
 import getServerUser from "libs/get-server-account";
 import LayoutMain from "components/LayoutMain";
 import Masonry from "components/Masonry";
-import LightBox from "components/LightBox";
 import LayoutUser from "components/Utils/LayoutUser";
 import { PostCard } from "components/Utils/PostCard";
 import PreviewPost from "components/Preview/PreviewPost";
+
+const Modal = NextDynamic(() => import("components/Modal"), { ssr: false });
 
 type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 
@@ -112,18 +114,13 @@ export default function Page(props: PageProps) {
                 </LayoutUser>
             </LayoutMain>
 
-            <LightBox
-                title={`${selectedPost?.type
-                    .substring(0, 1)
-                    .toUpperCase()}${selectedPost?.type.substring(1, selectedPost.type.length)} / ${
-                    selectedPost?.title
-                }`}
+            <Modal
                 onRequestClose={() =>
                     push("/[user]", `/${userName}`, { shallow: true, scroll: false })
                 }
             >
                 <PreviewPost post={selectedPost} />
-            </LightBox>
+            </Modal>
         </>
     );
 }

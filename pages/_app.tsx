@@ -96,7 +96,6 @@ export default function MyApp(props: MyAppProps) {
                     cardType: "summary_large_image"
                 }}
             />
-
             <ProviderSession>
                 <ProviderTheme
                     enableSystem
@@ -106,7 +105,9 @@ export default function MyApp(props: MyAppProps) {
                 >
                     <Logo />
                     <Header />
-                    <Component {...pageProps} />
+                    <main id="__main">
+                        <Component {...pageProps} />
+                    </main>
                     <Footer />
                     <Toaster
                         position="top-center"
