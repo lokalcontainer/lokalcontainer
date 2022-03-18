@@ -11,8 +11,8 @@ type LayoutMainProps = PropsWithChildren<{
 export default function LayoutMain(props: LayoutMainProps) {
     const { children, style } = props;
     return (
-        <main className={styles.main} style={{ ...style }}>
+        <div className={styles.main} style={{ ...style }}>
             {children}
-        </main>
+        </div>
     );
 }

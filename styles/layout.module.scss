@@ -5,7 +5,8 @@
     position: relative;
     min-height: calc(100vh - var(--header-height) - var(--footer-height));
     padding: calc(var(--grid-gap) * 3);
-    padding-top: 0;
+    padding-top: var(--header-height);
+    padding-bottom: var(--footer-height);
     background-color: var(--accents-1);
     z-index: 10;
 }
