@@ -46,7 +46,7 @@ export default function Modal(
 
         document.body.addEventListener("keydown", handler);
         return () => document.body.removeEventListener("keydown", handler);
-    }, [state]);
+    }, [state, onRequestClose]);
 
     // It's important using `useLayoutEffect`
     // Start modal at `0` position when it show up
