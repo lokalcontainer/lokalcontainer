@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 import { DefaultSeo } from "next-seo";
 import { Toaster } from "react-hot-toast";
 import NextScript from "next/script";
-import NextDynamic from "next/dynamic";
+// import NextDynamic from "next/dynamic";
 import nProgress from "nprogress";
 import { SITE_DATA } from "libs/site-data.constants";
 import ProviderSession from "components/Context/ContextSession";
@@ -28,33 +28,33 @@ nProgress.configure({
     trickleSpeed: 80
 });
 
-const Logo = NextDynamic(() => import("components/Logo"), {
-    ssr: false,
-    loading: () => (
-        <div
-            style={{
-                width: "6em",
-                aspectRatio: "1/1",
-                position: "fixed",
-                left: "50%",
-                bottom: "var(--footer-height)",
-                transform: "translateX(-50%)",
-                zIndex: 2002,
-                mixBlendMode: "difference",
-                color: "#fff",
-                pointerEvents: "none",
-                touchAction: "none",
-                userSelect: "none",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                filter: "drop-shadow(0 0 calc(var(--grid-gap) / 2) currentColor)"
-            }}
-        >
-            Loading...
-        </div>
-    )
-});
+// const Logo = NextDynamic(() => import("components/Logo"), {
+//     ssr: false,
+//     loading: () => (
+//         <div
+//             style={{
+//                 width: "6em",
+//                 aspectRatio: "1/1",
+//                 position: "fixed",
+//                 left: "50%",
+//                 bottom: "var(--footer-height)",
+//                 transform: "translateX(-50%)",
+//                 zIndex: 2002,
+//                 mixBlendMode: "difference",
+//                 color: "#fff",
+//                 pointerEvents: "none",
+//                 touchAction: "none",
+//                 userSelect: "none",
+//                 display: "flex",
+//                 alignItems: "center",
+//                 justifyContent: "center",
+//                 filter: "drop-shadow(0 0 calc(var(--grid-gap) / 2) currentColor)"
+//             }}
+//         >
+//             Loading...
+//         </div>
+//     )
+// });
 
 const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_ID;
 function pageView(url: string) {
@@ -135,7 +135,7 @@ export default function MyApp(props: MyAppProps) {
                     defaultTheme="system"
                     themes={["dark", "light"]}
                 >
-                    <Logo />
+                    {/* <Logo /> */}
                     <Header />
                     <main id="__main">
                         <Component {...pageProps} />
