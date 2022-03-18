@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { DefaultSeo } from "next-seo";
 import { Toaster } from "react-hot-toast";
+import NextScript from "next/script";
 import NextDynamic from "next/dynamic";
 import nProgress from "nprogress";
 import { SITE_DATA } from "libs/site-data.constants";
@@ -55,13 +56,24 @@ const Logo = NextDynamic(() => import("components/Logo"), {
     )
 });
 
+const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_ID;
+function pageView(url: string) {
+    // @ts-ignore
+    window.gtag("config", GA_TRACKING_ID, {
+        page_path: url
+    });
+}
+
 export default function MyApp(props: MyAppProps) {
     const { Component, pageProps, router } = props;
     const { events } = useRouter();
 
     useEffect(() => {
         const handleStart = () => nProgress.start();
-        const handleStop = () => nProgress.done();
+        const handleStop = (url: string) => {
+            nProgress.done();
+            pageView(url);
+        };
 
         events.on("routeChangeStart", handleStart);
         events.on("routeChangeComplete", handleStop);
@@ -76,6 +88,26 @@ export default function MyApp(props: MyAppProps) {
 
     return (
         <>
+            <NextScript
+                strategy="afterInteractive"
+                src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
+            />
+            <NextScript
+                id="gtag-init"
+                strategy="afterInteractive"
+                dangerouslySetInnerHTML={{
+                    __html: `
+                        window.dataLayer = window.dataLayer || [];
+                        function gtag(){dataLayer.push(arguments);}
+                        gtag('js', new Date());
+
+                        gtag('config', '${GA_TRACKING_ID}', {
+                          page_path: window.location.pathname,
+                        });
+                    `
+                }}
+            />
+
             <DefaultSeo
                 defaultTitle={SITE_DATA.title}
                 description={SITE_DATA.description}
