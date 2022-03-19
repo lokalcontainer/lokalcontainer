@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import NextDynamic from "next/dynamic";
 import NextLink from "next/link";
 import Marquee from "components/Utils/Marquee";
+import ThemeSelector from "components/Utils/ThemeSelector";
 
 const Measurment = NextDynamic(() => import("components/Utils/Measurement"), {
     ssr: false,
@@ -91,14 +92,24 @@ export default function Footer() {
                                 </div>
                             </div>
 
-                            <div style={{ marginRight: "2em" }}>
+                            <div
+                                style={{
+                                    marginRight: "2em",
+                                    display: "inline-flex",
+                                    alignItems: "center",
+                                    gap: "calc(var(--grid-gap) / 2)"
+                                }}
+                            >
                                 <Measurment
                                     style={{
-                                        fontSize: "0.6em",
-                                        borderRadius: "1em",
+                                        fontSize: "0.75em",
+                                        borderRadius: "2em",
                                         padding: "0.15em 0.75em",
                                         backgroundColor: "var(--accents-3)"
                                     }}
+                                />
+                                <ThemeSelector
+                                    style={{ fontSize: "0.75em", textTransform: "uppercase" }}
                                 />
                             </div>
 
@@ -124,14 +135,24 @@ export default function Footer() {
                                 </ul>
                             </div>
 
-                            <div style={{ marginRight: "2em" }}>
+                            <div
+                                style={{
+                                    marginRight: "2em",
+                                    display: "inline-flex",
+                                    alignItems: "center",
+                                    gap: "calc(var(--grid-gap) / 2)"
+                                }}
+                            >
                                 <Measurment
                                     style={{
-                                        fontSize: "0.6em",
-                                        borderRadius: "1em",
+                                        fontSize: "0.75em",
+                                        borderRadius: "2em",
                                         padding: "0.15em 0.75em",
                                         backgroundColor: "var(--accents-3)"
                                     }}
+                                />
+                                <ThemeSelector
+                                    style={{ fontSize: "0.75em", textTransform: "uppercase" }}
                                 />
                             </div>
                         </>
