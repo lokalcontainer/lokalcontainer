@@ -1,0 +1,50 @@
+.container {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    overflow: hidden;
+    color: var(--accents-12);
+    background-color: var(--accents-3);
+    border-radius: 2em;
+
+    > select {
+        appearance: none;
+        cursor: pointer;
+        font: inherit;
+        outline: none;
+        text-transform: inherit;
+
+        text-rendering: auto;
+        width: 100%;
+
+        border: none;
+        border-radius: inherit;
+        padding: 0em 1.5em 0 calc(var(--grid-gap) * 1.25);
+        height: 1.5em;
+        // min-height: 1.5em;
+
+        color: inherit;
+        background-color: inherit;
+    }
+
+    .suffix {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        position: absolute;
+        pointer-events: none;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        height: 100%;
+        aspect-ratio: 1/1;
+        border-radius: 100%;
+        color: inherit;
+        padding-right: 0.1em;
+
+        > svg {
+            transform: scale(0.7);
+        }
+    }
+}
