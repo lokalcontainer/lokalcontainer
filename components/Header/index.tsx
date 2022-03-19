@@ -5,10 +5,27 @@ import NextLink from "next/link";
 import NextDynamic from "next/dynamic";
 import { ConsumerMenu, ProviderMenu, useMenu } from "components/Context/ContextMenu";
 import useBreadCrumb from "hooks/use-breadcrumb";
-import LogoAnimate from "components/Logo/LogoAnimate";
 
 const Drawer = NextDynamic(() => import("./Drawer"), { ssr: false });
 const CreatePostButton = NextDynamic(() => import("components/CreatePostButton"), { ssr: false });
+const LogoAnimate = NextDynamic(() => import("components/Logo/LogoAnimate"), {
+    ssr: false,
+    loading: () => (
+        <span
+            style={{
+                height: "var(--header-height)",
+                aspectRatio: "2/1",
+                marginLeft: "-0.5em",
+                overflow: "hidden",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center"
+            }}
+        >
+            <span style={{ fontSize: "1.5em" }}>LC</span>
+        </span>
+    )
+});
 
 const buttonStyle: CSSProperties = {
     appearance: "none",
@@ -97,7 +114,8 @@ export default function Header() {
                                         style={{
                                             height: "var(--header-height)",
                                             aspectRatio: "1/1",
-                                            marginLeft: "-0.5em"
+                                            marginLeft: "-0.5em",
+                                            marginRight: "-0.25em"
                                             // overflow: "hidden"
                                         }}
                                     >
