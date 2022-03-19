@@ -45,7 +45,13 @@ export const PostCard = (props: PostCardProps) => {
 
     const [hover, setHover] = useState(false);
     return (
-        <li style={{ userSelect: "none" }}>
+        <li
+            style={{
+                userSelect: "none",
+                paddingBottom: "calc(var(--grid-gap) / 1)",
+                marginBottom: "1.5em"
+            }}
+        >
             <NextLink {...link}>
                 <a
                     title={label}
@@ -137,20 +143,22 @@ export const PostCard = (props: PostCardProps) => {
                         display: "flex",
                         alignItems: "center",
                         gap: "calc(var(--grid-gap) / 2)",
-                        fontWeight: 600,
                         userSelect: "none",
-                        paddingBlock: "calc(var(--grid-gap) / 2)",
-                        paddingInline: "calc(var(--grid-gap) / 2)"
+                        padding: "calc(var(--grid-gap) / 2) 0"
                     }}
                 >
                     <span
                         style={{
+                            fontSize: "1em",
+                            fontWeight: "bold",
                             color:
                                 type === "font"
-                                    ? "turquoise"
+                                    ? "var(--accents-blue)"
                                     : type === "blog" || type === "article"
-                                    ? "magenta"
-                                    : "red"
+                                    ? "var(--accents-magenta)"
+                                    : "var(--accents-green)",
+                            WebkitTextStroke: 1,
+                            WebkitTextStrokeColor: "var(--accents-12)"
                         }}
                     >
                         &#8627;
@@ -162,20 +170,21 @@ export const PostCard = (props: PostCardProps) => {
                             alignItems: "center",
                             justifyContent: "center",
                             borderRadius: "calc(var(--grid-gap) * 2)",
-                            paddingInline: "var(--grid-gap)",
-                            paddingBlock: "calc(var(--grid-gap) / 4)",
-                            color: "var(--accents-1)",
+                            paddingInline: "calc(var(--grid-gap) / 1.5)",
+                            color: "var(--accents-12)",
                             backgroundColor:
                                 type === "font"
-                                    ? "turquoise"
+                                    ? "var(--accents-blue)"
                                     : type === "blog" || type === "article"
-                                    ? "magenta"
-                                    : "red"
+                                    ? "var(--accents-magenta)"
+                                    : "var(--accents-green)"
                         }}
                     >
                         <span
                             style={{
                                 fontSize: "0.75em",
+                                fontWeight: 300,
+                                textTransform: "uppercase",
                                 display: "inline-block"
                             }}
                         >
@@ -185,21 +194,11 @@ export const PostCard = (props: PostCardProps) => {
                 </div>
             )}
 
-            <div
-                style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    marginInline: "calc(var(--grid-gap) * 2.25)",
-                    paddingInline: "calc(var(--grid-gap) / 2)"
-                }}
-            >
-                <span
+            <div style={{ paddingInline: "calc(var(--grid-gap) * 2.25)" }}>
+                <div
                     style={{
                         fontSize: "1em",
-                        fontFeatureSettings: `"case"`,
-                        textTransform: "uppercase",
-                        fontWeight: 500,
+                        fontWeight: "bold",
                         display: "block",
                         maxWidth: "100%",
                         overflow: "hidden",
@@ -209,33 +208,22 @@ export const PostCard = (props: PostCardProps) => {
                     }}
                 >
                     {label}
-                </span>
-            </div>
-
-            {author && (
-                <div
-                    style={{
-                        color: "var(--accents-5)",
-                        fontWeight: 600,
-                        fontSize: "0.65em",
-                        marginBottom: "var(--grid-gap)",
-                        marginInline: "calc(var(--grid-gap) * 3.5)",
-                        paddingInline: "calc(var(--grid-gap) / 2)"
-                    }}
-                >
-                    <span>By</span>{" "}
-                    <NextLink
-                        href={{
-                            pathname: "/[user]",
-                            query: { user: author.userName }
-                        }}
-                    >
-                        <a>
-                            <span style={{ color: "var(--accents-5)" }}>{author.name}</span>
-                        </a>
-                    </NextLink>
                 </div>
-            )}
+                {author && (
+                    <div style={{ fontWeight: 300, fontSize: "0.75em" }}>
+                        <NextLink
+                            href={{
+                                pathname: "/[user]",
+                                query: { user: author.userName }
+                            }}
+                        >
+                            <a>
+                                <span>By {author.name}</span>
+                            </a>
+                        </NextLink>
+                    </div>
+                )}
+            </div>
         </li>
     );
 };

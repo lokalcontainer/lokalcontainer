@@ -12,6 +12,14 @@
         background-color: var(--accents-12);
         color: var(--accents-1);
     }
+
+    svg {
+        &[viewBox="0 0 512 512"] {
+            path {
+                fill: currentColor !important;
+            }
+        }
+    }
 }
 
 body {
