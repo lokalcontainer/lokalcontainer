@@ -5,6 +5,7 @@ import NextLink from "next/link";
 import NextDynamic from "next/dynamic";
 import { ConsumerMenu, ProviderMenu, useMenu } from "components/Context/ContextMenu";
 import useBreadCrumb from "hooks/use-breadcrumb";
+import LogoAnimate from "components/Logo/LogoAnimate";
 
 const Drawer = NextDynamic(() => import("./Drawer"), { ssr: false });
 const CreatePostButton = NextDynamic(() => import("components/CreatePostButton"), { ssr: false });
@@ -92,7 +93,29 @@ export default function Header() {
                         <ul>
                             {breadcrumbs.length >= 1 && (
                                 <>
-                                    <li style={listStyle}>
+                                    <li
+                                        style={{
+                                            height: "var(--header-height)",
+                                            aspectRatio: "1/1",
+                                            marginLeft: "-0.5em"
+                                            // overflow: "hidden"
+                                        }}
+                                    >
+                                        <NextLink href="/">
+                                            <a style={linkStyle} title="Globe" aria-label="Index">
+                                                <span
+                                                    style={{
+                                                        display: "flex",
+                                                        alignItems: "center",
+                                                        justifyContent: "center"
+                                                    }}
+                                                >
+                                                    <LogoAnimate />
+                                                </span>
+                                            </a>
+                                        </NextLink>
+                                    </li>
+                                    {/* <li style={listStyle}>
                                         <NextLink href="/">
                                             <a style={linkStyle} title="Globe" aria-label="Index">
                                                 <span
@@ -106,9 +129,9 @@ export default function Header() {
                                                 </span>
                                             </a>
                                         </NextLink>
-                                    </li>
+                                    </li> */}
 
-                                    <li style={listStyle}>
+                                    {/* <li style={listStyle}>
                                         <span style={textStyle}>/</span>
                                     </li>
 
@@ -118,7 +141,7 @@ export default function Header() {
                                                 <span style={textStyle}>L - C</span>
                                             </a>
                                         </NextLink>
-                                    </li>
+                                    </li> */}
 
                                     {breadcrumbs[0].href !== "/" &&
                                         breadcrumbs.map((item, i) => {
