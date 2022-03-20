@@ -96,7 +96,7 @@
 
     /* Causing performance issue on safari */
     img {
-        filter: brightness(0.75) contrast(1.2);
+        filter: brightness(0.7) contrast(1.2);
 
         /* 
             Try to fix `filter` performance issue use `will-change` only on Safari see the solution below.
@@ -104,7 +104,7 @@
             https://stackoverflow.com/questions/16348489/is-there-a-css-hack-for-safari-only-not-chrome
         */
         @media not all and(min-resolution: .001dpcm) {
-            @supports (filter: brightness(0.75) contrast(1.2)) {
+            @supports (filter: brightness(0.7) contrast(1.2)) {
                 will-change: filter;
             }
         }
