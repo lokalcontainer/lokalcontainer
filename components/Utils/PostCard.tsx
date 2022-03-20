@@ -48,8 +48,7 @@ export const PostCard = (props: PostCardProps) => {
         <li
             style={{
                 userSelect: "none",
-                paddingBottom: "calc(var(--grid-gap) / 1)",
-                marginBottom: "1.5em"
+                paddingBottom: "calc(var(--grid-gap) / 2)"
             }}
         >
             <NextLink {...link}>
@@ -183,7 +182,7 @@ export const PostCard = (props: PostCardProps) => {
                         <span
                             style={{
                                 fontSize: "0.75em",
-                                fontWeight: 300,
+                                fontWeight: 340,
                                 textTransform: "uppercase",
                                 display: "inline-block"
                             }}
@@ -210,7 +209,7 @@ export const PostCard = (props: PostCardProps) => {
                     {label}
                 </div>
                 {author && (
-                    <div style={{ fontWeight: 300, fontSize: "0.75em" }}>
+                    <div style={{ fontWeight: 340, fontSize: "0.75em" }}>
                         <NextLink
                             href={{
                                 pathname: "/[user]",

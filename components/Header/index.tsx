@@ -22,7 +22,7 @@ const LogoAnimate = NextDynamic(() => import("components/Logo/LogoAnimate"), {
                 justifyContent: "center"
             }}
         >
-            <span style={{ fontSize: "1.5em" }}>LC</span>
+            <span style={{ fontSize: "1.5em" }}>...</span>
         </span>
     )
 });
@@ -133,33 +133,6 @@ export default function Header() {
                                             </a>
                                         </NextLink>
                                     </li>
-                                    {/* <li style={listStyle}>
-                                        <NextLink href="/">
-                                            <a style={linkStyle} title="Globe" aria-label="Index">
-                                                <span
-                                                    style={{
-                                                        ...textStyle,
-                                                        fontSize: "1.75em",
-                                                        paddingBottom: "0.05em"
-                                                    }}
-                                                >
-                                                    &#127760;
-                                                </span>
-                                            </a>
-                                        </NextLink>
-                                    </li> */}
-
-                                    {/* <li style={listStyle}>
-                                        <span style={textStyle}>/</span>
-                                    </li>
-
-                                    <li style={listStyle}>
-                                        <NextLink href="/">
-                                            <a style={linkStyle} title="Index">
-                                                <span style={textStyle}>L - C</span>
-                                            </a>
-                                        </NextLink>
-                                    </li> */}
 
                                     {breadcrumbs[0].href !== "/" &&
                                         breadcrumbs.map((item, i) => {
