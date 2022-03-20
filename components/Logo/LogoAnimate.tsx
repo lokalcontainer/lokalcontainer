@@ -1,82 +1,71 @@
-import { RefObject, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+import lottie, { AnimationDirection } from "lottie-web";
+import useEventListener from "hooks/use-event-listener";
 import logo from "../../public/logo-white.json";
-import lottie from "lottie-web";
 
-// const isProduction = process.env.NODE_ENV !== "production";
 let ticking = false;
 
-function useLottie<T extends HTMLElement = HTMLElement>(play: boolean, parent: RefObject<T>) {
-    const animeName = "Logo";
-    const playMemo = useMemo(() => play, [play]);
+function useLottie<T extends HTMLElement = HTMLDivElement>(name: string) {
+    const ref = useRef<T | null>(null);
+    const animeName = name;
+
+    const play = () => lottie.play(animeName);
+    const pause = () => lottie.pause(animeName);
+    const destroy = () => lottie.destroy(animeName);
+    const setSpeed = (v: number) => lottie.setSpeed(v, animeName);
+    const setDirection = (v: AnimationDirection) => lottie.setDirection(v, animeName);
+
     useEffect(() => {
-        if (!parent.current) return;
+        if (!ref.current) return;
         lottie.loadAnimation({
             animationData: logo,
             renderer: "svg",
             loop: true,
             autoplay: true,
-            container: parent.current,
+            container: ref.current,
             name: animeName
         });
+    }, [ref]);
 
-        lottie.setSpeed(0.7, animeName);
-
-        if (playMemo) {
-            setTimeout(() => {
-                lottie.play(animeName);
-                console.log("PLAY");
-            }, 1000);
-
-            return () => {
-                lottie.pause(animeName);
-                console.log("PAUSE");
-            };
-        }
-    }, [parent, playMemo]);
+    return { ref, play, pause, destroy, setSpeed, setDirection };
 }
 
-export default function LogoAnimate(props: any) {
-    const refParent = useRef<HTMLDivElement>(null);
+export default function LogoAnimate() {
+    const { ref, play, pause, setSpeed } = useLottie("logo");
 
-    const [playState, setPlayState] = useState(true);
+    useEffect(() => void setSpeed(0.7), []);
 
-    useLottie(playState, refParent);
-
-    const handlePlay = () => setPlayState(true);
-    const handlePause = () => setPlayState(false);
-
-    useEffect(() => {
-        const handleVisibility = () => {
-            if (document.visibilityState === "hidden") {
-                handlePause();
-            } else {
-                handlePlay();
-            }
-        };
-
-        handleVisibility();
-        document.addEventListener("visibilitychange", handleVisibility);
-        return () => document.removeEventListener("visibilitychange", handleVisibility);
-    }, []);
-
-    useEffect(() => {
-        const handleScroll = () => {
+    const handleScroll = () => {
+        if (document.hasFocus()) {
             if (!ticking) {
                 window.requestAnimationFrame(() => {
                     setTimeout(() => {
-                        handlePlay();
+                        play();
                         ticking = false;
-                    }, 1000);
+                    }, 500);
                 });
 
-                handlePause();
+                pause();
                 ticking = true;
             }
-        };
+        }
+    };
 
-        document.addEventListener("scroll", handleScroll);
-        return () => document.removeEventListener("scroll", handleScroll);
-    }, []);
+    const htmlAttr = "data-blur";
+    const handleFocus = () => {
+        const html = document.documentElement;
+        html.removeAttribute(htmlAttr);
+        return play();
+    };
+    const handleBlur = () => {
+        const html = document.documentElement;
+        html.setAttribute(htmlAttr, "true");
+        return pause();
+    };
 
-    return <div ref={refParent} />;
+    useEventListener("scroll", handleScroll);
+    useEventListener("focus", handleFocus);
+    useEventListener("blur", handleBlur);
+
+    return <div ref={ref} />;
 }
