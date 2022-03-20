@@ -257,6 +257,13 @@
     "@typescript-eslint/types" "5.8.1"
     eslint-visitor-keys "^3.0.0"
 
+"@unforma-club/dialog@latest":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@unforma-club/dialog/-/dialog-1.0.4.tgz#6656515db91e1b10a711f555da92be280b0577e6"
+  integrity sha512-mJvJv6gTZzUL3YwyHV2saJheZiYZnGY6cEBYAOwwHvXtA4eDNGlvLaZO0tq1n5Iu35qWgaGieU4ZJ7FEHhHQhQ==
+  dependencies:
+    exenv "^1.2.2"
+
 "@zeit/schemas@2.6.0":
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/@zeit/schemas/-/schemas-2.6.0.tgz#004e8e553b4cd53d538bd38eac7bcbf58a867fe3"
@@ -1037,6 +1044,11 @@ execa@^1.0.0:
     p-finally "^1.0.0"
     signal-exit "^3.0.0"
     strip-eof "^1.0.0"
+
+exenv@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/exenv/-/exenv-1.2.2.tgz#2ae78e85d9894158670b03d47bec1f03bd91bb9d"
+  integrity sha1-KueOhdmJQVhnCwPUe+wfA72Ru50=
 
 expand-template@^2.0.3:
   version "2.0.3"

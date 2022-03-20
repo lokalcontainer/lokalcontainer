@@ -14,6 +14,7 @@
         "analyze": "cross-env ANALYZE=true yarn build"
     },
     "dependencies": {
+        "@unforma-club/dialog": "^1.0.4",
         "formik": "^2.2.9",
         "framer-motion": "^6.2.8",
         "lottie-web": "^5.9.1",
