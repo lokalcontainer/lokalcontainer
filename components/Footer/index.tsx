@@ -48,7 +48,7 @@ export default function Footer() {
     return (
         <footer className={styles.app_footer} data-page={pathname.split("/")[1]}>
             <Marquee pauseOnHover speed={24} style={{ fontFeatureSettings: `"tnum", "case"` }}>
-                {Array(10)
+                {Array(3)
                     .fill(
                         <>
                             <div style={{ marginRight: "2em" }}>
