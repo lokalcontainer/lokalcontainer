@@ -1,10 +1,10 @@
-import { useTheme } from "next-themes";
+// import { useTheme } from "next-themes";
 import { useRouter } from "next/router";
 import LogoAnimate from "./Logo/LogoAnimate";
 
 export default function Logo() {
     const { pathname } = useRouter();
-    const { resolvedTheme } = useTheme();
+    // const { resolvedTheme } = useTheme();
     return (
         <>
             {pathname.split("/")[1] !== "about" && (
@@ -25,12 +25,12 @@ export default function Logo() {
                     }}
                 >
                     <LogoAnimate
-                        style={{
-                            filter:
-                                resolvedTheme === "dark"
-                                    ? "drop-shadow(0 0 calc(var(--grid-gap) / 2) currentColor)"
-                                    : "drop-shadow(0 0 calc(var(--grid-gap) / 3) currentColor)"
-                        }}
+                    // style={{
+                    //     filter:
+                    //         resolvedTheme === "dark"
+                    //             ? "drop-shadow(0 0 calc(var(--grid-gap) / 2) currentColor)"
+                    //             : "drop-shadow(0 0 calc(var(--grid-gap) / 3) currentColor)"
+                    // }}
                     />
                 </div>
             )}

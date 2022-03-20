@@ -25,7 +25,7 @@ function useLottie<T extends HTMLElement = HTMLDivElement>(name: string) {
             container: ref.current,
             name: animeName
         });
-    }, [ref]);
+    }, [ref, animeName]);
 
     return { ref, play, pause, destroy, setSpeed, setDirection };
 }
@@ -33,7 +33,7 @@ function useLottie<T extends HTMLElement = HTMLDivElement>(name: string) {
 export default function LogoAnimate() {
     const { ref, play, pause, setSpeed } = useLottie("logo");
 
-    useEffect(() => void setSpeed(0.7), []);
+    useEffect(() => void setSpeed(0.7), [setSpeed]);
 
     const handleScroll = () => {
         if (document.hasFocus()) {
