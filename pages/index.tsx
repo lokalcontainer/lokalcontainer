@@ -1,16 +1,16 @@
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import type { BasePost, ResponsePosts } from "types/post";
 
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import NextDynamic from "next/dynamic";
+import Dialog from "@unforma-club/dialog";
 
-import type { BasePost, ResponsePosts } from "types/post";
 import fetchJson from "libs/lib.fetch";
 import MasonryNew from "components/Masonry";
 import LayoutMain from "components/LayoutMain";
 import { PostCard } from "components/Utils/PostCard";
 
-const Modal = NextDynamic(() => import("components/Modal"), { ssr: false });
 const PreviewPost = NextDynamic(() => import("components/Preview/PreviewPost"), { ssr: false });
 
 type ServerData = {
@@ -78,9 +78,65 @@ export default function Page(props: PageProps) {
                 </MasonryNew>
             </LayoutMain>
 
-            <Modal onRequestClose={() => push("/", "/", { shallow: true, scroll: false })}>
+            <Dialog
+                isOpen={!!query.light_box?.includes("true")}
+                onRequestClose={() => push("/", "/", { shallow: true, scroll: false })}
+                parentId="__next"
+                stackId="__main"
+                floatId="__lc_portal"
+                removeOverscrollBehavior
+            >
+                <button
+                    onClick={() => push("/", "/", { shallow: true, scroll: false })}
+                    name="Exit"
+                    title="Exit"
+                    style={{
+                        appearance: "none",
+                        background: "none",
+                        border: "1px solid",
+                        borderRadius: "100%",
+                        padding: 0,
+                        margin: 0,
+                        fontFamily: "inherit",
+                        fontSize: "inherit",
+                        fontWeight: "bold",
+                        cursor: "pointer",
+                        aspectRatio: "1/1",
+                        width: "1.3em",
+                        height: "1.3em",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        overflow: "hidden",
+                        position: "fixed",
+                        top: "1em",
+                        left: "1em",
+                        zIndex: 10
+                    }}
+                >
+                    <span
+                        style={{
+                            display: "inline-flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            width: "100%",
+                            height: "100%"
+                        }}
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            height="1.3em"
+                            width="1.3em"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                        >
+                            <path d="M0 0h24v24H0V0z" fill="none" />
+                            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" />
+                        </svg>
+                    </span>
+                </button>
                 <PreviewPost post={selectedPost} />
-            </Modal>
+            </Dialog>
         </>
     );
 }
