@@ -56,6 +56,7 @@ nProgress.configure({
 //     )
 // });
 
+const IS_PRODUCTION = process.env.NODE_ENV === "production";
 const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_ID;
 function pageView(url: string) {
     // @ts-ignore
@@ -72,7 +73,7 @@ export default function MyApp(props: MyAppProps) {
         const handleStart = () => nProgress.start();
         const handleStop = (url: string) => {
             nProgress.done();
-            pageView(url);
+            IS_PRODUCTION && pageView(url);
         };
 
         events.on("routeChangeStart", handleStart);
@@ -88,15 +89,17 @@ export default function MyApp(props: MyAppProps) {
 
     return (
         <>
-            <NextScript
-                strategy="afterInteractive"
-                src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
-            />
-            <NextScript
-                id="gtag-init"
-                strategy="afterInteractive"
-                dangerouslySetInnerHTML={{
-                    __html: `
+            {IS_PRODUCTION && (
+                <>
+                    <NextScript
+                        strategy="afterInteractive"
+                        src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
+                    />
+                    <NextScript
+                        id="gtag-init"
+                        strategy="afterInteractive"
+                        dangerouslySetInnerHTML={{
+                            __html: `
                         window.dataLayer = window.dataLayer || [];
                         function gtag(){dataLayer.push(arguments);}
                         gtag('js', new Date());
@@ -105,8 +108,10 @@ export default function MyApp(props: MyAppProps) {
                           page_path: window.location.pathname,
                         });
                     `
-                }}
-            />
+                        }}
+                    />
+                </>
+            )}
 
             <DefaultSeo
                 defaultTitle={SITE_DATA.title}
