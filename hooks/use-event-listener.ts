@@ -1,12 +1,32 @@
 import { RefObject, useEffect, useRef } from "react";
 
-function useEventListener<T extends HTMLElement = HTMLDivElement>(
-    eventName: keyof WindowEventMap | string, // string to allow custom event
-    handler: (event: Event) => void,
+// See: https://usehooks-ts.com/react-hook/use-isomorphic-layout-effect
+import { useIsomorphicLayoutEffect } from "./use-isomorphic-layout-effect";
+
+function useEventListener<K extends keyof WindowEventMap>(
+    eventName: K,
+    handler: (event: WindowEventMap[K]) => void
+): void;
+function useEventListener<
+    K extends keyof HTMLElementEventMap,
+    T extends HTMLElement = HTMLDivElement
+>(eventName: K, handler: (event: HTMLElementEventMap[K]) => void, element: RefObject<T>): void;
+
+function useEventListener<
+    KW extends keyof WindowEventMap,
+    KH extends keyof HTMLElementEventMap,
+    T extends HTMLElement | void = void
+>(
+    eventName: KW | KH,
+    handler: (event: WindowEventMap[KW] | HTMLElementEventMap[KH] | Event) => void,
     element?: RefObject<T>
 ) {
     // Create a ref that stores handler
-    const savedHandler = useRef<(event: Event) => void>();
+    const savedHandler = useRef(handler);
+
+    useIsomorphicLayoutEffect(() => {
+        savedHandler.current = handler;
+    }, [handler]);
 
     useEffect(() => {
         // Define the listening target
@@ -15,18 +35,8 @@ function useEventListener<T extends HTMLElement = HTMLDivElement>(
             return;
         }
 
-        // Update saved handler if necessary
-        if (savedHandler.current !== handler) {
-            savedHandler.current = handler;
-        }
-
         // Create event listener that calls handler function stored in ref
-        const eventListener = (event: Event) => {
-            // eslint-disable-next-line no-extra-boolean-cast
-            if (!!savedHandler?.current) {
-                savedHandler.current(event);
-            }
-        };
+        const eventListener: typeof handler = (event) => savedHandler.current(event);
 
         targetElement.addEventListener(eventName, eventListener);
 
@@ -34,7 +44,7 @@ function useEventListener<T extends HTMLElement = HTMLDivElement>(
         return () => {
             targetElement.removeEventListener(eventName, eventListener);
         };
-    }, [eventName, element, handler]);
+    }, [eventName, element]);
 }
 
 export default useEventListener;
