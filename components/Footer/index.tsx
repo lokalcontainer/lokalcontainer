@@ -89,28 +89,8 @@ export default function Footer() {
                                     >
                                         Twitter
                                     </a>
+                                    .
                                 </div>
-                            </div>
-
-                            <div
-                                style={{
-                                    marginRight: "2em",
-                                    display: "inline-flex",
-                                    alignItems: "center",
-                                    gap: "calc(var(--grid-gap) / 2)"
-                                }}
-                            >
-                                <Measurment
-                                    style={{
-                                        fontSize: "0.75em",
-                                        borderRadius: "2em",
-                                        padding: "0.15em 0.75em",
-                                        backgroundColor: "var(--accents-3)"
-                                    }}
-                                />
-                                <ThemeSelector
-                                    style={{ fontSize: "0.75em", textTransform: "uppercase" }}
-                                />
                             </div>
 
                             <div style={{ marginRight: "2em" }}>
@@ -128,7 +108,14 @@ export default function Footer() {
                                     {staticLinks.map((item, i) => (
                                         <li key={i}>
                                             <NextLink href={item.href}>
-                                                <a style={aStyle}>{item.label}</a>
+                                                <a
+                                                    style={{
+                                                        ...aStyle,
+                                                        color: "var(--accents-12)"
+                                                    }}
+                                                >
+                                                    {item.label}
+                                                </a>
                                             </NextLink>
                                         </li>
                                     ))}
@@ -145,14 +132,14 @@ export default function Footer() {
                             >
                                 <Measurment
                                     style={{
-                                        fontSize: "0.75em",
+                                        fontSize: "0.625em",
                                         borderRadius: "2em",
                                         padding: "0.15em 0.75em",
                                         backgroundColor: "var(--accents-3)"
                                     }}
                                 />
                                 <ThemeSelector
-                                    style={{ fontSize: "0.75em", textTransform: "uppercase" }}
+                                    style={{ fontSize: "0.625em", textTransform: "uppercase" }}
                                 />
                             </div>
                         </>
