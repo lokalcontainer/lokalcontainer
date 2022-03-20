@@ -1,6 +1,6 @@
 import styles from "styles/marquee.module.scss";
 import type { CSSProperties, PropsWithChildren } from "react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 type MarqueeProps = PropsWithChildren<{
     style?: CSSProperties;
@@ -32,6 +32,8 @@ export default function Marquee(props: MarqueeProps) {
         onFinish,
         onCycleComplete
     } = props;
+
+    const memoChildren = useMemo(() => children, [children]);
 
     const [containerWidth, setContainerWidth] = useState(0);
     const [marqueeWidth, setMarqueeWidth] = useState(0);
@@ -91,7 +93,7 @@ export default function Marquee(props: MarqueeProps) {
                         onAnimationIteration={onCycleComplete}
                         onAnimationEnd={onFinish}
                     >
-                        {children}
+                        {memoChildren}
                     </div>
 
                     <div
@@ -104,7 +106,7 @@ export default function Marquee(props: MarqueeProps) {
                             ["--iteration-count" as string]: !!loop ? `${loop}` : "infinite"
                         }}
                     >
-                        {children}
+                        {memoChildren}
                     </div>
                 </>
             )}
