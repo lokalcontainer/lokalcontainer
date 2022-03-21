@@ -1,12 +1,11 @@
-name: deploy-prod
+name: Deploy Canary https://beta.lokalcontainer.org
 
 on:
   push:
-    branches:
-      - main
+    branches: [canary]
 
 jobs:
-  deploy-prod:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,11 +18,11 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           port: 22
           script: |
-            cd ~/lc-website
-            pm2 stop pm2-ecosystem.config.js
-            git pull origin main
+            pm2 stop lc-website-beta
+            cd ~/lc-website-beta
+            git pull
             git status
             rm -rf .next
             yarn install
             yarn build
-            pm2 restart pm2-ecosystem.config.js
+            pm2 restart lc-website-beta
