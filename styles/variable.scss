@@ -5,7 +5,7 @@
     src: url("/fonts/BDO-Grotesk/BDOGrotesk-VF.woff2") format("woff2-variations");
     font-style: normal;
     font-weight: 300 900;
-    font-display: block;
+    font-display: swap;
 }
 
 :root {
@@ -15,7 +15,7 @@
 
     --grid-gap: 0.5em;
 
-    --header-height: calc(var(--grid-gap) * 5);
+    --header-height: calc(var(--grid-gap) * 5.5);
     --footer-height: calc(var(--grid-gap) * 3.5);
 
     --no-scroll-padding: 0px;
