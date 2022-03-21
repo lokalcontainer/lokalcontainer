@@ -23,7 +23,7 @@ type PostCardProps = {
     };
 };
 
-export const PostCard = memo((props: PostCardProps) => {
+export const PostCard = (props: PostCardProps) => {
     const {
         label,
         link,
@@ -224,4 +224,4 @@ export const PostCard = memo((props: PostCardProps) => {
             </div>
         </li>
     );
-});
+};
