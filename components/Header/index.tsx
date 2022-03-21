@@ -3,29 +3,11 @@ import { CSSProperties, Fragment } from "react";
 import { useRouter } from "next/router";
 import NextLink from "next/link";
 import NextDynamic from "next/dynamic";
-import { ConsumerMenu, ProviderMenu, useMenu } from "components/Context/ContextMenu";
 import useBreadCrumb from "hooks/use-breadcrumb";
+import { ConsumerMenu, ProviderMenu, useMenu } from "components/Context/ContextMenu";
 
 const Drawer = NextDynamic(() => import("./Drawer"), { ssr: false });
 const CreatePostButton = NextDynamic(() => import("components/CreatePostButton"), { ssr: false });
-const LogoAnimate = NextDynamic(() => import("components/Logo/LogoAnimate"), {
-    ssr: false,
-    loading: () => (
-        <span
-            style={{
-                height: "var(--header-height)",
-                aspectRatio: "2/1",
-                marginLeft: "-0.5em",
-                overflow: "hidden",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center"
-            }}
-        >
-            <span style={{ fontSize: "1.5em" }}>...</span>
-        </span>
-    )
-});
 
 const buttonStyle: CSSProperties = {
     appearance: "none",
@@ -63,8 +45,8 @@ const linkStyle: CSSProperties = {
 };
 
 const textStyle: CSSProperties = {
-    fontSize: "1.5em",
-    fontWeight: 500,
+    fontSize: "1.25em",
+    fontWeight: 400,
     textTransform: "capitalize"
 };
 
@@ -110,26 +92,30 @@ export default function Header() {
                         <ul>
                             {breadcrumbs.length >= 1 && (
                                 <>
-                                    <li
-                                        style={{
-                                            height: "var(--header-height)",
-                                            aspectRatio: "1/1",
-                                            marginLeft: "-0.5em",
-                                            marginRight: "-0.25em"
-                                            // overflow: "hidden"
-                                        }}
-                                    >
+                                    <li style={listStyle}>
                                         <NextLink href="/">
                                             <a style={linkStyle} title="Globe" aria-label="Index">
                                                 <span
                                                     style={{
-                                                        display: "flex",
-                                                        alignItems: "center",
-                                                        justifyContent: "center"
+                                                        ...textStyle,
+                                                        fontSize: "1.75em",
+                                                        paddingBottom: "0.05em"
                                                     }}
                                                 >
-                                                    <LogoAnimate />
+                                                    &#127760;
                                                 </span>
+                                            </a>
+                                        </NextLink>
+                                    </li>
+
+                                    <li style={listStyle}>
+                                        <span style={textStyle}>/</span>
+                                    </li>
+
+                                    <li style={listStyle}>
+                                        <NextLink href="/">
+                                            <a style={linkStyle} title="Index">
+                                                <span style={textStyle}>L - C</span>
                                             </a>
                                         </NextLink>
                                     </li>
