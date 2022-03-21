@@ -1,6 +1,6 @@
 import type { CSSProperties } from "react";
 import type { PostType } from "types/post";
-import { memo, useState } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import NextImage from "next/image";
 import NextLink, { LinkProps } from "next/link";
@@ -92,8 +92,8 @@ export const PostCard = (props: PostCardProps) => {
                                 objectFit={isSquare ? undefined : "cover"}
                                 objectPosition={isSquare ? undefined : "center"}
                                 quality={100}
-                                loading="lazy"
-                                // priority={index <= 16}
+                                priority={index <= 16}
+                                // loading="lazy"
                                 // placeholder="blur"
                                 // blurDataURL={`data:image/svg+xml;base64,${toBase64(
                                 //     convertImage(item.meta.heroImage.width, item.meta.heroImage.height)
