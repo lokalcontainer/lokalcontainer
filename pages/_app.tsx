@@ -142,7 +142,6 @@ export default function MyApp(props: MyAppProps) {
                                 }
                             }}
                         />
-                        <div id="__lc_portal" />
                     </ProviderWindow>
                 </ProviderTheme>
             </ProviderSession>
