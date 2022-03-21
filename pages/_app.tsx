@@ -9,9 +9,9 @@ import { useRouter } from "next/router";
 import { DefaultSeo } from "next-seo";
 import { Toaster } from "react-hot-toast";
 import NextScript from "next/script";
-// import NextDynamic from "next/dynamic";
 import nProgress from "nprogress";
 import { SITE_DATA } from "libs/site-data.constants";
+import ProviderWindow from "components/Context/ContextWindow";
 import ProviderSession from "components/Context/ContextSession";
 import Header from "components/Header";
 import Footer from "components/Footer";
@@ -27,34 +27,6 @@ nProgress.configure({
     minimum: 0.01,
     trickleSpeed: 80
 });
-
-// const Logo = NextDynamic(() => import("components/Logo"), {
-//     ssr: false,
-//     loading: () => (
-//         <div
-//             style={{
-//                 width: "6em",
-//                 aspectRatio: "1/1",
-//                 position: "fixed",
-//                 left: "50%",
-//                 bottom: "var(--footer-height)",
-//                 transform: "translateX(-50%)",
-//                 zIndex: 2002,
-//                 mixBlendMode: "difference",
-//                 color: "#fff",
-//                 pointerEvents: "none",
-//                 touchAction: "none",
-//                 userSelect: "none",
-//                 display: "flex",
-//                 alignItems: "center",
-//                 justifyContent: "center",
-//                 filter: "drop-shadow(0 0 calc(var(--grid-gap) / 2) currentColor)"
-//             }}
-//         >
-//             Loading...
-//         </div>
-//     )
-// });
 
 const IS_PRODUCTION = process.env.NODE_ENV === "production";
 const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_ID;
@@ -140,35 +112,38 @@ export default function MyApp(props: MyAppProps) {
                     defaultTheme="system"
                     themes={["dark", "light"]}
                 >
-                    {/* <Logo /> */}
-                    <Header />
-                    <main id="__main">
-                        <Component {...pageProps} />
-                    </main>
-                    <Footer />
-                    <Toaster
-                        position="top-center"
-                        gutter={4}
-                        containerStyle={{
-                            top: "2.5em",
-                            right: "1em",
-                            bottom: "1em",
-                            left: "1em"
-                        }}
-                        toastOptions={{
-                            style: {
-                                zIndex: 2002,
-                                padding: "calc(var(--grid-gap) * 0.75) calc(var(--grid-gap) * 1)",
-                                borderRadius: "calc(var(--grid-gap) / 1.5)",
-                                boxShadow:
-                                    "0 0 1em 0 var(--accents-4), inset 0 0 0.2em 0 var(--accents-6)",
-                                fontSize: "0.85em",
-                                fontFamily: "inherit",
-                                backgroundColor: "var(--accents-4)",
-                                color: "var(--accents-12)"
-                            }
-                        }}
-                    />
+                    <ProviderWindow>
+                        <Header />
+                        <main id="__main">
+                            <Component {...pageProps} />
+                        </main>
+                        <Footer />
+                        <Toaster
+                            position="top-center"
+                            gutter={4}
+                            containerStyle={{
+                                top: "2.5em",
+                                right: "1em",
+                                bottom: "1em",
+                                left: "1em"
+                            }}
+                            toastOptions={{
+                                style: {
+                                    zIndex: 2002,
+                                    padding:
+                                        "calc(var(--grid-gap) * 0.75) calc(var(--grid-gap) * 1)",
+                                    borderRadius: "calc(var(--grid-gap) / 1.5)",
+                                    boxShadow:
+                                        "0 0 1em 0 var(--accents-4), inset 0 0 0.2em 0 var(--accents-6)",
+                                    fontSize: "0.85em",
+                                    fontFamily: "inherit",
+                                    backgroundColor: "var(--accents-4)",
+                                    color: "var(--accents-12)"
+                                }
+                            }}
+                        />
+                        <div id="__lc_portal" />
+                    </ProviderWindow>
                 </ProviderTheme>
             </ProviderSession>
         </>
