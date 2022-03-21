@@ -4,13 +4,14 @@ import type { BasePost, ResponsePosts } from "types/post";
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import NextDynamic from "next/dynamic";
-import Dialog from "@unforma-club/dialog";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 import fetchJson from "libs/lib.fetch";
 import MasonryNew from "components/Masonry";
 import LayoutMain from "components/LayoutMain";
 import { PostCard } from "components/Utils/PostCard";
 
+const Dialog = NextDynamic(() => import("@unforma-club/dialog"), { ssr: false });
 const PreviewPost = NextDynamic(() => import("components/Preview/PreviewPost"), { ssr: false });
 
 type ServerData = {
@@ -22,12 +23,17 @@ type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 export default function Page(props: PageProps) {
     const { query, push } = useRouter();
     const serverPosts = props.posts.data;
-    const newPosts = serverPosts.concat(serverPosts, serverPosts);
-    // const newPosts = serverPosts;
-    const posts = useMemo(() => newPosts, [newPosts]);
+
+    const [posts, setPosts] = useState<BasePost[]>(serverPosts.concat(serverPosts));
+    const concatMorePosts = () => {
+        setTimeout(() => {
+            setPosts((prev) => prev.concat(serverPosts));
+        }, 100);
+    };
+
+    const memoizedPost = useMemo(() => posts, [posts]);
 
     const [selectedPost, setSelectedPost] = useState<BasePost | undefined>(undefined);
-
     useEffect(() => {
         setSelectedPost(() => serverPosts.find((item) => item.slug === query.post));
     }, [query, serverPosts]);
@@ -35,47 +41,86 @@ export default function Page(props: PageProps) {
     return (
         <>
             <LayoutMain>
-                <MasonryNew
-                    breakpointCols={{
-                        default: 6,
-                        2560: 8,
-                        2200: 7,
-                        1920: 6,
-                        1536: 5,
-                        1366: 4,
-                        1280: 3,
-                        810: 2
-                    }}
+                <InfiniteScroll
+                    dataLength={memoizedPost.length}
+                    next={concatMorePosts}
+                    hasMore={memoizedPost.length < 300}
+                    loader={
+                        <div
+                            style={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                height: "20vh",
+                                color: "var(--accents-6)"
+                            }}
+                        >
+                            <div style={{ fontSize: "2em" }}>Loading...</div>
+                        </div>
+                    }
+                    endMessage={
+                        <div
+                            style={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                height: "20vh",
+                                color: "var(--accents-6)"
+                            }}
+                        >
+                            <div style={{ fontSize: "2em", textAlign: "center" }}>
+                                Thank you for scrolling.
+                                <br />
+                                You&apos;ve reach the end of the road.
+                            </div>
+                        </div>
+                    }
                 >
-                    {posts.length !== 0 &&
-                        posts.map((item, i) => (
-                            <PostCard
-                                key={i}
-                                index={i}
-                                label={item.title}
-                                type={item.type}
-                                author={{ name: item.author.name, userName: item.author.userName }}
-                                link={{
-                                    href: {
-                                        pathname: "/",
-                                        query: { light_box: true, post: item.slug, index: i }
-                                    },
-                                    as: `/${item.author.userName}/${item.slug}`,
-                                    scroll: false,
-                                    shallow: true,
-                                    passHref: true
-                                }}
-                                image={{
-                                    url: item.images[0].small.url,
-                                    width: item.images[0].small.width,
-                                    height: item.images[0].small.height
-                                }}
-                                style={{
-                                    backgroundColor: `rgb(${item.images[0].dominant.r}, ${item.images[0].dominant.g}, ${item.images[0].dominant.b})`
-                                }}
-                            />
-                        ))}
-                </MasonryNew>
+                    <MasonryNew
+                        breakpointCols={{
+                            default: 6,
+                            2560: 8,
+                            2200: 7,
+                            1920: 6,
+                            1536: 5,
+                            1366: 4,
+                            1280: 3,
+                            810: 2
+                        }}
+                    >
+                        {memoizedPost.length !== 0 &&
+                            memoizedPost.map((item, i) => (
+                                <PostCard
+                                    key={i}
+                                    index={i}
+                                    label={item.title}
+                                    type={item.type}
+                                    author={{
+                                        name: item.author.name,
+                                        userName: item.author.userName
+                                    }}
+                                    link={{
+                                        href: {
+                                            pathname: "/",
+                                            query: { light_box: true, post: item.slug, index: i }
+                                        },
+                                        as: `/${item.author.userName}/${item.slug}`,
+                                        scroll: false,
+                                        shallow: true,
+                                        passHref: true
+                                    }}
+                                    image={{
+                                        url: item.images[0].small.url,
+                                        width: item.images[0].small.width,
+                                        height: item.images[0].small.height
+                                    }}
+                                    style={{
+                                        backgroundColor: `rgb(${item.images[0].dominant.r}, ${item.images[0].dominant.g}, ${item.images[0].dominant.b})`
+                                    }}
+                                />
+                            ))}
+                    </MasonryNew>
+                </InfiniteScroll>
             </LayoutMain>
 
             <Dialog
@@ -84,7 +129,6 @@ export default function Page(props: PageProps) {
                 parentId="__next"
                 stackId="__main"
                 floatId="__lc_portal"
-                removeOverscrollBehavior
             >
                 <button
                     onClick={() => push("/", "/", { shallow: true, scroll: false })}
