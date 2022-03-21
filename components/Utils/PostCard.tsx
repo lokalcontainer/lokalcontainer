@@ -1,6 +1,6 @@
 import type { CSSProperties } from "react";
 import type { PostType } from "types/post";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import NextImage from "next/image";
 import NextLink, { LinkProps } from "next/link";
@@ -23,7 +23,7 @@ type PostCardProps = {
     };
 };
 
-export const PostCard = (props: PostCardProps) => {
+export const PostCard = memo((props: PostCardProps) => {
     const {
         label,
         link,
@@ -115,9 +115,8 @@ export const PostCard = (props: PostCardProps) => {
                                     style={{
                                         position: "absolute",
                                         inset: 0,
-                                        backgroundColor: "var(--alpha-2)",
-                                        padding: "var(--grid-gap)",
-                                        backdropFilter: "blur(3px)"
+                                        backgroundColor: "var(--alpha-1)",
+                                        padding: "var(--grid-gap)"
                                     }}
                                 >
                                     <div
@@ -225,4 +224,4 @@ export const PostCard = (props: PostCardProps) => {
             </div>
         </li>
     );
-};
+});
