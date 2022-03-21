@@ -126,6 +126,18 @@ article {
     position: relative;
 }
 
+#__main {
+    margin-bottom: var(--footer-height);
+}
+
+#__lc_portal {
+    position: relative;
+    z-index: 2000;
+
+    margin-bottom: var(--footer-height);
+    background-color: var(--accents-1);
+}
+
 [data-lottie="true"] {
     svg {
         path {
@@ -292,12 +304,4 @@ article {
     100% {
         transform: rotate(360deg);
     }
-}
-
-#__lc_portal {
-    position: relative;
-    z-index: 2000;
-
-    min-height: 100vh;
-    background-color: var(--accents-1);
 }
