@@ -1,35 +1,13 @@
-import type { CSSProperties } from "react";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import NextLink from "next/link";
 import useOnClickOutside from "hooks/use-on-click-outside";
-
-const buttonStyle: CSSProperties = {
-    appearance: "none",
-    background: "none",
-    border: "1px solid",
-    borderRadius: "100%",
-    width: "100%",
-    height: "100%",
-    display: "flex",
-    alignItems: "center",
-    padding: 0,
-    margin: 0,
-    aspectRatio: "1/1",
-    position: "relative"
-};
-
-const buttonSpanStyle: CSSProperties = {
-    display: "inline-flex",
-    aspectRatio: "1/1",
-    alignItems: "center",
-    justifyContent: "center"
-};
+import ButtonSVG from "./Utils/ButtonSVG";
 
 const list: string[] = ["font", "article", "goods"];
 
 export default function CreatePostButton() {
-    const { events } = useRouter();
+    const { events, push } = useRouter();
     const [hover, setHover] = useState(false);
     const refList = useRef<HTMLUListElement>(null);
     useOnClickOutside(refList, () => setHover(false));
@@ -50,23 +28,12 @@ export default function CreatePostButton() {
 
     return (
         <>
-            <NextLink href="/new?type=font">
-                <a title="New Post" style={buttonStyle} onMouseOver={() => setHover(true)}>
-                    <span style={buttonSpanStyle}>
-                        <svg
-                            name="New Post"
-                            xmlns="http://www.w3.org/2000/svg"
-                            height="1.4em"
-                            viewBox="0 0 24 24"
-                            width="1.4em"
-                            fill="currentColor"
-                        >
-                            <path d="M0 0h24v24H0V0z" fill="none" />
-                            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
-                        </svg>
-                    </span>
-                </a>
-            </NextLink>
+            <ButtonSVG
+                title="New Post"
+                icon="add"
+                onClick={() => push("/new?type=font")}
+                onMouseOver={() => setHover(true)}
+            />
 
             {hover && (
                 <ul
