@@ -4,7 +4,7 @@ import type { BasePost, ResponsePosts } from "types/post";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { NextSeo } from "next-seo";
-import Dialog from "@unforma-club/dialog";
+import NextDynamic from "next/dynamic";
 
 import fetchJson from "libs/lib.fetch";
 import getServerUser from "libs/get-server-account";
@@ -13,6 +13,8 @@ import Masonry from "components/Masonry";
 import LayoutUser from "components/Utils/LayoutUser";
 import { PostCard } from "components/Utils/PostCard";
 import PreviewPost from "components/Preview/PreviewPost";
+
+const Dialog = NextDynamic(() => import("@unforma-club/dialog"), { ssr: false });
 
 type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 
@@ -120,7 +122,6 @@ export default function Page(props: PageProps) {
                 parentId="__next"
                 stackId="__main"
                 floatId="__lc_portal"
-                removeOverscrollBehavior
             >
                 <button
                     onClick={() =>
