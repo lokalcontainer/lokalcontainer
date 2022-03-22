@@ -1,7 +1,7 @@
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import type { BasePost, ResponsePosts } from "types/post";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import NextDynamic from "next/dynamic";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -11,6 +11,8 @@ import MasonryNew from "components/Masonry";
 import LayoutMain from "components/LayoutMain";
 import { PostCard } from "components/Utils/PostCard";
 import ButtonSVG from "components/Utils/ButtonSVG";
+import Loader from "components/Utils/Loader";
+import HeaderPost from "components/Header/HeaderPost";
 
 const Dialog = NextDynamic(() => import("@unforma-club/dialog"), { ssr: false });
 const PreviewPost = NextDynamic(() => import("components/Preview/PreviewPost"), { ssr: false });
@@ -26,13 +28,15 @@ export default function Page(props: PageProps) {
     const serverPosts = props.posts.data;
 
     const [posts, setPosts] = useState<BasePost[]>(serverPosts.concat(serverPosts));
-    const concatMorePosts = () => {
-        setTimeout(() => {
-            setPosts((prev) => prev.concat(serverPosts));
-        }, 100);
+    const concatMorePosts = async () => {
+        const newPosts = await fetchJson<ResponsePosts>("/api/v1/posts", { method: "GET" });
+        if (newPosts.success && newPosts.data.length !== 0) {
+            const newServerPosts = newPosts.data;
+            setTimeout(() => {
+                setPosts((prev) => prev.concat(newServerPosts));
+            }, 1000);
+        }
     };
-
-    const memoizedPost = useMemo(() => posts, [posts]);
 
     const [selectedPost, setSelectedPost] = useState<BasePost | undefined>(undefined);
     useEffect(() => {
@@ -42,10 +46,11 @@ export default function Page(props: PageProps) {
     return (
         <>
             <LayoutMain>
+                <HeaderPost />
                 <InfiniteScroll
-                    dataLength={memoizedPost.length}
+                    dataLength={posts.length}
                     next={concatMorePosts}
-                    hasMore={memoizedPost.length < 300}
+                    hasMore={posts.length < 300}
                     loader={
                         <div
                             style={{
@@ -56,7 +61,7 @@ export default function Page(props: PageProps) {
                                 color: "var(--accents-6)"
                             }}
                         >
-                            <div style={{ fontSize: "2em" }}>Loading...</div>
+                            <Loader type="ripple" />
                         </div>
                     }
                     endMessage={
@@ -70,9 +75,9 @@ export default function Page(props: PageProps) {
                             }}
                         >
                             <div style={{ fontSize: "2em", textAlign: "center" }}>
-                                Thank you for scrolling.
-                                <br />
                                 You&apos;ve reach the end of the road.
+                                <br />
+                                Thank you for scrolling.
                             </div>
                         </div>
                     }
@@ -89,8 +94,8 @@ export default function Page(props: PageProps) {
                             810: 2
                         }}
                     >
-                        {memoizedPost.length !== 0 &&
-                            memoizedPost.map((item, i) => (
+                        {posts.length !== 0 &&
+                            posts.map((item, i) => (
                                 <PostCard
                                     key={i}
                                     index={i}
