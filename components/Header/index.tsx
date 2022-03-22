@@ -113,18 +113,17 @@ export default function Header() {
 
                         <ul style={{ justifyContent: "end", gap: 0 }}>
                             <li>
-                                <CreatePostButton />
-                            </li>
-                            <li>
                                 <ButtonSearch />
                             </li>
-
+                            <li>
+                                <CreatePostButton />
+                            </li>
                             <li>
                                 <ButtonSVG
                                     title="Menu"
                                     onClick={toggleMenu}
                                     icon="menu"
-                                    isActive={menu}
+                                    data-active={menu}
                                 />
                             </li>
                         </ul>
