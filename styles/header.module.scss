@@ -18,7 +18,7 @@
     background-color: var(--accents-1);
     text-transform: uppercase;
 
-    transition: box-shadow 300ms ease;
+    @include borderShadow();
 
     &[data-page="about"] {
         display: none !important;
