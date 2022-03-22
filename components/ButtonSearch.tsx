@@ -11,7 +11,7 @@ export default function ButtonSearch() {
 
     return (
         <>
-            <ButtonSVG title="Search" onClick={handleToggle} icon="search" isActive={isOpen} />
+            <ButtonSVG title="Search" onClick={handleToggle} icon="search" data-active={isOpen} />
 
             <Dialog
                 isOpen={isOpen}
