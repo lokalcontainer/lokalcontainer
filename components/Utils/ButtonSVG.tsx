@@ -1,11 +1,10 @@
 import styles from "styles/button.module.scss";
-import type { HTMLAttributes } from "react";
+import type { ButtonHTMLAttributes, DetailedHTMLProps } from "react";
 
 type Icon = "search" | "add" | "menu" | "close";
-
-interface ButtonSVGProps extends HTMLAttributes<HTMLButtonElement> {
+interface ButtonSVGProps
+    extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
     icon: Icon;
-    isActive?: boolean;
 }
 
 type ButtonIconProps = {
@@ -19,25 +18,25 @@ function ButtonIcon(props: ButtonIconProps) {
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
-                    height="100%"
-                    width="100%"
+                    width="1.5em"
+                    height="1.5em"
                     fill="currentColor"
                 >
-                    <path d="M0 0h24v24H0V0z" fill="none" />
-                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+                    <path fill="none" d="M0 0h24v24H0z" />
+                    <path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z" />
                 </svg>
             );
         case "close":
             return (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    height="1.3em"
-                    width="1.3em"
                     viewBox="0 0 24 24"
+                    width="1.5em"
+                    height="1.5em"
                     fill="currentColor"
                 >
-                    <path d="M0 0h24v24H0V0z" fill="none" />
-                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" />
+                    <path fill="none" d="M0 0h24v24H0z" />
+                    <path d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z" />
                 </svg>
             );
         case "menu":
@@ -45,8 +44,8 @@ function ButtonIcon(props: ButtonIconProps) {
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
-                    height="100%"
-                    width="100%"
+                    height="1.5em"
+                    width="1.5em"
                     fill="currentColor"
                 >
                     <path d="M0 0h24v24H0V0z" fill="none" />
@@ -58,8 +57,8 @@ function ButtonIcon(props: ButtonIconProps) {
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
-                    height="90%"
-                    width="90%"
+                    height="1.5em"
+                    width="1.5em"
                     fill="currentColor"
                 >
                     <path d="M0 0h24v24H0V0z" fill="none" />
@@ -85,9 +84,9 @@ function ButtonIcon(props: ButtonIconProps) {
 }
 
 export default function ButtonSVG(props: ButtonSVGProps) {
-    const { icon, isActive = false } = props;
+    const { icon } = props;
     return (
-        <button className={styles.button_svg} data-active={isActive} {...props}>
+        <button className={styles.button_svg} {...props}>
             <ButtonIcon icon={icon} />
         </button>
     );

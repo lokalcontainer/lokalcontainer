@@ -1,12 +1,13 @@
+@import "mixin.scss";
+
 .button_svg {
     appearance: none;
     background: none;
-    border-width: 2px;
+    border-width: 1px;
     border-style: solid;
     border-color: transparent;
     border-radius: 100%;
-
-    box-sizing: border-box;
+    border-image: none;
 
     font: inherit;
     font-size: 1em;
@@ -14,7 +15,7 @@
     width: 1.75em;
     height: 1.75em;
 
-    padding: 0.1em;
+    padding: 0;
     margin: 0;
 
     display: flex;
@@ -26,16 +27,22 @@
 
     outline-color: var(--accents-green);
 
-    background-color: var(--accents-1);
+    background-color: inherit;
+    color: inherit;
     transform: scale(1);
 
     transition: all 0.33s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+    > svg {
+        border-radius: inherit;
+        fill: currentColor;
+    }
 
     &:active,
     &:hover,
     &[data-active="true"] {
         background-color: var(--accents-2);
-        border-color: var(--accents-3);
-        transform: scale(0.8);
+        border-color: var(--accents-4);
+        transform: scale(0.9);
     }
 }
