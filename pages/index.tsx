@@ -109,7 +109,7 @@ export default function Page(props: PageProps) {
                                 link={{
                                     href: {
                                         pathname: "/",
-                                        query: { light_box: true, post: item.slug, index: i }
+                                        query: { light_box: true, post: item.slug }
                                     },
                                     as: `/${item.author.userName}/${item.slug}`,
                                     scroll: false,

@@ -3,6 +3,7 @@ import type { BasePost } from "types/post";
 import NextImage from "next/image";
 import NextLink from "next/link";
 import moment from "moment";
+import { NextSeo, ArticleJsonLd } from "next-seo";
 import { useRouter } from "next/router";
 import { DUMMY_PARAGRAPH } from "libs/util.contants";
 
@@ -182,11 +183,47 @@ export default function PreviewBlog(props: PreviewBlogProps) {
     const { images, title, author, updatedAt, slug } = post;
     const image1 = images[0];
 
-    const { pathname } = useRouter();
+    const { pathname, asPath } = useRouter();
     const isPage = pathname === "/[user]/[post]";
 
     return (
-        <div>
+        <>
+            <NextSeo
+                title={post.title}
+                canonical={`${process.env.NEXT_PUBLIC_SITE_URL}${asPath}`}
+                description={`${post.title} is a bla bla bla...`}
+                openGraph={{
+                    type: "article",
+                    url: `${process.env.NEXT_PUBLIC_SITE_URL}${asPath}`,
+                    title: post.title,
+                    description: `${post.title} is a bla bla bla...`,
+                    images: post.images.map((item) => ({
+                        url: `${process.env.NEXT_PUBLIC_SITE_URL}${item.large.url}`,
+                        width: item.large.width,
+                        height: item.large.height,
+                        alt: `${post.title} is a bla bla bla...`
+                    })),
+                    article: {
+                        publishedTime: post.createdAt,
+                        modifiedTime: post.updatedAt,
+                        authors: [`${process.env.NEXT_PUBLIC_SITE_URL}/${post.author.userName}`],
+                        tags: ["font", "opensource"]
+                    }
+                }}
+            />
+            <ArticleJsonLd
+                type="Blog"
+                url={`${process.env.NEXT_PUBLIC_SITE_URL}${asPath}`}
+                title={post.title}
+                images={post.images.map(
+                    (item) => `${process.env.NEXT_PUBLIC_SITE_URL}${item.large.url}`
+                )}
+                datePublished={post.createdAt}
+                dateModified={post.updatedAt}
+                authorName={[post.author.name]}
+                description={`${post.title} is a bla bla bla...`}
+                publisherName="Lokal Container Org."
+            />
             <figure
                 style={{
                     margin: 0,
@@ -288,6 +325,7 @@ export default function PreviewBlog(props: PreviewBlogProps) {
                                     height={48}
                                     quality={100}
                                     layout="responsive"
+                                    alt={`image-${author.userName}`}
                                 />
                             </div>
 
@@ -399,6 +437,6 @@ export default function PreviewBlog(props: PreviewBlogProps) {
                     </article>
                 </div>
             </div>
-        </div>
+        </>
     );
 }

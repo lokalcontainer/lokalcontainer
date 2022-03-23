@@ -11,10 +11,10 @@ import getServerUser from "libs/get-server-account";
 import Masonry from "components/Masonry";
 import LayoutUser from "components/Utils/LayoutUser";
 import { PostCard } from "components/Utils/PostCard";
-import PreviewPost from "components/Preview/PreviewPost";
 import ButtonSVG from "components/Utils/ButtonSVG";
 
 const Dialog = NextDynamic(() => import("@unforma-club/dialog"), { ssr: false });
+const PreviewPost = NextDynamic(() => import("components/Preview/PreviewPost"), { ssr: false });
 
 type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 
@@ -88,12 +88,15 @@ export default function Page(props: PageProps) {
                                         query: {
                                             light_box: true,
                                             post: item.slug,
-                                            index: i,
-                                            user: item.slug,
-                                            type: item.type
+                                            user: userName,
+                                            type: item.type,
+                                            tab: "overview"
                                         }
                                     },
-                                    as: `/${item.author.userName}/${item.slug}`,
+                                    as:
+                                        item.type === "font"
+                                            ? `/${item.author.userName}/${item.slug}?tab=overview`
+                                            : `/${item.author.userName}/${item.slug}`,
                                     scroll: false,
                                     shallow: true,
                                     passHref: true
@@ -117,6 +120,7 @@ export default function Page(props: PageProps) {
                 stackId="__main"
                 floatId="__lc_portal_post"
                 isOpen={!!query.light_box?.includes("true")}
+                removeOverscrollBehavior
                 onRequestClose={() =>
                     push("/[user]", `/${userName}`, { shallow: true, scroll: false })
                 }
