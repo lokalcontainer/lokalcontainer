@@ -90,5 +90,6 @@
 }
 
 .post {
-    @include borderShadow();
+    // @include borderShadow();
+    border-bottom: 1px solid var(--accents-3);
 }
