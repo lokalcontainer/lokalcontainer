@@ -16,6 +16,8 @@ type MarqueeProps = PropsWithChildren<{
     onCycleComplete?: () => void;
 }>;
 
+const isProduction = process.env.NODE_ENV === "production";
+
 export default function Marquee(props: MarqueeProps) {
     const {
         children,
@@ -81,7 +83,7 @@ export default function Marquee(props: MarqueeProps) {
                         ref={marqueeRef}
                         className={styles.marquee}
                         style={{
-                            ["--play" as string]: play ? "running" : "paused",
+                            ["--play" as string]: isProduction && play ? "running" : "paused",
                             ["--direction" as string]: direction === "left" ? "normal" : "reverse",
                             ["--duration" as string]: `${duration}s`,
                             ["--delay" as string]: `${delay}s`,
@@ -96,7 +98,7 @@ export default function Marquee(props: MarqueeProps) {
                     <div
                         className={styles.marquee}
                         style={{
-                            ["--play" as string]: play ? "running" : "paused",
+                            ["--play" as string]: isProduction && play ? "running" : "paused",
                             ["--direction" as string]: direction === "left" ? "normal" : "reverse",
                             ["--duration" as string]: `${duration}s`,
                             ["--delay" as string]: `${delay}s`,
