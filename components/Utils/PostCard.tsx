@@ -71,7 +71,7 @@ export const PostCard = (props: PostCardProps) => {
                             width: "100%",
                             height: "100%",
                             borderRadius: "inherit",
-                            padding: "1.25em",
+                            padding: "var(--grid-gap)",
                             ...style
                         }}
                     >
@@ -116,14 +116,15 @@ export const PostCard = (props: PostCardProps) => {
                                     style={{
                                         position: "absolute",
                                         inset: 0,
-                                        backgroundColor: "var(--alpha-1)",
+                                        backgroundColor: "var(--alpha-2)",
                                         padding: "var(--grid-gap)"
                                     }}
                                 >
                                     <div
                                         style={{
                                             fontSize: "6em",
-                                            lineHeight: 0.8
+                                            lineHeight: 0.8,
+                                            fontWeight: "bold"
                                         }}
                                     >
                                         {index + 1}
