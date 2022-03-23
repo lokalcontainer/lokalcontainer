@@ -1,4 +1,3 @@
-import LayoutMain from "components/LayoutMain";
 import useMousePosition from "hooks/use-mouse-position";
 import usePerspective from "hooks/use-perspective";
 
@@ -7,12 +6,14 @@ export default function Page() {
     const style = usePerspective(x, y);
 
     return (
-        <LayoutMain
+        <div
             style={{
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                overflow: "hidden"
+                width: "calc(100vw - calc(var(--grid-gap) * 3))",
+                height: "calc(100vh - var(--header-height) - var(--footer-height))",
+                marginInline: "calc(0px - calc(var(--grid-gap) * 1.5))"
             }}
         >
             <div
@@ -32,6 +33,6 @@ export default function Page() {
                     this page doesn&#39;t exist.
                 </span>
             </div>
-        </LayoutMain>
+        </div>
     );
 }

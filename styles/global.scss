@@ -32,9 +32,9 @@ body {
     background-color: var(--accents-1);
     color: var(--accents-12);
 
-    @include media("screen", ">xlMonitor") {
-        font-size: 18px;
-    }
+    // @include media("screen", ">xlMonitor") {
+    //     font-size: 18px;
+    // }
 
     &[data-scroll-hide] {
         overflow: hidden;
@@ -135,6 +135,14 @@ article {
     z-index: 2000;
 
     margin-bottom: var(--footer-height);
+    background-color: var(--accents-1);
+}
+
+#__lc_portal_post {
+    position: relative;
+    z-index: 2000;
+    min-height: 100vh;
+
     background-color: var(--accents-1);
 }
 

@@ -2,7 +2,6 @@ import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import type { ResponseSession } from "types/session";
 import NextLink from "next/link";
 import { getServerSession } from "libs/get-server-session";
-import LayoutMain from "components/LayoutMain";
 import EditorFont from "components/Editor/EditorFont";
 
 type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>;
@@ -40,7 +39,7 @@ const links: { label: string; type: string }[] = [
 
 export default function Page(props: PageProps) {
     return (
-        <LayoutMain>
+        <>
             <ul
                 style={{
                     listStyle: "none",
@@ -73,7 +72,7 @@ export default function Page(props: PageProps) {
             </ul>
 
             <Editor type={props.type} />
-        </LayoutMain>
+        </>
     );
 }
 

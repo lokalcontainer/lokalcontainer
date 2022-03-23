@@ -8,7 +8,6 @@ import NextDynamic from "next/dynamic";
 
 import fetchJson from "libs/lib.fetch";
 import getServerUser from "libs/get-server-account";
-import LayoutMain from "components/LayoutMain";
 import Masonry from "components/Masonry";
 import LayoutUser from "components/Utils/LayoutUser";
 import { PostCard } from "components/Utils/PostCard";
@@ -63,62 +62,60 @@ export default function Page(props: PageProps) {
                 }}
             />
 
-            <LayoutMain title={`${profile.data.name} on L / C`}>
-                <LayoutUser user={profile}>
-                    {newPosts.length !== 0 && (
-                        <Masonry
-                            breakpointCols={{
-                                default: 6,
-                                1680: 5,
-                                1440: 4,
-                                1280: 6,
-                                1024: 5,
-                                860: 4,
-                                720: 3,
-                                520: 2
-                            }}
-                        >
-                            {newPosts.map((item, i) => (
-                                <PostCard
-                                    key={i}
-                                    index={i}
-                                    label={item.title}
-                                    type={item.type}
-                                    link={{
-                                        href: {
-                                            pathname: "/[user]",
-                                            query: {
-                                                light_box: true,
-                                                post: item.slug,
-                                                index: i,
-                                                user: item.slug,
-                                                type: item.type
-                                            }
-                                        },
-                                        as: `/${item.author.userName}/${item.slug}`,
-                                        scroll: false,
-                                        shallow: true,
-                                        passHref: true
-                                    }}
-                                    image={{
-                                        url: item.images[0].small.url,
-                                        width: item.images[0].small.width,
-                                        height: item.images[0].small.height
-                                    }}
-                                    style={{
-                                        backgroundColor: `rgb(${item.images[0].dominant.r}, ${item.images[0].dominant.g}, ${item.images[0].dominant.b})`
-                                    }}
-                                />
-                            ))}
-                        </Masonry>
-                    )}
-                </LayoutUser>
-            </LayoutMain>
+            <LayoutUser user={profile}>
+                {newPosts.length !== 0 && (
+                    <Masonry
+                        breakpointCols={{
+                            default: 6,
+                            1680: 5,
+                            1440: 4,
+                            1280: 6,
+                            1024: 5,
+                            860: 4,
+                            720: 3,
+                            520: 2
+                        }}
+                    >
+                        {newPosts.map((item, i) => (
+                            <PostCard
+                                key={i}
+                                index={i}
+                                label={item.title}
+                                type={item.type}
+                                link={{
+                                    href: {
+                                        pathname: "/[user]",
+                                        query: {
+                                            light_box: true,
+                                            post: item.slug,
+                                            index: i,
+                                            user: item.slug,
+                                            type: item.type
+                                        }
+                                    },
+                                    as: `/${item.author.userName}/${item.slug}`,
+                                    scroll: false,
+                                    shallow: true,
+                                    passHref: true
+                                }}
+                                image={{
+                                    url: item.images[0].small.url,
+                                    width: item.images[0].small.width,
+                                    height: item.images[0].small.height
+                                }}
+                                style={{
+                                    backgroundColor: `rgb(${item.images[0].dominant.r}, ${item.images[0].dominant.g}, ${item.images[0].dominant.b})`
+                                }}
+                            />
+                        ))}
+                    </Masonry>
+                )}
+            </LayoutUser>
 
             <Dialog
                 parentId="__next"
                 stackId="__main"
-                floatId="__lc_portal"
+                floatId="__lc_portal_post"
                 isOpen={!!query.light_box?.includes("true")}
                 onRequestClose={() =>
                     push("/[user]", `/${userName}`, { shallow: true, scroll: false })
@@ -127,7 +124,7 @@ export default function Page(props: PageProps) {
                 <ButtonSVG
                     title="Exit"
                     icon="close"
-                    style={{ position: "fixed", top: "0.5em", left: "0.5em" }}
+                    style={{ position: "fixed", top: "0.5em", left: "0.5em", zIndex: 10 }}
                     onClick={() =>
                         push("/[user]", `/${userName}`, { shallow: true, scroll: false })
                     }

@@ -1,4 +1,5 @@
 import "styles/global.scss";
+import layout from "styles/layout.module.scss";
 
 import type { AppProps } from "next/app";
 import type { ResponseSession } from "types/session";
@@ -114,7 +115,7 @@ export default function MyApp(props: MyAppProps) {
                 >
                     <ProviderWindow>
                         <Header />
-                        <main id="__main">
+                        <main id="__main" className={layout.main}>
                             <Component {...pageProps} />
                         </main>
                         <Footer />

@@ -18,7 +18,8 @@
     background-color: var(--accents-1);
     text-transform: uppercase;
 
-    @include borderShadow();
+    border-bottom: 1px solid var(--accents-3);
+    // @include borderShadow();
 
     &[data-page="about"] {
         display: none !important;
@@ -86,4 +87,8 @@
             // }
         }
     }
+}
+
+.post {
+    @include borderShadow();
 }

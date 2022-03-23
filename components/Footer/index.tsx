@@ -1,11 +1,13 @@
 import styles from "styles/footer.module.scss";
-import type { CSSProperties } from "react";
+import { CSSProperties, useState } from "react";
 import { useRouter } from "next/router";
+import { motion } from "framer-motion";
 import NextDynamic from "next/dynamic";
 import NextLink from "next/link";
 import { useWindow } from "components/Context/ContextWindow";
 import Marquee from "components/Utils/Marquee";
 import ThemeSelector from "components/Utils/ThemeSelector";
+// import useScrollPosition from "hooks/use-scroll-position";
 
 const Measurment = NextDynamic(() => import("components/Utils/Measurement"), {
     ssr: false,
@@ -28,7 +30,8 @@ const Measurment = NextDynamic(() => import("components/Utils/Measurement"), {
 });
 
 const aStyle: CSSProperties = {
-    textDecoration: "underline"
+    textDecoration: "underline",
+    fontWeight: 600
 };
 
 const staticLinks: { label: string; href: string }[] = [
@@ -46,8 +49,23 @@ export default function Footer() {
     const { pathname } = useRouter();
     const { focus } = useWindow();
 
+    // const [isVisible, setIsVisible] = useState(true);
+    // useScrollPosition((v) => {
+    //     if (v.prevPos.y >= v.currPos.y) {
+    //         setIsVisible(false);
+    //     } else {
+    //         setIsVisible(true);
+    //     }
+    // });
+
     return (
-        <footer className={styles.app_footer} data-page={pathname.split("/")[1]}>
+        <motion.footer
+            initial={true}
+            // animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 100 }}
+            transition={{ type: "just" }}
+            className={styles.app_footer}
+            data-page={pathname.split("/")[1]}
+        >
             <Marquee
                 play={focus}
                 pauseOnHover
@@ -57,7 +75,10 @@ export default function Footer() {
             >
                 <div style={{ marginRight: "2em" }}>
                     <div style={{ fontSize: "0.75em" }}>
-                        &copy;{currentYear} Lokal Container with Love. Find us at{" "}
+                        <span style={{ fontWeight: 600 }}>
+                            &copy;{currentYear} Lokal Container with Love.
+                        </span>{" "}
+                        Find us at{" "}
                         <a
                             style={aStyle}
                             href="https://goo.gl/maps/hbGUeAxtG92uZ5i39"
@@ -112,14 +133,7 @@ export default function Footer() {
                         {staticLinks.map((item, i) => (
                             <li key={i}>
                                 <NextLink href={item.href}>
-                                    <a
-                                        style={{
-                                            ...aStyle,
-                                            color: "var(--accents-12)"
-                                        }}
-                                    >
-                                        {item.label}
-                                    </a>
+                                    <a style={{ ...aStyle }}>{item.label}</a>
                                 </NextLink>
                             </li>
                         ))}
@@ -139,7 +153,8 @@ export default function Footer() {
                             fontSize: "0.625em",
                             borderRadius: "2em",
                             padding: "0.15em 0.75em",
-                            backgroundColor: "var(--accents-3)"
+                            backgroundColor: "var(--accents-3)",
+                            color: "var(--accents-12)"
                         }}
                     />
                     <ThemeSelector style={{ fontSize: "0.625em", textTransform: "uppercase" }} />
@@ -147,7 +162,10 @@ export default function Footer() {
 
                 <div style={{ marginRight: "2em" }}>
                     <div style={{ fontSize: "0.75em" }}>
-                        &copy;{currentYear} Lokal Container with Love. Find us at{" "}
+                        <span style={{ fontWeight: 600 }}>
+                            &copy;{currentYear} Lokal Container with Love.
+                        </span>{" "}
+                        Find us at{" "}
                         <a
                             style={aStyle}
                             href="https://goo.gl/maps/hbGUeAxtG92uZ5i39"
@@ -202,14 +220,7 @@ export default function Footer() {
                         {staticLinks.map((item, i) => (
                             <li key={i}>
                                 <NextLink href={item.href}>
-                                    <a
-                                        style={{
-                                            ...aStyle,
-                                            color: "var(--accents-12)"
-                                        }}
-                                    >
-                                        {item.label}
-                                    </a>
+                                    <a style={{ ...aStyle }}>{item.label}</a>
                                 </NextLink>
                             </li>
                         ))}
@@ -229,12 +240,100 @@ export default function Footer() {
                             fontSize: "0.625em",
                             borderRadius: "2em",
                             padding: "0.15em 0.75em",
-                            backgroundColor: "var(--accents-3)"
+                            backgroundColor: "var(--accents-3)",
+                            color: "var(--accents-12)"
+                        }}
+                    />
+                    <ThemeSelector style={{ fontSize: "0.625em", textTransform: "uppercase" }} />
+                </div>
+
+                <div style={{ marginRight: "2em" }}>
+                    <div style={{ fontSize: "0.75em" }}>
+                        <span style={{ fontWeight: 600 }}>
+                            &copy;{currentYear} Lokal Container with Love.
+                        </span>{" "}
+                        Find us at{" "}
+                        <a
+                            style={aStyle}
+                            href="https://goo.gl/maps/hbGUeAxtG92uZ5i39"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Lou Belle Space
+                        </a>{" "}
+                        or follow us on{" "}
+                        <a
+                            style={aStyle}
+                            href="https://instagram.com/lokalcontainer"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Instagram
+                        </a>
+                        ,{" "}
+                        <a
+                            style={aStyle}
+                            href="https://github.com/lokalcontainer"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Github
+                        </a>
+                        , and{" "}
+                        <a
+                            style={aStyle}
+                            href="https://twitter.com/lokalcontainer"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Twitter
+                        </a>
+                        .
+                    </div>
+                </div>
+
+                <div style={{ marginRight: "2em" }}>
+                    <ul
+                        style={{
+                            fontSize: "0.75em",
+                            listStyle: "none",
+                            padding: 0,
+                            margin: 0,
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "calc(var(--grid-gap) * 1)"
+                        }}
+                    >
+                        {staticLinks.map((item, i) => (
+                            <li key={i}>
+                                <NextLink href={item.href}>
+                                    <a style={{ ...aStyle }}>{item.label}</a>
+                                </NextLink>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+
+                <div
+                    style={{
+                        marginRight: "2em",
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "calc(var(--grid-gap) / 2)"
+                    }}
+                >
+                    <Measurment
+                        style={{
+                            fontSize: "0.625em",
+                            borderRadius: "2em",
+                            padding: "0.15em 0.75em",
+                            backgroundColor: "var(--accents-3)",
+                            color: "var(--accents-12)"
                         }}
                     />
                     <ThemeSelector style={{ fontSize: "0.625em", textTransform: "uppercase" }} />
                 </div>
             </Marquee>
-        </footer>
+        </motion.footer>
     );
 }

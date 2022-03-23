@@ -8,7 +8,6 @@ import InfiniteScroll from "react-infinite-scroll-component";
 
 import fetchJson from "libs/lib.fetch";
 import MasonryNew from "components/Masonry";
-import LayoutMain from "components/LayoutMain";
 import { PostCard } from "components/Utils/PostCard";
 import ButtonSVG from "components/Utils/ButtonSVG";
 import Loader from "components/Utils/Loader";
@@ -45,101 +44,103 @@ export default function Page(props: PageProps) {
 
     return (
         <>
-            <LayoutMain>
-                <HeaderPost />
-                <InfiniteScroll
-                    dataLength={posts.length}
-                    next={concatMorePosts}
-                    hasMore={posts.length < 300}
-                    loader={
-                        <div
-                            style={{
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                height: "20vh",
-                                color: "var(--accents-6)"
-                            }}
-                        >
-                            <Loader type="ripple" />
-                        </div>
-                    }
-                    endMessage={
-                        <div
-                            style={{
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                height: "20vh",
-                                color: "var(--accents-6)"
-                            }}
-                        >
-                            <div style={{ fontSize: "2em", textAlign: "center" }}>
-                                You&apos;ve reach the end of the road.
-                                <br />
-                                Thank you for scrolling.
-                            </div>
-                        </div>
-                    }
-                >
-                    <MasonryNew
-                        breakpointCols={{
-                            default: 6,
-                            2560: 8,
-                            2200: 7,
-                            1920: 6,
-                            1536: 5,
-                            1366: 4,
-                            1280: 3,
-                            810: 2
+            {/* <div style={{ height: "16.66vh" }} /> */}
+            <HeaderPost
+                style={{ width: "100vw", marginInline: "-1.5em", paddingInline: "1.5em" }}
+            />
+            <InfiniteScroll
+                dataLength={posts.length}
+                next={concatMorePosts}
+                hasMore={posts.length < 300}
+                loader={
+                    <div
+                        style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            height: "20vh",
+                            color: "var(--accents-6)"
                         }}
                     >
-                        {posts.length !== 0 &&
-                            posts.map((item, i) => (
-                                <PostCard
-                                    key={i}
-                                    index={i}
-                                    label={item.title}
-                                    type={item.type}
-                                    author={{
-                                        name: item.author.name,
-                                        userName: item.author.userName
-                                    }}
-                                    link={{
-                                        href: {
-                                            pathname: "/",
-                                            query: { light_box: true, post: item.slug, index: i }
-                                        },
-                                        as: `/${item.author.userName}/${item.slug}`,
-                                        scroll: false,
-                                        shallow: true,
-                                        passHref: true
-                                    }}
-                                    image={{
-                                        url: item.images[0].small.url,
-                                        width: item.images[0].small.width,
-                                        height: item.images[0].small.height
-                                    }}
-                                    style={{
-                                        backgroundColor: `rgb(${item.images[0].dominant.r}, ${item.images[0].dominant.g}, ${item.images[0].dominant.b})`
-                                    }}
-                                />
-                            ))}
-                    </MasonryNew>
-                </InfiniteScroll>
-            </LayoutMain>
+                        <Loader type="ripple" />
+                    </div>
+                }
+                endMessage={
+                    <div
+                        style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            height: "20vh",
+                            color: "var(--accents-6)"
+                        }}
+                    >
+                        <div style={{ fontSize: "2em", textAlign: "center" }}>
+                            You&apos;ve reach the end of the road.
+                            <br />
+                            Thank you for scrolling.
+                        </div>
+                    </div>
+                }
+            >
+                <MasonryNew
+                    breakpointCols={{
+                        default: 6,
+                        2560: 8,
+                        2200: 7,
+                        1920: 6,
+                        1536: 5,
+                        1366: 4,
+                        1280: 3,
+                        810: 2
+                    }}
+                >
+                    {posts.length !== 0 &&
+                        posts.map((item, i) => (
+                            <PostCard
+                                key={i}
+                                index={i}
+                                label={item.title}
+                                type={item.type}
+                                author={{
+                                    name: item.author.name,
+                                    userName: item.author.userName
+                                }}
+                                link={{
+                                    href: {
+                                        pathname: "/",
+                                        query: { light_box: true, post: item.slug, index: i }
+                                    },
+                                    as: `/${item.author.userName}/${item.slug}`,
+                                    scroll: false,
+                                    shallow: true,
+                                    passHref: true
+                                }}
+                                image={{
+                                    url: item.images[0].small.url,
+                                    width: item.images[0].small.width,
+                                    height: item.images[0].small.height
+                                }}
+                                style={{
+                                    backgroundColor: `rgb(${item.images[0].dominant.r}, ${item.images[0].dominant.g}, ${item.images[0].dominant.b})`
+                                }}
+                            />
+                        ))}
+                </MasonryNew>
+            </InfiniteScroll>
 
             <Dialog
                 parentId="__next"
                 stackId="__main"
-                floatId="__lc_portal"
+                floatId="__lc_portal_post"
                 isOpen={!!query.light_box?.includes("true")}
                 onRequestClose={() => push("/", "/", { shallow: true, scroll: false })}
+                removeOverscrollBehavior
             >
                 <ButtonSVG
                     title="Exit"
                     icon="close"
-                    style={{ position: "fixed", top: "0.5em", left: "0.5em" }}
+                    style={{ position: "fixed", top: "0.5em", left: "0.5em", zIndex: 10 }}
                     onClick={() => push("/", "/", { shallow: true, scroll: false })}
                 />
                 <PreviewPost post={selectedPost} />

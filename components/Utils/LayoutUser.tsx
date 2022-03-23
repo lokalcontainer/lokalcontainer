@@ -4,6 +4,7 @@ import type { ResponseUser } from "types/user";
 import NextImage from "next/image";
 import NextLink from "next/link";
 import moment from "moment";
+import HeaderPost from "components/Header/HeaderPost";
 
 type LayoutUserProps = PropsWithChildren<{
     user: ResponseUser;
@@ -15,15 +16,7 @@ const Aside = (props: LayoutUserProps) => {
     } = props.user;
     return (
         <aside className={styles.aside}>
-            <ul
-                style={{
-                    padding: "1em",
-                    backgroundColor: "var(--accents-2)",
-                    borderRadius: "0.5em",
-                    boxShadow:
-                        "0 0 0.5em -0.15em var(--accents-4), inset 0 0 2px 0 var(--accents-5)"
-                }}
-            >
+            <ul style={{ padding: "1em" }}>
                 <li style={{ marginBottom: "calc(var(--grid-gap) * 4)" }}>
                     <span
                         style={{
@@ -104,35 +97,32 @@ export default function LayoutUser(props: LayoutUserProps) {
                 <Aside user={user} />
 
                 <div>
-                    <ul
-                        style={{
-                            position: "sticky",
-                            top: "var(--header-height)",
-                            height: "var(--header-height)",
-                            zIndex: 1,
-                            backgroundColor: "var(--accents-1)",
-                            display: "flex",
-                            alignItems: "center",
-                            listStyle: "none",
-                            padding: 0,
-                            margin: 0,
-                            gap: "var(--grid-gap)"
-                        }}
-                    >
-                        <li style={{ fontSize: "0.85em" }}>
-                            <NextLink
-                                href={{
-                                    pathname: "/[user]",
-                                    query: { user: userName }
-                                }}
-                            >
-                                <a>
-                                    <span>All</span>
-                                </a>
-                            </NextLink>
-                        </li>
-                        <li style={{ fontSize: "0.85em" }}>Appreciations</li>
-                    </ul>
+                    <HeaderPost>
+                        <ul
+                            style={{
+                                display: "flex",
+                                alignItems: "center",
+                                listStyle: "none",
+                                padding: 0,
+                                margin: 0,
+                                gap: "var(--grid-gap)"
+                            }}
+                        >
+                            <li style={{ fontSize: "0.85em" }}>
+                                <NextLink
+                                    href={{
+                                        pathname: "/[user]",
+                                        query: { user: userName }
+                                    }}
+                                >
+                                    <a>
+                                        <span>All</span>
+                                    </a>
+                                </NextLink>
+                            </li>
+                            <li style={{ fontSize: "0.85em" }}>Appreciations</li>
+                        </ul>
+                    </HeaderPost>
 
                     {children}
                 </div>

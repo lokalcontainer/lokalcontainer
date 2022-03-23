@@ -9,6 +9,8 @@
         flex-direction: column;
         justify-content: space-between;
 
+        padding: var(--header-height) calc(var(--grid-gap) * 3);
+
         @include media("screen", ">sMonitor") {
             overflow: hidden;
         }
@@ -24,6 +26,8 @@
 }
 
 .font_content {
+    border: 1px solid;
+
     &[data-modal="true"] {
         @include media("screen", ">sMonitor") {
             display: grid;
@@ -101,7 +105,7 @@
     .left {
         > div {
             position: sticky;
-            top: var(--header-height);
+            top: calc(var(--header-height) * 2);
             padding-block: 1em;
         }
         @include media("screen", "<sMonitor") {
@@ -111,8 +115,14 @@
 
     .center {
         // border-inline: 1px solid var(--accents-3);
-        @include media("screen", ">sMonitor") {
-            padding-inline: calc(var(--header-height) * 3);
+        > article {
+            @include media("screen", ">sMonitor") {
+                padding-inline: calc(var(--header-height) * 3);
+            }
+
+            > figure {
+                margin-inline: calc(0px - calc(var(--header-height) * 3));
+            }
         }
     }
     // .right {

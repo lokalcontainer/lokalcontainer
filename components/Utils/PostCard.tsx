@@ -71,6 +71,7 @@ export const PostCard = (props: PostCardProps) => {
                             width: "100%",
                             height: "100%",
                             borderRadius: "inherit",
+                            padding: "1.25em",
                             ...style
                         }}
                     >

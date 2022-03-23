@@ -6,7 +6,6 @@ import { useRouter } from "next/router";
 import { NextSeo, ArticleJsonLd } from "next-seo";
 import getServerUser from "libs/get-server-account";
 import getServerPost from "libs/get-server-post";
-import LayoutMain from "components/LayoutMain";
 import LayoutPost from "components/Utils/LayoutPost";
 import PreviewPost from "components/Preview/PreviewPost";
 
@@ -63,49 +62,43 @@ export default function Page(props: PageProps) {
                 publisherName="Lokal Container Org."
             />
 
-            <LayoutMain>
-                <LayoutPost
-                    slug={post.slug}
-                    postType={post.type}
-                    user={{ userName, fullName: name }}
+            <LayoutPost slug={post.slug} postType={post.type} user={{ userName, fullName: name }}>
+                <div
+                // style={{
+                //     minHeight:
+                //         "calc(100vh - calc(var(--header-height) * 2) - calc(var(--header-height) / 2))"
+                // }}
                 >
-                    <div
-                        style={{
-                            minHeight:
-                                "calc(100vh - calc(var(--header-height) * 2) - calc(var(--header-height) / 2))"
-                        }}
-                    >
-                        {!tab || tab === "overview" ? (
-                            <PreviewPost post={post} />
-                        ) : (
-                            <>
-                                <span
-                                    style={{
-                                        textTransform: "capitalize",
-                                        fontSize: "2em",
-                                        fontWeight: "bold"
-                                    }}
-                                >
-                                    {tab.replace(/-/g, " ").trim()}
-                                </span>
-                                <p
-                                    style={{
-                                        fontSize: "8em",
-                                        fontWeight: "bold",
-                                        marginBlock: "calc(var(--grid-gap) / 2)",
-                                        margin: 0,
-                                        lineHeight: 1
-                                    }}
-                                >
-                                    Type Height <br />
-                                    in Point &amp; <br />
-                                    Millimeter
-                                </p>
-                            </>
-                        )}
-                    </div>
-                </LayoutPost>
-            </LayoutMain>
+                    {!tab || tab === "overview" ? (
+                        <PreviewPost post={post} />
+                    ) : (
+                        <>
+                            <span
+                                style={{
+                                    textTransform: "capitalize",
+                                    fontSize: "2em",
+                                    fontWeight: "bold"
+                                }}
+                            >
+                                {tab.replace(/-/g, " ").trim()}
+                            </span>
+                            <p
+                                style={{
+                                    fontSize: "8em",
+                                    fontWeight: "bold",
+                                    marginBlock: "calc(var(--grid-gap) / 2)",
+                                    margin: 0,
+                                    lineHeight: 1
+                                }}
+                            >
+                                Type Height <br />
+                                in Point &amp; <br />
+                                Millimeter
+                            </p>
+                        </>
+                    )}
+                </div>
+            </LayoutPost>
         </>
     );
 }
