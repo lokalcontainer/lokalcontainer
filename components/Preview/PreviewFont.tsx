@@ -122,7 +122,7 @@ export default function PreviewFont(props: PreviewFontProps) {
                 }}
             />
 
-            <ProviderFont slug={slug}>
+            <ProviderFont slug={slug} isModal={!isPage}>
                 <ul
                     style={{
                         listStyle: "none",
@@ -157,8 +157,6 @@ export default function PreviewFont(props: PreviewFontProps) {
                         </li>
                     ))}
                 </ul>
-
-                {!isPage && <div style={{ fontSize: "3em" }}>On Dialog Component</div>}
 
                 <FontTab tab={tab} />
             </ProviderFont>

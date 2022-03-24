@@ -1,29 +1,31 @@
-import { useMemo } from "react";
+import { DetailedHTMLProps, LiHTMLAttributes, useMemo } from "react";
 import { Glyph } from "./FontGlyph";
 import GlyphSVG from "./GlyphSVG";
 
-type GlyphThumbProps = {
+interface GlyphThumbProps
+    extends DetailedHTMLProps<LiHTMLAttributes<HTMLLIElement>, HTMLLIElement> {
     item: Glyph;
-    onMouseOver(): void;
     isActive?: boolean;
-};
+}
 
 export default function GlyphThumb(props: GlyphThumbProps) {
     const memoizedProps = useMemo(() => props, [props]);
-    const { item, isActive, onMouseOver } = memoizedProps;
+    const { item, isActive, style, ...rest } = memoizedProps;
     return (
         <li
-            onMouseOver={onMouseOver}
+            {...rest}
             style={{
                 position: "relative",
                 border: "1px solid var(--accents-3)",
-                overflow: "hidden"
+                overflow: "hidden",
+                backgroundColor: isActive ? "var(--accents-2)" : "transparent",
+                ...style
             }}
         >
             <div
                 style={{
                     borderBottom: "1px solid var(--accents-3)",
-                    paddingInline: "0.5em",
+                    paddingInline: "0.3em",
                     overflow: "hidden",
                     textOverflow: "ellipsis",
                     whiteSpace: "nowrap",
@@ -32,7 +34,7 @@ export default function GlyphThumb(props: GlyphThumbProps) {
                     display: "flex",
                     alignItems: "center",
                     color: "var(--accents-12)",
-                    backgroundColor: "var(--accents-3)",
+                    backgroundColor: item.unicode ? "var(--accents-2)" : "var(--accents-4)",
                     zIndex: 1
                 }}
             >
@@ -43,20 +45,21 @@ export default function GlyphThumb(props: GlyphThumbProps) {
                         display: "block",
                         overflow: "hidden",
                         textOverflow: "ellipsis",
-                        whiteSpace: "nowrap"
+                        whiteSpace: "nowrap",
+                        textTransform: "uppercase",
+                        fontFeatureSettings: `"tnum", "case"`
                     }}
                 >
-                    {item.name}
+                    {item.unicode ?? item.name.replace(/[.]/g, " ")}
                 </span>
             </div>
 
-            <div
-                style={{
-                    aspectRatio: "1/1",
-                    backgroundColor: isActive ? "var(--accents-blue)" : "transparent"
-                }}
-            >
-                <GlyphSVG viewBox={item.svg.viewBox} path={item.svg.path} />
+            <div style={{ aspectRatio: "1/1" }}>
+                <GlyphSVG
+                    viewBox={item.svg.viewBox}
+                    path={item.svg.path}
+                    style={{ color: isActive ? "var(--accents-12)" : "var(--accents-6)" }}
+                />
             </div>
         </li>
     );

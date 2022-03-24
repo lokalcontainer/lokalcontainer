@@ -19,7 +19,7 @@ export default function HeaderPost(props: PropsWithChildren<HeaderPostProps>) {
                 backgroundColor: "var(--accents-1)",
                 zIndex: 1,
                 transition: "all 300ms cubic-bezier(0, 0.3, 0.8, 1)",
-                // marginBottom: "calc(var(--grid-gap) * 3)",
+                marginBottom: "calc(var(--grid-gap) * 3)",
                 ...style
             }}
         >
