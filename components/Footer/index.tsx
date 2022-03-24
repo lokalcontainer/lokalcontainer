@@ -46,8 +46,9 @@ export default function Footer() {
     const date = new Date();
     const currentYear = date.getFullYear();
 
-    const { pathname } = useRouter();
+    const { pathname, query } = useRouter();
     const { focus } = useWindow();
+    const isLightBox = !!query.light_box?.includes("true");
 
     // const [isVisible, setIsVisible] = useState(true);
     // useScrollPosition((v) => {
@@ -67,7 +68,7 @@ export default function Footer() {
             data-page={pathname.split("/")[1]}
         >
             <Marquee
-                play={focus}
+                play={focus && !isLightBox}
                 pauseOnHover
                 speed={30}
                 delay={5}
