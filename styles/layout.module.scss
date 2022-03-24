@@ -3,10 +3,11 @@
 
 .main {
     position: relative;
-    min-height: calc(100vh - var(--header-height) - var(--footer-height));
+    min-height: calc(100vh - var(--footer-height));
     padding: calc(var(--grid-gap) * 3);
     padding-top: var(--header-height);
-    padding-bottom: var(--footer-height);
+    padding-bottom: 0;
+    // padding-bottom: var(--footer-height);
     background-color: var(--accents-1);
     z-index: 10;
 }
@@ -47,7 +48,7 @@
             padding: 0;
             margin: 0;
             position: sticky;
-            top: calc(var(--header-height) * 2);
+            top: calc(var(--header-height) * 1 + calc(var(--grid-gap) * 4));
             background-color: var(--accents-1);
             margin-bottom: var(--grid-gap);
         }
@@ -118,62 +119,6 @@
             }
         }
 
-        .sub_header {
-            list-style: none;
-            padding: 0;
-            padding-block: calc(var(--grid-gap) / 1);
-            margin: 0;
-
-            position: sticky;
-            top: calc(var(--header-height) * 1);
-            height: calc(var(--header-height) / 1);
-
-            background-color: var(--accents-1);
-
-            display: flex;
-            align-items: center;
-            gap: calc(var(--grid-gap) / 2);
-            z-index: 100;
-
-            transition: box-shadow 300ms ease;
-
-            &[data-scroll="true"] {
-                @include borderShadowShow();
-            }
-
-            > li {
-                a {
-                    display: inline-flex;
-                    align-items: center;
-                    padding-inline: calc(var(--grid-gap) / 1.5);
-                    border: 1px solid transparent !important;
-                    border-radius: 1em;
-                    color: var(--accents-10);
-                    font-weight: 500;
-                    background-color: var(--accents-2);
-
-                    transition: border-color 300ms ease, border-radius 300ms ease 20ms;
-
-                    &[data-active="false"] {
-                        &:hover {
-                            background-color: var(--accents-4);
-                            border-radius: 0.15em;
-                        }
-                    }
-
-                    &[data-active="true"] {
-                        // border-color: var(--accents-8) !important;
-                        background-color: var(--accents-4);
-                        border-radius: 0.15em;
-                    }
-
-                    > span {
-                        display: block;
-                    }
-                }
-            }
-        }
-
         .aside {
             position: relative;
 
@@ -232,6 +177,62 @@
             //                 padding: 0,
             //                 margin: 0
             //             }}
+        }
+    }
+}
+
+.sub_header {
+    list-style: none;
+    padding: 0;
+    padding-block: calc(var(--grid-gap) / 1);
+    margin: 0;
+
+    position: sticky;
+    top: calc(var(--header-height) * 1);
+    height: calc(var(--header-height) / 1);
+
+    background-color: var(--accents-1);
+
+    display: flex;
+    align-items: center;
+    gap: calc(var(--grid-gap) / 2);
+    z-index: 100;
+
+    transition: box-shadow 300ms ease;
+
+    &[data-scroll="true"] {
+        @include borderShadowShow();
+    }
+
+    > li {
+        a {
+            display: inline-flex;
+            align-items: center;
+            padding-inline: calc(var(--grid-gap) / 1.5);
+            border: 1px solid transparent !important;
+            border-radius: 1em;
+            color: var(--accents-10);
+            font-weight: 500;
+            background-color: var(--accents-2);
+
+            transition: border-color 300ms ease, border-radius 300ms ease 20ms;
+
+            &[data-active="false"] {
+                &:hover {
+                    background-color: var(--accents-4);
+                    border-radius: 0.15em;
+                }
+            }
+
+            &[data-active="true"] {
+                // border-color: var(--accents-8) !important;
+                background-color: var(--accents-4);
+                border-radius: 0.15em;
+            }
+
+            > span {
+                display: block;
+            }
         }
     }
 }

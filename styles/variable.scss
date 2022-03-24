@@ -5,7 +5,7 @@
     src: url("/fonts/BDO-Grotesk/BDOGrotesk-VF.woff2") format("woff2-variations");
     font-style: normal;
     font-weight: 300 900;
-    font-display: block;
+    font-display: swap;
 }
 
 :root {
@@ -15,7 +15,7 @@
 
     --grid-gap: 0.5em;
 
-    --header-height: calc(var(--grid-gap) * 5);
+    --header-height: calc(var(--grid-gap) * 5.5);
     --footer-height: calc(var(--grid-gap) * 3.5);
 
     --no-scroll-padding: 0px;
@@ -72,17 +72,17 @@
 }
 
 [data-theme="dark"] {
-    --accents-1: #000000;
-    --accents-2: #161616;
-    --accents-3: #2b2b2b;
-    --accents-4: #414141;
-    --accents-5: #575757;
+    --accents-1: #121212;
+    --accents-2: #232323;
+    --accents-3: #343434;
+    --accents-4: #464646;
+    --accents-5: #595959;
     --accents-6: #6d6d6d;
-    --accents-7: #828282;
-    --accents-8: #989898;
-    --accents-9: #aeaeae;
-    --accents-10: #c4c4c4;
-    --accents-11: #d9d9d9;
+    --accents-7: #818181;
+    --accents-8: #969696;
+    --accents-9: #acacac;
+    --accents-10: #c2c2c2;
+    --accents-11: #d8d8d8;
     --accents-12: #efefef;
 
     --accents-pink: #c49ba5;

@@ -12,6 +12,7 @@
 
     background-color: var(--accents-1);
     color: var(--accents-8) !important;
+    border-top: 1px solid var(--accents-3);
 
     &[data-page="about"] {
         display: none !important;

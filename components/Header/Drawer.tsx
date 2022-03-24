@@ -1,10 +1,11 @@
 import styles from "styles/nav.module.scss";
 import { CSSProperties, useRef } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import NextLink from "next/link";
 import NextDynamic from "next/dynamic";
+import Dialog from "@unforma-club/dialog";
+
 import { STATIC_MENU } from "libs/menu.constants";
-import useOnEscape from "hooks/use-on-escape";
 import useOnClickOutside from "hooks/use-on-click-outside";
 import { useSession } from "components/Context/ContextSession";
 import { useMenu } from "components/Context/ContextMenu";
@@ -50,7 +51,7 @@ const SocialMedia = () => {
                 padding: 0,
                 margin: 0,
                 display: "flex",
-                alignItems: "flex-end"
+                alignItems: "center"
             }}
         >
             <li style={listStyle}>
@@ -66,8 +67,8 @@ const SocialMedia = () => {
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
-                            width="2em"
-                            height="2em"
+                            width="1.5em"
+                            height="1.5em"
                             fill="currentColor"
                         >
                             <path fill="none" d="M0 0h24v24H0z" />
@@ -76,7 +77,7 @@ const SocialMedia = () => {
                     </span>
                 </a>
             </li>
-            <li style={listStyle}>
+            <li style={{ ...listStyle, width: "1.6em" }}>
                 <a
                     href="https://github.com/lokalcontainer/lokalcontainer"
                     target="_blank"
@@ -89,8 +90,8 @@ const SocialMedia = () => {
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
-                            width="2em"
-                            height="2em"
+                            width="100%"
+                            height="100%"
                             fill="currentColor"
                         >
                             <path fill="none" d="M0 0h24v24H0z" />
@@ -107,69 +108,70 @@ export default function Drawer() {
     const { session } = useSession();
     const { menu, hideMenu } = useMenu();
     const refParent = useRef<HTMLDivElement>(null);
-    useOnEscape(refParent, menu, hideMenu);
     useOnClickOutside(refParent, hideMenu);
 
     return (
-        <AnimatePresence exitBeforeEnter initial={false}>
-            {menu && (
-                <motion.nav
-                    ref={refParent}
-                    className={styles.container}
-                    initial={{ opacity: 0 }}
-                    animate={{
-                        opacity: 1,
-                        transition: { type: "spring", mass: 0.5, damping: 200, stiffness: 2000 }
-                    }}
-                    exit={{
-                        opacity: 0,
-                        transition: { type: "spring", mass: 0.5, damping: 100, stiffness: 2000 }
-                    }}
-                >
-                    <Gradient />
+        <Dialog
+            isOpen={menu}
+            parentId="__next"
+            floatId="__lc_portal_menu"
+            stackId="__main"
+            onRequestClose={hideMenu}
+        >
+            <motion.div
+                ref={refParent}
+                className={styles.nav}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                style={{
+                    paddingBottom: "1.5em",
+                    backgroundColor: "var(--alpha-1)",
+                    boxShadow: "0 0 1em -0.5em var(--accents-10)"
+                }}
+            >
+                <Gradient />
 
-                    <div className={styles.content}>
-                        <ul
-                            style={{
-                                listStyle: "none",
-                                margin: 0,
-                                padding: 0,
-                                height: "100%",
-                                display: "flex",
-                                flexDirection: "column"
-                            }}
-                        >
-                            {session ? (
-                                <ProfileCard />
-                            ) : (
-                                <li>
-                                    <FormSignIn />
-                                </li>
-                            )}
-
-                            <li style={{ justifySelf: "flex-end", marginTop: "auto" }}>
-                                <SocialMedia />
+                <div className={styles.content} style={{ paddingInline: "1.5em" }}>
+                    <ul
+                        style={{
+                            listStyle: "none",
+                            margin: 0,
+                            padding: 0,
+                            height: "100%",
+                            display: "flex",
+                            flexDirection: "column"
+                        }}
+                    >
+                        {session ? (
+                            <ProfileCard />
+                        ) : (
+                            <li>
+                                <FormSignIn />
                             </li>
-                        </ul>
+                        )}
 
-                        <ul className={styles.menu}>
-                            {STATIC_MENU.sort((a, b) =>
-                                a.label < b.label ? -1 : a.label > b.label ? 1 : 0
-                            ).map((item, i) => (
-                                <li key={i}>
-                                    <NextLink {...item.link}>
-                                        <a datatype="text">
-                                            <span style={{ fontSize: "3em", fontWeight: "bold" }}>
-                                                {item.label}
-                                            </span>
-                                        </a>
-                                    </NextLink>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                </motion.nav>
-            )}
-        </AnimatePresence>
+                        <li style={{ justifySelf: "flex-end", marginTop: "auto" }}>
+                            <SocialMedia />
+                        </li>
+                    </ul>
+
+                    <ul className={styles.menu}>
+                        {STATIC_MENU.sort((a, b) =>
+                            a.label < b.label ? -1 : a.label > b.label ? 1 : 0
+                        ).map((item, i) => (
+                            <li key={i}>
+                                <NextLink {...item.link}>
+                                    <a datatype="text">
+                                        <span style={{ fontSize: "3em", fontWeight: "bold" }}>
+                                            {item.label}
+                                        </span>
+                                    </a>
+                                </NextLink>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </motion.div>
+        </Dialog>
     );
 }

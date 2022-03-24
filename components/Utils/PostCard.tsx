@@ -1,6 +1,6 @@
 import type { CSSProperties } from "react";
 import type { PostType } from "types/post";
-import { memo, useState } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import NextImage from "next/image";
 import NextLink, { LinkProps } from "next/link";
@@ -71,6 +71,7 @@ export const PostCard = (props: PostCardProps) => {
                             width: "100%",
                             height: "100%",
                             borderRadius: "inherit",
+                            padding: "var(--grid-gap)",
                             ...style
                         }}
                     >
@@ -92,8 +93,8 @@ export const PostCard = (props: PostCardProps) => {
                                 objectFit={isSquare ? undefined : "cover"}
                                 objectPosition={isSquare ? undefined : "center"}
                                 quality={100}
-                                loading="lazy"
-                                // priority={index <= 16}
+                                priority={index <= 16}
+                                // loading="lazy"
                                 // placeholder="blur"
                                 // blurDataURL={`data:image/svg+xml;base64,${toBase64(
                                 //     convertImage(item.meta.heroImage.width, item.meta.heroImage.height)
@@ -115,14 +116,15 @@ export const PostCard = (props: PostCardProps) => {
                                     style={{
                                         position: "absolute",
                                         inset: 0,
-                                        backgroundColor: "var(--alpha-1)",
+                                        backgroundColor: "var(--alpha-2)",
                                         padding: "var(--grid-gap)"
                                     }}
                                 >
                                     <div
                                         style={{
                                             fontSize: "6em",
-                                            lineHeight: 0.8
+                                            lineHeight: 0.8,
+                                            fontWeight: "bold"
                                         }}
                                     >
                                         {index + 1}

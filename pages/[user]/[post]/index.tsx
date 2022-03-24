@@ -1,113 +1,17 @@
 import type { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import type { ResponseUser } from "types/user";
 import type { ResponsePost } from "types/post";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import { NextSeo, ArticleJsonLd } from "next-seo";
 import getServerUser from "libs/get-server-account";
 import getServerPost from "libs/get-server-post";
-import LayoutMain from "components/LayoutMain";
-import LayoutPost from "components/Utils/LayoutPost";
-import PreviewPost from "components/Preview/PreviewPost";
+import NextDynamic from "next/dynamic";
 
 type PageProps = InferGetServerSidePropsType<typeof getServerSideProps>;
+const PreviewPost = NextDynamic(() => import("components/Preview/PreviewPost"));
 
 export default function Page(props: PageProps) {
     const { tab: serverTab } = props;
-    const { name, userName } = props.user.data;
     const post = props.post.data;
-    const [tab, setTab] = useState<string | null | undefined>(serverTab);
-
-    const { query, asPath } = useRouter();
-    useEffect(() => {
-        if (!query.tab) return;
-        setTab(query.tab as string);
-    }, [query.tab]);
-
-    return (
-        <>
-            <NextSeo
-                title={post.title}
-                canonical={`${process.env.NEXT_PUBLIC_SITE_URL}${asPath}`}
-                description={`${post.title} is a bla bla bla...`}
-                openGraph={{
-                    type: "article",
-                    url: `${process.env.NEXT_PUBLIC_SITE_URL}${asPath}`,
-                    title: post.title,
-                    description: `${post.title} is a bla bla bla...`,
-                    images: post.images.map((item) => ({
-                        url: `${process.env.NEXT_PUBLIC_SITE_URL}${item.large.url}`,
-                        width: item.large.width,
-                        height: item.large.height,
-                        alt: `${post.title} is a bla bla bla...`
-                    })),
-                    article: {
-                        publishedTime: post.createdAt,
-                        modifiedTime: post.updatedAt,
-                        authors: [`${process.env.NEXT_PUBLIC_SITE_URL}/${post.author.userName}`],
-                        tags: ["font", "opensource"]
-                    }
-                }}
-            />
-            <ArticleJsonLd
-                type="Blog"
-                url={`${process.env.NEXT_PUBLIC_SITE_URL}${asPath}`}
-                title={post.title}
-                images={post.images.map(
-                    (item) => `${process.env.NEXT_PUBLIC_SITE_URL}${item.large.url}`
-                )}
-                datePublished={post.createdAt}
-                dateModified={post.updatedAt}
-                authorName={[post.author.name]}
-                description={`${post.title} is a bla bla bla...`}
-                publisherName="Lokal Container Org."
-            />
-
-            <LayoutMain>
-                <LayoutPost
-                    slug={post.slug}
-                    postType={post.type}
-                    user={{ userName, fullName: name }}
-                >
-                    <div
-                        style={{
-                            minHeight:
-                                "calc(100vh - calc(var(--header-height) * 2) - calc(var(--header-height) / 2))"
-                        }}
-                    >
-                        {!tab || tab === "overview" ? (
-                            <PreviewPost post={post} />
-                        ) : (
-                            <>
-                                <span
-                                    style={{
-                                        textTransform: "capitalize",
-                                        fontSize: "2em",
-                                        fontWeight: "bold"
-                                    }}
-                                >
-                                    {tab.replace(/-/g, " ").trim()}
-                                </span>
-                                <p
-                                    style={{
-                                        fontSize: "8em",
-                                        fontWeight: "bold",
-                                        marginBlock: "calc(var(--grid-gap) / 2)",
-                                        margin: 0,
-                                        lineHeight: 1
-                                    }}
-                                >
-                                    Type Height <br />
-                                    in Point &amp; <br />
-                                    Millimeter
-                                </p>
-                            </>
-                        )}
-                    </div>
-                </LayoutPost>
-            </LayoutMain>
-        </>
-    );
+    return <PreviewPost initTab={serverTab} post={post} />;
 }
 
 type ServerProps = {

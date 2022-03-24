@@ -23,7 +23,7 @@ export default function ProviderSession(props: ProviderSessionProps) {
     const { children, session: serverSession } = props;
 
     const { data: clientSession, mutate } = useSWR<ResponseSession>(
-        "/api/v1/sessions/me",
+        "/api/v1/sessions/ping",
         fetchJson,
         { fallbackData: serverSession }
     );
@@ -82,7 +82,8 @@ export default function ProviderSession(props: ProviderSessionProps) {
     return (
         <ContextSession.Provider
             value={{
-                session: clientSession?.success ? clientSession.data : undefined,
+                session:
+                    clientSession?.success || clientSession?.data ? clientSession.data : undefined,
                 mutateSession: mutate,
                 handleLogout
             }}

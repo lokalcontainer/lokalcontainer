@@ -1,7 +1,15 @@
-[![deploy-canary](https://github.com/lokalcontainer/lokalcontainer/actions/workflows/cd-canary.yml/badge.svg?branch=canary)](https://github.com/lokalcontainer/lokalcontainer/actions/workflows/cd-canary.yml)
+![canary](https://github.com/lokalcontainer/lokalcontainer/actions/workflows/deploy-canary.yml/badge.svg?branch=canary) ![production](https://github.com/lokalcontainer/lokalcontainer/actions/workflows/deploy-production.yml/badge.svg?branch=main)
 
-[![deploy-prod](https://github.com/lokalcontainer/lokalcontainer/actions/workflows/cd.yml/badge.svg?branch=main)](https://github.com/lokalcontainer/lokalcontainer/actions/workflows/cd.yml)
+![Gif Image](./public/og_video.gif)
 
-# Lokal Container
+---
 
-Lokalcontainer is an open source font platform
+## Making moves and build open source **Typography** products for all.
+
+**Bring typography closer to people that engaged in creative fields such as musicians, artists, designers, and other independent youth.**
+
+---
+
+### Visit [Beta Site](https://beta.lokalcontainer.org) / [Main Site](https://dev.lokalcontainer.org)
+
+---

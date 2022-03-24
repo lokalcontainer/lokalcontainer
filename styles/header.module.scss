@@ -18,7 +18,8 @@
     background-color: var(--accents-1);
     text-transform: uppercase;
 
-    transition: box-shadow 300ms ease;
+    border-bottom: 1px solid var(--accents-3);
+    // @include borderShadow();
 
     &[data-page="about"] {
         display: none !important;
@@ -31,7 +32,7 @@
 
         display: flex;
         align-items: center;
-        gap: calc(var(--grid-gap) / 2);
+        gap: calc(var(--grid-gap) / 1);
 
         > li {
             position: relative;
@@ -41,43 +42,54 @@
             align-items: center;
             justify-content: center;
 
-            &[data-menu="text"] {
-                padding: 0;
-            }
+            // color: var(--accents-6);
 
-            > a,
-            > button,
-            > input[type="text"],
-            > select,
-            > span {
-                border-radius: 0;
-                border: none;
+            // &:last-child {
+            //     color: var(--accents-12);
+            // }
 
-                background-color: inherit;
+            // &[data-menu="text"] {
+            //     padding: 0;
+            // }
 
-                margin: 0;
-                cursor: pointer;
+            // > a,
+            // > button,
+            // > input[type="text"],
+            // > select,
+            // > span {
+            //     border-radius: 0;
+            //     border: none;
 
-                font-family: inherit;
-                font-size: inherit;
-                font-weight: inherit;
-                font-size: 0.75em;
-                font-weight: 400;
+            //     background-color: inherit;
 
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                height: 100%;
-                width: 100%;
+            //     margin: 0;
+            //     cursor: pointer;
 
-                > span {
-                    // max-width: 100px;
-                    overflow: hidden;
-                    display: block;
-                    white-space: nowrap;
-                    text-overflow: ellipsis;
-                }
-            }
+            //     font-family: inherit;
+            //     font-size: inherit;
+            //     font-weight: inherit;
+            //     font-size: 0.75em;
+            //     font-weight: 400;
+
+            //     display: flex;
+            //     align-items: center;
+            //     justify-content: center;
+            //     height: 100%;
+            //     width: 100%;
+
+            //     > span {
+            //         // max-width: 100px;
+            //         overflow: hidden;
+            //         display: block;
+            //         white-space: nowrap;
+            //         text-overflow: ellipsis;
+            //     }
+            // }
         }
     }
+}
+
+.post {
+    // @include borderShadow();
+    border-bottom: 1px solid var(--accents-3);
 }
