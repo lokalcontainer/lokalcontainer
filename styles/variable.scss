@@ -43,7 +43,7 @@
     --alpha-3: rgb(255 255 255 / 40%);
 
     @include media("screen", "<tablet") {
-        --footer-height: calc(var(--grid-gap) * 8);
+        --footer-height: calc(var(--grid-gap) * 5.5);
     }
 }
 
