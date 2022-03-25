@@ -1,4 +1,4 @@
-// import styles from "styles/preview.module.scss";
+import styles from "styles/header.module.scss";
 import { CSSProperties, useCallback, useEffect, useState } from "react";
 import type { BasePost } from "types/post";
 
@@ -11,7 +11,7 @@ import FontTypetools from "components/Post/FontTypetools";
 import FontOverview from "components/Post/FontOverview";
 import FontGlyph from "components/Post/FontGlyph";
 import FontCase from "components/Post/FontCase";
-import ProviderFont from "components/Context/ContextFont";
+import ProviderFont, { ConsumerFont } from "components/Context/ContextFont";
 
 type PreviewFontProps = {
     post: BasePost;
@@ -123,42 +123,52 @@ export default function PreviewFont(props: PreviewFontProps) {
             />
 
             <ProviderFont slug={slug} isModal={!isPage}>
-                <ul
-                    style={{
-                        listStyle: "none",
-                        padding: 0,
-                        margin: 0,
-                        position: "sticky",
-                        top: isPage ? "var(--header-height)" : 0,
-                        zIndex: 1,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: isPage ? "initial" : "center",
-                        height: "var(--header-height)",
-                        paddingInline: isPage ? 0 : "4em",
-                        gap: "calc(var(--grid-gap) * 2)",
-                        borderBottom: "1px solid var(--accents-3)",
-                        backgroundColor: "var(--accents-1)",
-                        color: "var(--accents-12)"
-                    }}
-                >
-                    {fontLinks.map((item, i) => (
-                        <li key={i}>
-                            <NextLink {...item.link} scroll>
-                                <a
-                                    data-active={
-                                        (!query.tab && item.slug === "overview") ||
-                                        query.tab === item.slug
-                                    }
-                                >
-                                    <span style={{ fontSize: "0.9em" }}>{item.label}</span>
-                                </a>
-                            </NextLink>
-                        </li>
-                    ))}
-                </ul>
+                <ConsumerFont>
+                    {({ isModal }) => (
+                        <>
+                            <ul
+                                className={styles.post_font}
+                                style={{
+                                    ["--el-height" as string]: !isModal
+                                        ? "calc(var(--header-height) / 1.25)"
+                                        : "var(--header-height)",
+                                    ["--el-margin-inline" as string]: !isModal
+                                        ? "calc(0px - calc(var(--grid-gap) * 3))"
+                                        : 0,
+                                    ["--el-sticky-top" as string]: !isModal
+                                        ? "var(--header-height)"
+                                        : 0,
+                                    ["--el-justify-content" as string]: !isModal
+                                        ? "initial"
+                                        : "center",
+                                    ["--el-padding-inline" as string]: !isModal
+                                        ? "calc(var(--grid-gap) * 3)"
+                                        : 0
+                                }}
+                            >
+                                {fontLinks.map((item, i) => (
+                                    <li key={i} className={styles.post_font_list}>
+                                        <NextLink {...item.link} scroll>
+                                            <a
+                                                className={styles.post_font_list_link}
+                                                data-active={
+                                                    (!query.tab && item.slug === "overview") ||
+                                                    query.tab === item.slug
+                                                }
+                                            >
+                                                <span style={{ fontSize: "1em" }}>
+                                                    {item.label}
+                                                </span>
+                                            </a>
+                                        </NextLink>
+                                    </li>
+                                ))}
+                            </ul>
 
-                <FontTab tab={tab} />
+                            <FontTab tab={tab} />
+                        </>
+                    )}
+                </ConsumerFont>
             </ProviderFont>
 
             {/* <div data-modal={!isPage} className={styles.font}>

@@ -1,3 +1,4 @@
+import styles from "styles/font-glyph.module.scss";
 import { useMemo, useState } from "react";
 import BDOGroteskGlyphs from "libs/BDO-Grotesk/bdo-grotesk-variable/glyphs.json";
 import BDOGroteskFeatures from "libs/BDO-Grotesk/bdo-grotesk-variable/features.json";
@@ -22,46 +23,22 @@ export default function FontGlyph() {
     const [selectedGlyphs, setSelectedGlyphs] = useState<Glyph[]>([memoizedGlyphs[0]]);
 
     return (
-        <div
-            style={{
-                display: "grid",
-                gridTemplateColumns: "max-content 2fr 4.5fr",
-                gap: "var(--grid-gap)"
-            }}
-        >
-            <div style={{ width: "14em" }}>
+        <div className={styles.container} data-modal={isModal}>
+            <aside className={styles.left}>
                 <div
+                    className={styles.sticky}
                     style={{
-                        position: "sticky",
-                        top: `calc(var(--header-height) * ${isModal ? 1 : 2})`
-                    }}
-                >
-                    Left
-                </div>
-            </div>
-            <aside style={{ borderInline: "1px solid var(--accents-3)" }}>
-                <div
-                    style={{
-                        position: "sticky",
-                        top: `calc(var(--header-height) * ${isModal ? 1 : 2})`
+                        ["--el-sticky-top" as string]: `calc(var(--header-height) * ${
+                            isModal ? 1 : 2
+                        })`
                     }}
                 >
                     <GlyphView glyphs={selectedGlyphs} />
                 </div>
             </aside>
-            <div>
-                <ul
-                    style={{
-                        listStyle: "none",
-                        padding: 0,
-                        margin: 0,
-                        paddingBlock: "var(--grid-gap)",
-                        display: "grid",
-                        gridTemplateColumns: "repeat(24, 1fr)",
-                        overflow: "hidden",
-                        paddingRight: 1
-                    }}
-                >
+
+            <div className={styles.right}>
+                <ul className={styles.glyph_thumbnails} style={{ paddingLeft: "var(--grid-gap)" }}>
                     {memoizedGlyphs
                         // .filter((item) => !!item.unicode)
                         .slice(0, isProducton ? memoizedGlyphs.length : 300)
@@ -94,10 +71,8 @@ export default function FontGlyph() {
                         <li
                             key={i}
                             style={{
-                                borderBottom: "1px solid var(--accents-3)",
                                 borderTop: "1px solid var(--accents-3)",
-                                // paddingBottom: "var(--grid-gap)",
-                                marginBottom: -1
+                                paddingLeft: "var(--grid-gap)"
                             }}
                         >
                             <div
@@ -123,18 +98,7 @@ export default function FontGlyph() {
                                 </span>
                             </div>
 
-                            <ul
-                                style={{
-                                    listStyle: "none",
-                                    padding: 0,
-                                    margin: 0,
-                                    paddingBlock: "var(--grid-gap)",
-                                    display: "grid",
-                                    gridTemplateColumns: "repeat(24, 1fr)",
-                                    overflow: "hidden",
-                                    paddingRight: 1
-                                }}
-                            >
+                            <ul className={styles.glyph_thumbnails}>
                                 {item.features.map((feat, fi) => {
                                     const glyphBy = memoizedGlyphs[feat.by];
                                     const glyphSub = memoizedGlyphs[feat.sub];

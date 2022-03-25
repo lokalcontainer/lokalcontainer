@@ -13,7 +13,6 @@ const dtStyle: CSSProperties = {
     textOverflow: "ellipsis",
     display: "block",
     fontSize: "0.875em"
-    // backgroundColor: "magenta"
 };
 
 export default function GlyphView(props: GlyphViewProps) {
@@ -55,14 +54,15 @@ export default function GlyphView(props: GlyphViewProps) {
                             overflow: "hidden",
                             width: "100%",
                             height: "100%",
-                            borderBottom: "1px solid var(--accents-3)",
+                            marginBottom: "var(--grid-gap)",
+                            boxSizing: "content-box",
                             borderRight:
                                 memoizedGlyphs.length > 1 && i === 0
                                     ? "1px solid var(--accents-3)"
                                     : "none",
                             color:
                                 memoizedGlyphs.length > 1 && i === 0
-                                    ? "var(--accents-3)"
+                                    ? "var(--accents-6)"
                                     : "currentColor"
                         }}
                     >
@@ -75,9 +75,6 @@ export default function GlyphView(props: GlyphViewProps) {
                             xHeight={item.svg.xHeight}
                             baseLine={item.svg.baseLine}
                             descender={item.svg.descender}
-                            // style={{
-                            //     transform: "scale(1.3)"
-                            // }}
                         />
                     </div>
 
@@ -89,7 +86,8 @@ export default function GlyphView(props: GlyphViewProps) {
                             width: "100%",
                             padding: "1em",
                             paddingBlock: "calc(0.875em + 0px)",
-                            margin: 0
+                            margin: 0,
+                            borderTop: "1px solid var(--accents-3)"
                         }}
                     >
                         <dt style={{ ...dtStyle, color: "var(--accents-6)" }}>Feature</dt>
@@ -97,7 +95,9 @@ export default function GlyphView(props: GlyphViewProps) {
                         <dt style={{ ...dtStyle, color: "var(--accents-6)" }}>ID</dt>
                         <dd style={dtStyle}>{item.id}</dd>
                         <dt style={{ ...dtStyle, color: "var(--accents-6)" }}>Name</dt>
-                        <dd style={dtStyle}>{item.name}</dd>
+                        <dd style={{ ...dtStyle, textTransform: "capitalize" }}>
+                            {item.name.replace(/[.]/g, " ").replace(/uni/g, "")}
+                        </dd>
                         <dt style={{ ...dtStyle, color: "var(--accents-6)" }}>Unicode</dt>
                         <dd style={dtStyle}>{item.unicode ?? "-"}</dd>
                         <dt style={{ ...dtStyle, color: "var(--accents-6)" }}>HTML Entity</dt>

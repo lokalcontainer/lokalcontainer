@@ -10,6 +10,7 @@ type GlyphSVGProps = {
     xHeight?: number;
     baseLine?: number;
     descender?: number;
+    strokeWidth?: number;
 };
 
 type SVGLineProps = {
@@ -20,17 +21,17 @@ type SVGLineProps = {
 
 function SVGLine(props: SVGLineProps) {
     const { x, y, dashed } = props;
-    const memoizedX = useMemo(() => x, [x]);
-    const memoizedY = useMemo(() => y, [y]);
+    const memoizedX = useMemo(() => x, []);
+    const memoizedY = useMemo(() => y, []);
     return (
         <line
             x1={-memoizedX}
             x2={memoizedX * 2}
-            y1={memoizedY}
-            y2={memoizedY}
-            stroke={`var(--accents-${dashed ? "blue" : 3})`}
-            strokeWidth={1}
-            strokeDasharray={dashed ? "4 4" : "0 0"}
+            y1={Math.round(memoizedY)}
+            y2={Math.round(memoizedY)}
+            stroke={`var(--accents-${dashed ? "magenta" : 3})`}
+            strokeWidth={1.5}
+            strokeDasharray={dashed ? "1 1" : "0 0"}
         />
     );
 }
@@ -43,7 +44,7 @@ export default function GlyphSVG(props: GlyphSVGProps) {
             <g>
                 {baseWidth && ascender && <SVGLine x={baseWidth} y={ascender} />}
                 {baseWidth && capHeight && <SVGLine x={baseWidth} y={capHeight} />}
-                {baseWidth && xHeight && <SVGLine x={baseWidth} y={xHeight} dashed />}
+                {baseWidth && xHeight && <SVGLine x={baseWidth} y={xHeight} />}
                 {baseWidth && baseLine && <SVGLine x={baseWidth} y={baseLine} dashed />}
                 {baseWidth && descender && <SVGLine x={baseWidth} y={descender} />}
             </g>

@@ -1,4 +1,5 @@
-import { DetailedHTMLProps, LiHTMLAttributes, useMemo } from "react";
+import type { DetailedHTMLProps, LiHTMLAttributes } from "react";
+import { useMemo } from "react";
 import { Glyph } from "./FontGlyph";
 import GlyphSVG from "./GlyphSVG";
 
@@ -54,7 +55,7 @@ export default function GlyphThumb(props: GlyphThumbProps) {
                 </span>
             </div>
 
-            <div style={{ aspectRatio: "1/1" }}>
+            <div style={{ aspectRatio: "1/1", overflow: "hidden" }}>
                 <GlyphSVG
                     viewBox={item.svg.viewBox}
                     path={item.svg.path}
