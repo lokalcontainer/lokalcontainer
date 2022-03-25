@@ -1,0 +1,77 @@
+@import "media.scss";
+
+@mixin sticky {
+    position: sticky;
+    top: var(--el-sticky-top);
+}
+
+.container {
+    position: relative;
+
+    @include media("screen", ">sMonitor") {
+        display: grid;
+        // gap: var(--grid-gap);
+    }
+    // grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr 3fr;
+
+    &[data-modal="true"] {
+        padding-inline: calc(var(--grid-gap) * 3);
+    }
+
+    // @include media("screen", ">lMonitor") {
+    //     grid-template-columns: 1fr 2fr 4.5fr;
+    // }
+    // @include media("screen", "<lMonitor") {
+    //     grid-template-columns: 1fr 1.5fr 2.5fr;
+    // }
+}
+
+.left {
+    @include media("screen", "<sMonitor") {
+        display: none;
+    }
+
+    .sticky {
+        @include sticky();
+    }
+}
+
+.right {
+    position: relative;
+    border-left: 1px solid var(--accents-3);
+    // padding-left: var(--grid-gap);
+}
+.glyph_thumbnails {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    padding-block: var(--grid-gap);
+    padding-right: 1px;
+
+    overflow: hidden;
+
+    display: grid;
+
+    @include media("screen", ">xlMonitor") {
+        grid-template-columns: repeat(32, 1fr);
+    }
+    @include media("screen", "<xlMonitor") {
+        grid-template-columns: repeat(26, 1fr);
+    }
+    @include media("screen", "<lMonitor") {
+        grid-template-columns: repeat(20, 1fr);
+    }
+    @include media("screen", "<mMonitor") {
+        grid-template-columns: repeat(18, 1fr);
+    }
+    @include media("screen", "<sMonitor") {
+        grid-template-columns: repeat(20, 1fr);
+    }
+    @include media("screen", "<tablet") {
+        grid-template-columns: repeat(14, 1fr);
+    }
+    @include media("screen", "<phone") {
+        grid-template-columns: repeat(8, 1fr);
+    }
+}
